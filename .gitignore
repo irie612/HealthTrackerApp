@@ -1,2 +1,8 @@
 
 .idea/discord.xml
+
+.idea/**/gradle.xml
+.idea/**/libraries
+
+out/
+
