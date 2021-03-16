@@ -16,9 +16,8 @@ public class ExerciseGoals extends Goals {
     }
 
     ExerciseGoals(Goals.goalType t, LocalTime time, LocalDate sd, LocalDate ed){
-        super(sd , ed);
+        super(t, sd , ed);
         this.exerciseToDo = time;
-        t = Goals.goalType.EXERCISE;
     }
 
     public float convertIntoMinutes(LocalTime time) {

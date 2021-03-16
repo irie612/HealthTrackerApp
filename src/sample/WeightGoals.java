@@ -17,10 +17,8 @@ public class WeightGoals extends Goals {
     }
 
     WeightGoals(goalType t, LocalDate sd, LocalDate ed, float w) {
-        super(sd, ed);
+        super(t, sd, ed);
         weightsToReach = w;
-        t = goalType.WEIGHT;
-
     }
 
     @Override

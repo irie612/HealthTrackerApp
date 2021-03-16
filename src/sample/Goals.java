@@ -26,15 +26,16 @@ public abstract class Goals {
         return this.endDate;
     }
 
-    Goals(LocalDate sDate, LocalDate eDate){
+    Goals(goalType t, LocalDate sDate, LocalDate eDate){
         this.startDate = sDate;
         this.endDate = eDate;
+        this.type = t;
     }
 
     public abstract float calculateProgress(int currentData);
 
     @Override
     public String toString() {
-        return  " start : " + startDate + " ends : " +endDate;
+        return  "Goal type : "+ type +" start : " + startDate + " ends : " +endDate;
     }
 }
