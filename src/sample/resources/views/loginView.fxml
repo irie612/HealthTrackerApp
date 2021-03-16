@@ -29,7 +29,6 @@
                 <Label text="New? Register here" styleClass="register-btn" onMouseClicked="#loginBtnOnClick"/>
             </HBox>
 
-
         </VBox>
     </center>
 
