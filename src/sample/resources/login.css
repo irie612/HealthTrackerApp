@@ -1,3 +1,6 @@
+.login {
+    -fx-font-family: "Tahoma"; /* font */
+}
 
 .header-section {
     -fx-background-color: #059d9d;
@@ -23,6 +26,11 @@
     -fx-font-size: 18px;
     -fx-text-alignment: center;
 }
+
+.field-label {
+    -fx-font-size: 14px;
+}
+
 .register-btn {
     -fx-text-fill: #f68c97;
     -fx-font-size: 14px;
@@ -34,19 +42,9 @@
 }
 
 .field {
-    border-radius: 6px;
     -fx-font-size: 14;
     -fx-padding: 10px;
 }
-
-.login-successful {
-
-}
-
-.login-unsuccessful {
-
-}
-
 
 .login-btn {
     -fx-text-fill: #FFFFFF;

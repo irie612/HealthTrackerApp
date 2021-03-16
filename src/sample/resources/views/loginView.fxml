@@ -2,7 +2,7 @@
 <?import javafx.scene.layout.*?>
 <?import java.net.URL?>
 <BorderPane fx:controller="sample.controllers.LoginController"
-            xmlns:fx="http://javafx.com/fxml">
+            xmlns:fx="http://javafx.com/fxml" styleClass="login">
 
     <top>
         <BorderPane styleClass="header-section">
@@ -20,7 +20,13 @@
         <VBox styleClass="content-section" alignment="CENTER">
 
             <Label styleClass="content-header" text="Login"/>
+            <HBox>
+                <Label styleClass="field-label" text="Username"/>
+            </HBox>
             <TextField fx:id="usernameField" styleClass="field" focusTraversable="false" promptText="Enter Username"/>
+            <HBox>
+                <Label styleClass="field-label" text="Password"/>
+            </HBox>
             <PasswordField fx:id="passwordField" styleClass="field" focusTraversable="false"
                            promptText="Enter Password"/>
 
