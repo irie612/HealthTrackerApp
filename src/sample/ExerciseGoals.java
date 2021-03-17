@@ -15,7 +15,7 @@ public class ExerciseGoals extends Goals {
         return this.exerciseToDo;
     }
 
-    ExerciseGoals(Goals.goalType t, LocalTime time, LocalDate sd, LocalDate ed){
+    public ExerciseGoals(Goals.goalType t, LocalTime time, LocalDate sd, LocalDate ed){
         super(t, sd , ed);
         this.exerciseToDo = time;
     }

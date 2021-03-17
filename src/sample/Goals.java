@@ -26,6 +26,10 @@ public abstract class Goals {
         return this.endDate;
     }
 
+    public goalType getType(){
+        return type;
+    }
+
     Goals(goalType t, LocalDate sDate, LocalDate eDate){
         this.startDate = sDate;
         this.endDate = eDate;
