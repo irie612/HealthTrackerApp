@@ -6,7 +6,7 @@ public class CaloriesGoals extends Goals {
 
     private int calToBurn;
 
-    CaloriesGoals(goalType t, LocalDate sd, LocalDate ed, int c){
+    public CaloriesGoals(goalType t, LocalDate sd, LocalDate ed, int c){
         super(t, sd, ed);
         this.calToBurn = c;
     }

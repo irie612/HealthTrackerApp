@@ -16,7 +16,7 @@ public class WeightGoals extends Goals {
         return this.weightsToReach;
     }
 
-    WeightGoals(goalType t, LocalDate sd, LocalDate ed, float w) {
+    public WeightGoals(goalType t, LocalDate sd, LocalDate ed, float w) {
         super(t, sd, ed);
         weightsToReach = w;
     }
