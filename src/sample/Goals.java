@@ -10,8 +10,8 @@ public abstract class Goals {
 
     public enum goalType {WEIGHT, EXERCISE, CALORIES}
 
-    public void setStartDate(){
-        startDate = LocalDate.now();
+    public void setStartDate(int y, int m, int d){
+        startDate = LocalDate.of(y, m, d);
     }
 
     public void setEndDate(int y, int m , int d){

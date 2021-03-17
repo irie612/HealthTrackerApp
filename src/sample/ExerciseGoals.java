@@ -20,8 +20,8 @@ public class ExerciseGoals extends Goals {
         this.exerciseToDo = time;
     }
 
-    public float convertIntoMinutes(LocalTime time) {
-        float x = (time.getHour() * 60) + time.getMinute() + (time.getSecond()/60);
+    public int convertIntoMinutes(LocalTime time) {
+        int x = (time.getHour() * 60) + time.getMinute() + (time.getSecond()/60);
         return x;
     }
 

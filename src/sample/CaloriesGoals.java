@@ -8,11 +8,11 @@ public class CaloriesGoals extends Goals {
 
     public CaloriesGoals(goalType t, LocalDate sd, LocalDate ed, int c){
         super(t, sd, ed);
-        this.calToBurn = c;
+        calToBurn = c;
     }
 
-    public void setCalToBurn(int calToBurn) {
-        this.calToBurn = calToBurn;
+    public void setCalToBurn(int c) {
+        calToBurn = c;
     }
 
     public int getCalToBurn() {
@@ -20,13 +20,15 @@ public class CaloriesGoals extends Goals {
     }
 
     @Override
-    public String toString() {
-        return "Goal Type : "+ goalType.CALORIES + super.toString() + "Calories to burn : "+ calToBurn;
+    public float calculateProgress(int currentData) {
+
+        return ((float) currentData/ (float) calToBurn) * 100;
     }
 
+
     @Override
-    public float calculateProgress(int currentData) {
-        return (currentData/calToBurn) * 100;
+    public String toString() {
+        return "Goal Type : "+ goalType.CALORIES + super.toString() + "Calories to burn : "+ calToBurn;
     }
 
 

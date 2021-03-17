@@ -6,24 +6,24 @@ import java.util.Date;
 
 public class WeightGoals extends Goals {
 
-    private float weightsToReach;
+    private int weightsToReach;
 
-    public void setWeightsToReach(float w){
+    public void setWeightsToReach(int w){
         weightsToReach = w;
     }
 
-    public float getWeightsToReach(){
+    public int getWeightsToReach(){
         return this.weightsToReach;
     }
 
-    public WeightGoals(goalType t, LocalDate sd, LocalDate ed, float w) {
+    public WeightGoals(goalType t, LocalDate sd, LocalDate ed, int w) {
         super(t, sd, ed);
         weightsToReach = w;
     }
 
     @Override
     public float calculateProgress(int currentData) {
-        return (currentData/weightsToReach) * 100;
+        return ( (float) currentData/ (float) weightsToReach) * 100;
     }
 
     @Override
