@@ -1,9 +1,8 @@
-package Meal;
+package sample.controllers;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
