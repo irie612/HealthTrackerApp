@@ -25,7 +25,7 @@ ObservableList list= FXCollections.observableArrayList();
 
     @FXML private ChoiceBox mealType;
 
-    @FXML private TextArea myMeal;
+    //@FXML private TextArea myMeal;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -33,7 +33,7 @@ ObservableList list= FXCollections.observableArrayList();
         mealType.getItems().addAll("Breakfast", "Lunch", "Dinner", "Snack", "Drink");
 
         // my meal
-        myMeal.setText("MY MEAL : " );
+        //myMeal.setText("MY MEAL : " );
     }
 
 
