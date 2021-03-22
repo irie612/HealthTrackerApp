@@ -6,6 +6,8 @@ import java.time.LocalTime;
 
 public class Meal {
 
+
+    private long id;
     private String name;
     private MealType type;
     private double calories;
@@ -14,13 +16,19 @@ public class Meal {
 
     public enum MealType {BREAKFAST, LUNCH, DINNER, SNACK, DRINK}
 
-    public Meal(String name, MealType type, double calories) {
+    public Meal(long id, String name, MealType type, double calories) {
+
+        this.id = id;
         this.name = name;
         this.type = type;
         this.calories = calories;
         this.date = LocalDate.now();
         this.time = LocalTime.now();
 
+    }
+
+    public long getId() {
+        return id;
     }
 
     public String getName() {
