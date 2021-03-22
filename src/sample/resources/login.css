@@ -18,8 +18,7 @@
     -fx-min-width: 200px;
     -fx-max-width: 300px;
     -fx-spacing: 15px;
-    -fx-padding: 15px;
-
+    -fx-padding: 20px;
 }
 
 .content-header {
