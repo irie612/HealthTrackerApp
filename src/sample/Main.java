@@ -8,15 +8,30 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
-    public static Stage window;
-
-    public static Scene mealScene, exerciseScene, dashboardScene, loginUser, registerScene, accountScene, groupScene;
-
     @Override
     public void start(Stage primaryStage) throws Exception{
-        window = primaryStage;
-        Parent root = FXMLLoader.load(getClass().getResource("resources/views/MealTracker.fxml"));
-        Scene mealScene = new Scene(root);
+
+        Parent mealRoot = FXMLLoader.load(getClass().getResource("resources/views/MealView.fxml"));
+        Scene mealScene = new Scene(mealRoot);
+
+       /*Parent dashboardRoot = FXMLLoader.load(getClass().getResource("resources/views/DashboardView.fxml"));
+        dashboardScene = new Scene(dashboardRoot);
+
+        Parent loginRoot = FXMLLoader.load(getClass().getResource("resources/views/LoginView.fxml"));
+        loginScene = new Scene(loginRoot);
+
+        Parent registerRoot = FXMLLoader.load(getClass().getResource("resources/views/RegisterView.fxml"));
+        registerScene = new Scene(registerRoot);
+
+        Parent mealRoot = FXMLLoader.load(getClass().getResource("resources/views/MealView.fxml"));
+        mealScene = new Scene(mealRoot);
+
+        Parent exerciseRoot = FXMLLoader.load(getClass().getResource("resources/views/ExerciseView.fxml"));
+        exerciseScene = new Scene(exerciseRoot);
+
+        Parent groupRoot = FXMLLoader.load(getClass().getResource("resources/views/GroupView.fxml"));
+        groupScene = new Scene(groupRoot);*/
+
         primaryStage.setScene(mealScene);
         primaryStage.show();
     }
