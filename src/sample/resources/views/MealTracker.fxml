@@ -124,11 +124,11 @@
       </AnchorPane>
       <AnchorPane layoutX="-1.0" prefHeight="450.0" prefWidth="93.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#initialize" prefHeight="78.0" prefWidth="93.0" text="Home" />
+            <Button fx:id="switchHome" mnemonicParsing="false" onAction="#initialize" prefHeight="78.0" prefWidth="93.0" text="Home" />
             <Button layoutY="78.0" mnemonicParsing="false" onAction="#initialize" prefHeight="78.0" prefWidth="93.0" text="Meal" />
-            <Button layoutY="156.0" mnemonicParsing="false" onAction="#initialize" prefHeight="78.0" prefWidth="93.0" text="Exercise" />
-            <Button layoutY="234.0" mnemonicParsing="false" onAction="#initialize" prefHeight="78.0" prefWidth="93.0" text="Group" />
-            <Button layoutY="312.0" mnemonicParsing="false" onAction="#initialize" prefHeight="78.0" prefWidth="93.0" text="Account" />
+            <Button fx:id="switchExercise" layoutY="156.0" mnemonicParsing="false" onAction="#initialize" prefHeight="78.0" prefWidth="93.0" text="Exercise" />
+            <Button fx:id="switchGroup" layoutY="234.0" mnemonicParsing="false" onAction="#initialize" prefHeight="78.0" prefWidth="93.0" text="Group" />
+            <Button fx:id="switchAccount" layoutY="312.0" mnemonicParsing="false" onAction="#initialize" prefHeight="78.0" prefWidth="93.0" text="Account" />
          </children>
       </AnchorPane>
    </children>
