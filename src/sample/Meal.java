@@ -16,6 +16,9 @@ public class Meal {
 
     public enum MealType {BREAKFAST, LUNCH, DINNER, SNACK, DRINK}
 
+    private enum Month {
+    }
+
     public Meal(long id, String name, MealType type, double calories) {
 
         this.id = id;
@@ -53,7 +56,6 @@ public class Meal {
 
     public void setDate(int day, int month, int year) {
         this.date = LocalDate.of(year, month, day);
-        //TODO add some error checking
     }
 
     public void setTime(int hour, int minute) throws IllegalArgumentException {
