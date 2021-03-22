@@ -8,16 +8,14 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
+    Scene mealScene, exerciseScene, dashboardScene, loginUser, registerScene, userScene;
+
     @Override
-    public void start(Stage primaryStage) {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("resources/views/MealTracker.fxml"));
-            Scene mealScene = new Scene(root);
-            primaryStage.setScene(mealScene);
-            primaryStage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public void start(Stage primaryStage) throws Exception{
+        Parent root = FXMLLoader.load(getClass().getResource("resources/views/MealTracker.fxml"));
+        Scene mealScene = new Scene(root);
+        primaryStage.setScene(mealScene);
+        primaryStage.show();
     }
 
 
