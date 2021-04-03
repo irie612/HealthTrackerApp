@@ -1,9 +1,7 @@
 
-.idea/discord.xml
 
-.idea/**/gradle.xml
-.idea/**/libraries
+.idea
 
 out/
 
-HealthTrackerApp.iml
+*.iml
