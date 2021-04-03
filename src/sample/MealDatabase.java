@@ -4,7 +4,6 @@ import java.io.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
 
 public class MealDatabase extends Database<Meal> {
 
@@ -18,7 +17,7 @@ public class MealDatabase extends Database<Meal> {
     }
 
     @Override
-    void insert(Meal meal) throws IOException {
+    public void insert(Meal meal) throws IOException {
 
         fw = new BufferedWriter(new FileWriter(url, true));
         data.add(meal);
@@ -35,16 +34,16 @@ public class MealDatabase extends Database<Meal> {
     }
 
     @Override
-    void loadElements() throws IOException {
+    public void loadElements() throws IOException {
 
         fileReader = new BufferedReader(new FileReader(url));
         String line;
         while ((line = fileReader.readLine()) != null) {
             String[] tokens = line.split(delimiter);
 
-            System.out.println(Arrays.toString(tokens));
+//            System.out.println(Arrays.toString(tokens));
             long id = Long.parseLong(tokens[0].trim());
-            System.out.println(id);
+//            System.out.println(id);
 
 
             String name = tokens[1].trim();
@@ -63,22 +62,22 @@ public class MealDatabase extends Database<Meal> {
             data.add(new Meal(id, name, mealType, cal, d, t));
 
 
-            for (String e : tokens) {
-                System.out.println(e.trim());
-            }
+//            for (String e : tokens) {
+//                System.out.println(e.trim());
+//            }
 
         }
         fileReader.close();
     }
 
-    public Meal getMealByID(long id) {
+    public Meal getMealByID(long id) throws Exception {
         for (Meal m : data) {
             if (m.getId() == id) {
                 return m;
             }
         }
         //throw an exception
-        return null;
+        throw new Exception("Element not found");
     }
 
     //Test harness
@@ -99,7 +98,7 @@ public class MealDatabase extends Database<Meal> {
             mealDB.insert(d);
             mealDB.insert(d1);
 
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
