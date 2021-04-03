@@ -57,8 +57,17 @@ public abstract class Database<T> {
         return url;
     }
 
-    abstract void insert(T t) throws IOException;
+    public T get(int i) {
+        return data.get(i);
+    }
 
-    abstract void loadElements() throws IOException;
+    public int size() {
+        return data.size();
+    }
 
+    public abstract void insert(T t) throws IOException;
+
+    public abstract void loadElements() throws IOException;
+
+    //TODO add delete
 }
