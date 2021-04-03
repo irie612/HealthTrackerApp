@@ -91,6 +91,7 @@ public class RegisterController {
             confirmMsg.setText("The password does not match");
         }
         else{
+
             confirmMsg.setText("The password match");
         }
 
