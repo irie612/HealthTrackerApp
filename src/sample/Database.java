@@ -14,6 +14,7 @@ public class Database {
     private File file;
 
     public Database(String fileName){
+
         file = new File(fileName);
         this.fileName = fileName;
         users = new ArrayList<>();
