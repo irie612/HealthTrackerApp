@@ -11,10 +11,12 @@ public class Database {
 
     ArrayList<Users> users;
     private String fileName;
+    private File file;
 
     public Database(String fileName){
-        users = new ArrayList<>();
+        file = new File(fileName);
         this.fileName = fileName;
+        users = new ArrayList<>();
     }
 
     public void addUser(String username, String password){
@@ -29,7 +31,7 @@ public class Database {
 
     public void save() throws IOException{
 
-        try(BufferedWriter bw = new BufferedWriter(new FileWriter(fileName))){
+        try(BufferedWriter bw = new BufferedWriter(new FileWriter(file))){
             for(Users user : users){
 
                 String[] values = {user.getUsername(), user.getPassword()};
