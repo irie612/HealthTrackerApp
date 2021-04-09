@@ -29,6 +29,8 @@ public class MealController implements Initializable {
 
     @FXML private ChoiceBox<String> mealType;
 
+    @FXML private Button switchDashboard;
+
     @FXML private Button switchExercise;
 
     @FXML private Button switchGroup;
@@ -37,12 +39,11 @@ public class MealController implements Initializable {
 
     //@FXML private TextArea myMeal;
 
-    public void switchToDashboard(ActionEvent event) throws IOException{
-        Parent dashboardRoot = FXMLLoader.load(getClass().getResource("resources/views/sample.fxml"));
-        System.out.println("got fxml file");
-        Scene dashboardScene = new Scene(dashboardRoot);
+    public void switchScene(ActionEvent event, String filename) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource(filename));
+        Scene scene = new Scene(root);
         Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        window.setScene(dashboardScene);
+        window.setScene(scene);
         window.show();
     }
 
@@ -50,6 +51,35 @@ public class MealController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Choicebox meal type
         mealType.getItems().addAll("Breakfast", "Lunch", "Dinner", "Snack", "Drink");
+
+        switchDashboard.setOnAction(event -> {
+            try {
+                switchScene(event, "../resources/views/DashboardView.fxml");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        switchExercise.setOnAction(event -> {
+            try {
+                switchScene(event, "../resources/views/ExerciseView.fxml");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        switchGroup.setOnAction(event -> {
+            try {
+                switchScene(event, "../resources/views/GroupView.fxml");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        switchAccount.setOnAction(event -> {
+            try {
+                switchScene(event, "../resources/views/AccountView.fxml");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
 
         // my meal
         //myMeal.setText("MY MEAL : " );
