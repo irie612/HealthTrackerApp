@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import java.lang.*?>
+<?import java.net.URL?>
+<HBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="sample.controllers.MealController"
+      prefHeight="450.0" prefWidth="650.0" styleClass="root">
+
+    <VBox styleClass="navigation">
+        <Label text="Health tracker"/>
+
+        <HBox styleClass="nav-btn" onMouseClicked="#switchToDashboard">
+            <ImageView>
+                <Image url="@../images/baseline_home_white_24dp.png"/>
+            </ImageView>
+            <Label text="Home"/>
+        </HBox>
+        <HBox styleClass="nav-btn">
+            <ImageView>
+                <Image url="@../images/baseline_restaurant_white_24dp.png"/>
+            </ImageView>
+            <Label text="Meal"/>
+        </HBox>
+        <HBox fx:id="switchExercise" styleClass="nav-btn">
+            <ImageView>
+                <Image url="@../images/baseline_fitness_center_white_24dp.png"/>
+            </ImageView>
+            <Label text="Exercise"/>
+        </HBox>
+        <HBox fx:id="switchGroup" styleClass="nav-btn">
+            <ImageView>
+                <Image url="@../images/baseline_groups_white_24dp.png"/>
+            </ImageView>
+            <Label text="Group"/>
+        </HBox>
+
+        <HBox fx:id="switchAccount" styleClass="nav-btn">
+            <ImageView>
+                <Image url="@../images/baseline_person_white_24dp.png"/>
+            </ImageView>
+            <Label text="Account"/>
+        </HBox>
+
+
+    </VBox>
+    <VBox HBox.hgrow="ALWAYS" style="-fx-padding: 5 0 0 5">
+
+        <Label styleClass="meal-diary-title" text="Meal Diary"/>
+        <TabPane side="RIGHT" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+            <Tab text="Track">
+                <VBox>
+                    <HBox VBox.vgrow="ALWAYS">
+                        <VBox styleClass="track-details" HBox.hgrow="ALWAYS">
+                            <GridPane VBox.vgrow="ALWAYS">
+
+                                <Label text="Meal type" GridPane.columnIndex="0" GridPane.rowIndex="0"
+                                       GridPane.vgrow="ALWAYS"/>
+                                <ChoiceBox GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.vgrow="ALWAYS">
+                                    <items>
+                                        <FXCollections fx:factory="observableArrayList">
+                                            <String fx:value="Breakfast"/>
+                                            <String fx:value="Lunch"/>
+                                            <String fx:value="Dinner"/>
+                                            <String fx:value="Snack"/>
+                                            <String fx:value="Drink"/>
+                                        </FXCollections>
+                                    </items>
+                                </ChoiceBox>
+                                <Label text="Browse" GridPane.columnIndex="0" GridPane.rowIndex="1"
+                                       GridPane.vgrow="ALWAYS"/>
+                                <ChoiceBox GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS"/>
+                                <Label text="Other" GridPane.columnIndex="0" GridPane.rowIndex="2"
+                                       GridPane.vgrow="ALWAYS"/>
+                                <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS"/>
+                                <Label text="Calories" GridPane.columnIndex="0" GridPane.rowIndex="3"
+                                       GridPane.vgrow="ALWAYS"/>
+                                <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.vgrow="ALWAYS"/>
+                            </GridPane>
+
+                            <Button styleClass="add-meal-btn" HBox.hgrow="ALWAYS" text="Add"/>
+
+                            <TableView prefHeight="135.0" prefWidth="230.0" VBox.vgrow="ALWAYS" styleClass="meal-table">
+                                <columns>
+                                    <!--                                     maxWidth="200"-->
+                                    <TableColumn minWidth="100.0" prefWidth="155" text="Food"/>
+                                    <!--                                    maxWidth="91" -->
+                                    <TableColumn minWidth="0.0" prefWidth="73" text="Calories"/>
+                                </columns>
+                            </TableView>
+
+                        </VBox>
+
+                        <VBox styleClass="right-pane" HBox.hgrow="ALWAYS">
+
+                            <VBox VBox.vgrow="ALWAYS">
+
+                                <Label text="Calorie goal"/>
+                                <TextField/>
+                            </VBox>
+
+                            <VBox VBox.vgrow="ALWAYS">
+                                <HBox>
+                                    <Label text="Date:"/>
+                                    <DatePicker fx:id="mealDate"/>
+                                </HBox>
+
+                                <HBox>
+                                    <Label text="Time:"/>
+                                    <TextField fx:id="mealTime"/>
+                                </HBox>
+                            </VBox>
+
+                        </VBox>
+
+                    </HBox>
+
+                    <HBox alignment="BOTTOM_RIGHT">
+
+                        <Button text="Save" styleClass="save-btn">
+                            <HBox.margin>
+                                <Insets right="10" bottom="10"/>
+                            </HBox.margin>
+                        </Button>
+                    </HBox>
+
+                </VBox>
+
+
+            </Tab>
+
+            <Tab text="History">
+                <VBox VBox.vgrow="ALWAYS" spacing="10">
+
+                    <HBox alignment="CENTER">
+                        <Button text="&#9664;"/>
+                        <Button text="Yesterday"/>
+                        <Button text="Today"/>
+                        <Button text="Tomorrow"/>
+                        <Button text="&#9654;"/>
+                    </HBox>
+
+                    <HBox styleClass="history-stats" alignment="CENTER" spacing="100">
+                        <VBox.margin>
+                            <Insets right="5" bottom="5" top="5" left="5"/>
+                        </VBox.margin>
+                        <VBox alignment="CENTER_LEFT">
+                            <Label text="Total" textAlignment="CENTER"/>
+                            <Label fx:id="calorieTotalValue" text="1700"/>
+                            <Label text="kcal"/>
+                        </VBox>
+
+                        <VBox alignment="CENTER_LEFT">
+                            <Label text="Goal" textAlignment="CENTER"/>
+                            <Label fx:id="calorieGoalValue" text="2000"/>
+                            <Label text="kcal"/>
+                        </VBox>
+                    </HBox>
+
+                    <TableView VBox.vgrow="ALWAYS">
+                        <VBox.margin>
+                            <Insets right="5" bottom="5" top="5" left="5"/>
+                        </VBox.margin>
+                        <columns>
+                            <TableColumn text="Food"/>
+                            <TableColumn text="Meal type"/>
+                            <TableColumn text="Date"/>
+                            <TableColumn text="Time"/>
+                            <TableColumn text="Calories"/>
+                        </columns>
+                    </TableView>
+                </VBox>
+            </Tab>
+
+        </TabPane>
+    </VBox>
+
+
+    <stylesheets>
+        <URL value="@../mealView.css"/>
+    </stylesheets>
+
+</HBox>
