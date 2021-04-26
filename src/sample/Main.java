@@ -11,8 +11,10 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
 
-        Parent mealRoot = FXMLLoader.load(getClass().getResource("resources/views/MealView.fxml"));
+        Parent mealRoot = FXMLLoader.load(getClass().getResource("resources/views/mealView.fxml"));
         Scene mealScene = new Scene(mealRoot);
+
+//        "resources/views/mealView.fxml
 
        /*Parent dashboardRoot = FXMLLoader.load(getClass().getResource("resources/views/DashboardView.fxml"));
         dashboardScene = new Scene(dashboardRoot);
