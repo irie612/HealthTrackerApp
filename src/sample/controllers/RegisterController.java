@@ -61,10 +61,11 @@ public class RegisterController {
         else{
             emailField.setEffect(null);
         }
+
         // check userField is empty
         if (isUsernameEmpty) {
-
             usernameField.setEffect(new DropShadow(5, Color.RED));
+
         }
         else {
             usernameField.setEffect(null);
