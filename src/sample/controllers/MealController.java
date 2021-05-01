@@ -1,58 +1,282 @@
 package sample.controllers;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.input.KeyCode;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import sample.Meal;
+import sample.utilities.Trie;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.NoSuchElementException;
 import java.util.ResourceBundle;
 
+import static javafx.scene.control.TableView.CONSTRAINED_RESIZE_POLICY;
+
 public class MealController implements Initializable {
+
+    @FXML
+    private ChoiceBox<String> mealTypeChoice;
+
+    @FXML
+    private ComboBox<String> foodChoice;
+
+    @FXML
+    private TextField otherInput;
+
+    @FXML
+    private TextField quantityInput;
+
+    @FXML
+    private TextField caloriesInput;
+
+    @FXML
+    private TableView<Meal> mealItemsTable;
+
+    @FXML
+    private CheckBox selectAllCheckbox;
+
+    @FXML
+    private TextField calorieGoalInput;
+
+    @FXML
+    private Button saveBtn;
+
+    private static final String URL = "src/sample/data/meal_items.csv";
+
+    private Trie foodData;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        foodData = new Trie();
+        try {
+            loadFoodData();
+            foodChoice.getItems().setAll(foodData);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        otherInput.setOnKeyTyped(keyEvent -> foodChoice.setValue(null));
+
+        foodChoice.setEditable(true);
+        foodChoice.setOnAction(event -> {
+            if (foodChoice.getEditor().getText().equals("")) {
+                foodChoice.getItems().setAll(foodData);
+            }
+            otherInput.setText("");
+        });
+
+        //auto complete
+        foodChoice.setOnKeyReleased(keyEvent -> {
+
+            if (keyEvent.getText().matches("[A-Za-z]|\\s") || keyEvent.getCode() == KeyCode.BACK_SPACE) {
+
+
+                String query = foodChoice.getEditor().getText().toLowerCase();
+
+                if (query.equals("")) {
+                    foodChoice.getItems().setAll(foodData);
+                } else {
+                    ArrayList<String> filteredResults = new ArrayList<>();
+                    try {
+                        filteredResults = foodData.getKeysFromPrefix(query); //gets all items that start with the prefix
+                    } catch (NoSuchElementException e) {
+                        //no items found with prefix
+//                            filteredResults.add("No item found");
+//                            filteredResults.add("");
+                    }
+                    foodChoice.getItems().setAll(filteredResults);
+                    foodChoice.show();
+                }
+
+            }
+
+        });
+
+        //calorie validation
+        caloriesInput.textProperty().addListener((observableValue, oldValue, newValue) -> {
+            if (!newValue.matches("\\d{0,7}([\\.]\\d{0,4})?") || newValue.length() > 4) {
+                caloriesInput.setText(oldValue);
+            }
+        });
+
+        //quantity validation
+        quantityInput.textProperty().addListener((observableValue, oldValue, newValue) -> {
+            if (!newValue.matches("[0-9]*") || newValue.length() > 2 || newValue.matches("0")) {
+                quantityInput.setText(oldValue);
+            }
+        });
+
+        //calorie goal validation
+        calorieGoalInput.textProperty().addListener((observableValue, oldValue, newValue) -> {
+            if (!newValue.matches("[0-9]*") || newValue.length() > 5 || newValue.matches("0")) {
+                calorieGoalInput.setText(oldValue);
+            }
+        });
+
+
+        //Table
+
+        mealItemsTable.setPlaceholder(new Label("No meal items to display"));
+        mealItemsTable.columnResizePolicyProperty().set(CONSTRAINED_RESIZE_POLICY);
+        mealItemsTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        selectAllCheckbox.setOnAction(event -> {
+
+            if (selectAllCheckbox.isSelected()) {
+                mealItemsTable.getSelectionModel().selectAll();
+            } else {
+                mealItemsTable.getSelectionModel().clearSelection();
+            }
+
+        });
+
+
+        TableColumn<Meal, Meal.MealType> mealTypeColumn = new TableColumn<>("Meal Type");
+        mealTypeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
+        mealTypeColumn.resizableProperty().setValue(true);
+        mealItemsTable.getColumns().add(mealTypeColumn);
+
+        TableColumn<Meal, String> mealNameColumn = new TableColumn<>("Food");
+        mealNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        mealItemsTable.getColumns().add(mealNameColumn);
+
+        TableColumn<Meal, Double> mealCaloriesColumn = new TableColumn<>("Calories");
+        mealCaloriesColumn.setCellValueFactory(new PropertyValueFactory<>("calories"));
+        mealCaloriesColumn.resizableProperty().setValue(true);
+        mealItemsTable.getColumns().add(mealCaloriesColumn);
+
     }
 
-//    ObservableList list= FXCollections.observableArrayList();
-//
-//    @FXML
-//    private ResourceBundle resources;
-//
-//    @FXML
-//    private URL location;
-//
-//    @FXML private ChoiceBox<String> mealType;
-//
-//    @FXML private Button switchExercise;
-//
-//    @FXML private Button switchGroup;
-//
-//    @FXML private Button switchAccount;
+    @FXML
+    private void removeSelectedMealItems() {
+        ObservableList<Meal> selectedItems = mealItemsTable.getSelectionModel().getSelectedItems();
 
-    //@FXML private TextArea myMeal;
-//
+        int size = selectedItems.size();
+
+        if (size > 0) {
+
+            mealItemsTable.getItems().removeAll(selectedItems); //removes all selected items
+            mealItemsTable.refresh();
+            selectAllCheckbox.setSelected(false); //unselects all
+        }
+
+    }
+
+    @FXML
+    private void saveMeal() {
+
+    }
+
+    @FXML
+    private void addMealItem() {
+
+        String mealType = "";
+        String food = "";
+        String other = "";
+        double calories = 0.0;
+        int quantity = 0;
+
+        boolean completed = true;
+        //validation
+        if (mealTypeChoice.getSelectionModel().isEmpty()) {
+            mealTypeChoice.setEffect(new DropShadow(2, Color.RED));
+            completed = false;
+        } else {
+            mealTypeChoice.setEffect(null);
+            mealType = mealTypeChoice.getValue();
+        }
+
+        if (foodChoice.getEditor().getText().equals("")) {
+
+            if (otherInput.getText().equals("")) {
+
+                foodChoice.setEffect(new DropShadow(2, Color.RED));
+                otherInput.setEffect(new DropShadow(2, Color.RED));
+                completed = false;
+            } else {
+                otherInput.setEffect(null);
+                foodChoice.setEffect(null);
+                other = otherInput.getText();
+            }
+
+
+        } else {
+            foodChoice.setEffect(null);
+            otherInput.setEffect(null);
+            food = foodChoice.getValue();
+        }
+
+        if (caloriesInput.getText().equals("")) {
+            caloriesInput.setEffect(new DropShadow(2, Color.RED));
+            completed = false;
+        } else {
+            caloriesInput.setEffect(null);
+            calories = Double.parseDouble(caloriesInput.getText());
+        }
+
+        if (quantityInput.getText().equals("")) {
+            quantityInput.setEffect(new DropShadow(2, Color.RED));
+            completed = false;
+        } else {
+            quantityInput.setEffect(null);
+            quantity = Integer.parseInt(quantityInput.getText());
+        }
+
+
+        if (completed) {
+
+            if (food.equals("") && !other.equals("")) {
+                food = other;
+            }
+
+            //adds meals
+            Meal m;
+            for (int i = 0; i < quantity; i++) {
+
+                m = new Meal(1, food, Meal.MealType.valueOf(mealType.toUpperCase()), calories);
+                mealItemsTable.getItems().add(m);
+                System.out.println(m);
+            }
+        }
+
+    }
+
+
+    private void loadFoodData() throws IOException {
+        BufferedReader fileReader = new BufferedReader(new FileReader(URL));
+        String line;
+        while ((line = fileReader.readLine()) != null) {
+            System.out.println(line);
+            foodData.add(line);
+        }
+    }
+
     public void switchToDashboard(ActionEvent event) throws IOException {
         Parent dashboardRoot = FXMLLoader.load(getClass().getResource("../resources/views/sample.fxml"));
-        System.out.println("got fxml file");
         Scene dashboardScene = new Scene(dashboardRoot);
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene(dashboardScene);
         window.show();
     }
-//
-//    @Override
-//    public void initialize(URL url, ResourceBundle resourceBundle) {
-//        // Choicebox meal type
-//        mealType.getItems().addAll("Breakfast", "Lunch", "Dinner", "Snack", "Drink");
-//
-//        // my meal
-//        //myMeal.setText("MY MEAL : " );
-//    }
 
+    public void updateCalorieGoal(ActionEvent event) {
+
+        //TODO implement update calorie goal
+    }
 
 }

@@ -5,14 +5,16 @@
 }
 
 .navigation {
-    -fx-background-color: #059d9d;
+    -fx-background-color: #5bc0de;
+    /*-fx-background-color: #059d9d;*/
     -fx-pref-width: 120;
     -fx-max-width: 150;
     -fx-spacing: 5;
 }
 
 .nav-btn {
-    -fx-background-color: #059d9d;
+    -fx-background-color: #5bc0de;
+    /*-fx-background-color: #059d9d;*/
     -fx-text-fill: #FFFFFF;
     -fx-padding: 5;
     -fx-pref-height: 50;
@@ -25,7 +27,8 @@
 }
 
 .nav-btn:hover {
-    -fx-background-color: #0bbcbc;
+    -fx-background-color: #73d3f1;
+    /*-fx-background-color: #0bbcbc;*/
 }
 
 .meal-diary-title {
@@ -43,9 +46,49 @@
 
 }
 
-.add-meal-btn {
-    -fx-background-color: #059d9d;
+.meal-type-lbl {
+    -fx-padding: 0 5 0 0;
+}
+
+.browse-lbl {
+    -fx-padding: 0 5 0 0;
+}
+
+.other-lbl {
+    -fx-padding: 0 5 0 0;
+}
+
+.quantity-lbl {
+    -fx-padding: 0 5 0 0;
+}
+
+.calories-lbl {
+    -fx-padding: 0 5 0 0;
+}
+
+/*.meal-item-input .label{*/
+/*    -fx-padding: 0 5 0 0;*/
+/*}*/
+
+.add-item-btn {
+    -fx-background-color: #5bc0de;
     -fx-text-fill: #FFFFFF;
+}
+
+.add-item-btn:hover {
+    -fx-background-color: #73d3f1;
+}
+
+.remove-items-btn {
+    -fx-background-color: #d9534f;
+    -fx-text-fill: #FFFFFF;
+}
+
+.remove-items-btn:hover {
+    -fx-background-color: #f16965;
+}
+
+.select-all-checkbox {
 
 }
 
@@ -53,24 +96,51 @@
     -fx-background-color: #0bbcbc;
 }
 
-.meal-table .column-header-background {
+.meal-table.column-header-background {
     -fx-background-color: #059d9d;
 }
 
 .right-pane {
-    -fx-padding: 5;
+    -fx-padding: 5px;
+}
+
+
+.date-time-box {
+    -fx-padding: 8px;
+    -fx-spacing: 10px;
+}
+
+.date-time-box > HBox {
+    -fx-spacing: 5px;
+}
+
+.meal-date {
+
+}
+
+.meal-time {
+
+}
+
+.update-calorie-goal-btn {
+    -fx-background-color: #5cb85c;
+    -fx-text-fill: #FFFFFF;
+}
+
+.update-calorie-goal-btn:hover {
+    -fx-background-color: #67cf67;
 }
 
 .save-btn {
-    -fx-background-color: #059d9d;
+    -fx-background-color: #5bc0de;
     -fx-text-fill: #FFFFFF;
     -fx-padding: 5;
     -fx-font-size: 15;
 }
 
 .save-btn:hover {
-    -fx-background-color: #0bbcbc;
-
+    -fx-background-color: #73d3f1;
+    /*-fx-background-color: #0bbcbc;*/
 }
 
 .history-stats {

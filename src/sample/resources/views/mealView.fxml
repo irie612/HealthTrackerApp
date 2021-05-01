@@ -57,11 +57,14 @@
                 <VBox>
                     <HBox VBox.vgrow="ALWAYS">
                         <VBox styleClass="track-details" HBox.hgrow="ALWAYS">
-                            <GridPane VBox.vgrow="ALWAYS">
+                            <GridPane styleClass="meal-item-input" VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS" vgap="10"
+                                      hgap="10">
 
-                                <Label text="Meal type" GridPane.columnIndex="0" GridPane.rowIndex="0"
+                                <Label text="Meal type" styleClass="meal-type-lbl" GridPane.columnIndex="0"
+                                       GridPane.rowIndex="0"
                                        GridPane.vgrow="ALWAYS"/>
-                                <ChoiceBox GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.vgrow="ALWAYS">
+                                <ChoiceBox fx:id="mealTypeChoice" GridPane.columnIndex="1" GridPane.rowIndex="0"
+                                           GridPane.vgrow="ALWAYS">
                                     <items>
                                         <FXCollections fx:factory="observableArrayList">
                                             <String fx:value="Breakfast"/>
@@ -72,48 +75,68 @@
                                         </FXCollections>
                                     </items>
                                 </ChoiceBox>
-                                <Label text="Browse" GridPane.columnIndex="0" GridPane.rowIndex="1"
+                                <Label text="Browse items" styleClass="browse-lbl" GridPane.columnIndex="0"
+                                       GridPane.rowIndex="1"
                                        GridPane.vgrow="ALWAYS"/>
-                                <ChoiceBox GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS"/>
-                                <Label text="Other" GridPane.columnIndex="0" GridPane.rowIndex="2"
+                                <ComboBox fx:id="foodChoice" GridPane.columnIndex="1" GridPane.rowIndex="1"
+                                          GridPane.vgrow="ALWAYS" GridPane.hgrow="ALWAYS"/>
+                                <Label text="Other" styleClass="other-lbl" GridPane.columnIndex="0"
+                                       GridPane.rowIndex="2"
                                        GridPane.vgrow="ALWAYS"/>
-                                <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS"/>
-                                <Label text="Calories" GridPane.columnIndex="0" GridPane.rowIndex="3"
+                                <TextField fx:id="otherInput" GridPane.columnIndex="1" GridPane.rowIndex="2"
+                                           GridPane.vgrow="ALWAYS"/>
+                                <Label text="Quantity" styleClass="quantity-lbl" GridPane.columnIndex="0"
+                                       GridPane.rowIndex="3"
                                        GridPane.vgrow="ALWAYS"/>
-                                <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.vgrow="ALWAYS"/>
+                                <TextField fx:id="quantityInput" GridPane.columnIndex="1" GridPane.rowIndex="3"
+                                           GridPane.vgrow="ALWAYS" GridPane.hgrow="ALWAYS"/>
+                                <Label text="Calories" styleClass="calories-lbl" GridPane.columnIndex="0"
+                                       GridPane.rowIndex="4"
+                                       GridPane.vgrow="ALWAYS"/>
+                                <TextField fx:id="caloriesInput" GridPane.columnIndex="1" GridPane.rowIndex="4"
+                                           GridPane.vgrow="ALWAYS" GridPane.hgrow="ALWAYS"/>
                             </GridPane>
 
-                            <Button styleClass="add-meal-btn" HBox.hgrow="ALWAYS" text="Add"/>
+                            <HBox spacing="10">
+                                <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                                    <Button fx:id="addItemBtn" styleClass="add-item-btn" text="Add"
+                                            onMouseClicked="#addMealItem"/>
+                                </HBox>
 
-                            <TableView prefHeight="135.0" prefWidth="230.0" VBox.vgrow="ALWAYS" styleClass="meal-table">
-                                <columns>
-                                    <!--                                     maxWidth="200"-->
-                                    <TableColumn minWidth="100.0" prefWidth="155" text="Food"/>
-                                    <!--                                    maxWidth="91" -->
-                                    <TableColumn minWidth="0.0" prefWidth="73" text="Calories"/>
-                                </columns>
-                            </TableView>
+                                <Button fx:id="removeItemsBtn" styleClass="remove-items-btn" text="Remove"
+                                        onMouseClicked="#removeSelectedMealItems"/>
+                                <!--                                <Label fx:id="selectedLbl" text="Selected: 0"/>-->
+                                <CheckBox fx:id="selectAllCheckbox" text="Select All" styleClass="select-all-checkbox"/>
+                            </HBox>
+
+
+                            <TableView fx:id="mealItemsTable" prefHeight="135.0" prefWidth="230.0" VBox.vgrow="ALWAYS"
+                                       styleClass="meal-table"/>
 
                         </VBox>
 
                         <VBox styleClass="right-pane" HBox.hgrow="ALWAYS">
 
-                            <VBox VBox.vgrow="ALWAYS">
+                            <VBox VBox.vgrow="ALWAYS" spacing="5">
 
                                 <Label text="Calorie goal"/>
-                                <TextField/>
+                                <TextField fx:id="calorieGoalInput"/>
+                                <Button fx:id="updateCalorieGoal" styleClass="update-calorie-goal-btn"
+                                        text="Calorie goal" onAction="#updateCalorieGoal"/>
+
                             </VBox>
 
-                            <VBox VBox.vgrow="ALWAYS">
+                            <VBox VBox.vgrow="ALWAYS" styleClass="date-time-box">
                                 <HBox>
                                     <Label text="Date:"/>
-                                    <DatePicker fx:id="mealDate"/>
+                                    <DatePicker fx:id="mealDate" styleClass="meal-date"/>
                                 </HBox>
 
                                 <HBox>
                                     <Label text="Time:"/>
-                                    <TextField fx:id="mealTime"/>
+                                    <TextField fx:id="mealTime" styleClass="meal-time"/>
                                 </HBox>
+
                             </VBox>
 
                         </VBox>
@@ -122,7 +145,7 @@
 
                     <HBox alignment="BOTTOM_RIGHT">
 
-                        <Button text="Save" styleClass="save-btn">
+                        <Button fx:id="saveBtn" text="Save" styleClass="save-btn" onMouseClicked="#saveMeal">
                             <HBox.margin>
                                 <Insets right="10" bottom="10"/>
                             </HBox.margin>
