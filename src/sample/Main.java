@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -13,6 +14,7 @@ public class Main extends Application {
 
         Parent mealRoot = FXMLLoader.load(getClass().getResource("resources/views/mealView.fxml"));
         Scene mealScene = new Scene(mealRoot);
+
 
 //        "resources/views/mealView.fxml
 
@@ -35,6 +37,7 @@ public class Main extends Application {
         groupScene = new Scene(groupRoot);*/
 
         primaryStage.setScene(mealScene);
+        primaryStage.getIcons().add(new Image("sample/resources/images/baseline_fitness_center_white_24dp.png"));
         primaryStage.show();
     }
 
