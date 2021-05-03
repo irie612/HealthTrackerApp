@@ -21,6 +21,9 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.ResourceBundle;
@@ -28,6 +31,21 @@ import java.util.ResourceBundle;
 import static javafx.scene.control.TableView.CONSTRAINED_RESIZE_POLICY;
 
 public class MealController implements Initializable {
+
+    @FXML
+    public Button prevDatesBtn;
+
+    @FXML
+    public Button nextDatesBtn;
+
+    @FXML
+    public Button leftDateBtn;
+
+    @FXML
+    public Button middleDateBtn;
+
+    @FXML
+    public Button rightDateBtn;
 
     @FXML
     private ChoiceBox<String> mealTypeChoice;
@@ -45,6 +63,12 @@ public class MealController implements Initializable {
     private TextField caloriesInput;
 
     @FXML
+    private DatePicker mealDatePicker;
+
+    @FXML
+    private TextField mealTimeField;
+
+    @FXML
     private TableView<Meal> mealItemsTable;
 
     @FXML
@@ -54,11 +78,28 @@ public class MealController implements Initializable {
     private TextField calorieGoalInput;
 
     @FXML
+    private Label calorieTotalLabel;
+    @FXML
+    private Label calorieGoalLabel;
+
+    @FXML
+    private TableView<Meal> mealsTable;
+
+    @FXML
     private Button saveBtn;
 
     private static final String URL = "src/sample/data/meal_items.csv";
 
     private Trie foodData;
+
+    private LocalDate historyDate;
+    private DateTimeFormatter dateFormat;
+    private DateTimeFormatter timeFormat;
+
+    private double totalCalories;
+    private double currentCaloriesGoal;
+
+    private ArrayList<Meal> meals;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -70,6 +111,14 @@ public class MealController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        historyDate = LocalDate.now();
+        dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        timeFormat = DateTimeFormatter.ofPattern("HH:mm");
+
+        totalCalories = 0.0;
+        currentCaloriesGoal = 0.0;
+        meals = new ArrayList<>();
 
         otherInput.setOnKeyTyped(keyEvent -> foodChoice.setValue(null));
 
@@ -130,7 +179,15 @@ public class MealController implements Initializable {
         });
 
 
-        //Table
+        //Tables
+
+        initializeMealItemsTable();
+
+        initializeMealsTable();
+
+    }
+
+    private void initializeMealItemsTable() {
 
         mealItemsTable.setPlaceholder(new Label("No meal items to display"));
         mealItemsTable.columnResizePolicyProperty().set(CONSTRAINED_RESIZE_POLICY);
@@ -145,7 +202,6 @@ public class MealController implements Initializable {
 
         });
 
-
         TableColumn<Meal, Meal.MealType> mealTypeColumn = new TableColumn<>("Meal Type");
         mealTypeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
         mealTypeColumn.resizableProperty().setValue(true);
@@ -159,6 +215,41 @@ public class MealController implements Initializable {
         mealCaloriesColumn.setCellValueFactory(new PropertyValueFactory<>("calories"));
         mealCaloriesColumn.resizableProperty().setValue(true);
         mealItemsTable.getColumns().add(mealCaloriesColumn);
+    }
+
+    private void initializeMealsTable() {
+
+        mealsTable.setPlaceholder(new Label("No meal items to display"));
+        mealsTable.columnResizePolicyProperty().set(CONSTRAINED_RESIZE_POLICY);
+        mealsTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+//        selectAllCheckbox.setOnAction(event -> {
+//
+//            if (selectAllCheckbox.isSelected()) {
+//                mealItemsTable.getSelectionModel().selectAll();
+//         s   } else {
+//                mealItemsTable.getSelectionModel().clearSelection();
+//            }
+//
+//        });
+
+        TableColumn<Meal, Meal.MealType> mealTypeColumn = new TableColumn<>("Meal Type");
+        mealTypeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
+        mealTypeColumn.resizableProperty().setValue(true);
+        mealsTable.getColumns().add(mealTypeColumn);
+
+        TableColumn<Meal, String> mealNameColumn = new TableColumn<>("Food");
+        mealNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        mealsTable.getColumns().add(mealNameColumn);
+
+        TableColumn<Meal, Double> mealCaloriesColumn = new TableColumn<>("Calories");
+        mealCaloriesColumn.setCellValueFactory(new PropertyValueFactory<>("calories"));
+        mealCaloriesColumn.resizableProperty().setValue(true);
+        mealsTable.getColumns().add(mealCaloriesColumn);
+
+        TableColumn<Meal, LocalTime> mealTimeColumn = new TableColumn<>("Time");
+        mealTimeColumn.setCellValueFactory(new PropertyValueFactory<>("time"));
+        mealTimeColumn.resizableProperty().setValue(true);
+        mealsTable.getColumns().add(mealTimeColumn);
 
     }
 
@@ -180,6 +271,17 @@ public class MealController implements Initializable {
     @FXML
     private void saveMeal() {
 
+        if (!mealItemsTable.getItems().isEmpty()) {
+            LocalTime time = LocalTime.parse(mealTimeField.getText(), timeFormat);
+            LocalDate date = mealDatePicker.getValue();
+            for (Meal m : mealItemsTable.getItems()) {
+                m.setTime(time);
+                m.setDate(date);
+
+                meals.add(m); //TODO just testing, add to database instead
+            }
+            System.out.println("Saved meal");
+        }
     }
 
     @FXML
@@ -277,6 +379,60 @@ public class MealController implements Initializable {
     public void updateCalorieGoal(ActionEvent event) {
 
         //TODO implement update calorie goal
+    }
+
+    public void prevDatesOnClick(ActionEvent event) {
+        historyDate = historyDate.minusDays(3);
+
+        if (!historyDate.equals(LocalDate.now())) {
+            leftDateBtn.setText(historyDate.minusDays(1).format(dateFormat));
+            middleDateBtn.setText(historyDate.format(dateFormat));
+            rightDateBtn.setText(historyDate.plusDays(1).format(dateFormat));
+        } else {
+            leftDateBtn.setText("Yesterday");
+            middleDateBtn.setText("Today");
+            rightDateBtn.setText("Tomorrow");
+        }
+
+        updateCaloriesInformation();
+        updateMealHistoryTable();
+    }
+
+    public void nextDatesOnClick(ActionEvent event) {
+        historyDate = historyDate.plusDays(3);
+
+        if (!historyDate.equals(LocalDate.now())) {
+            leftDateBtn.setText(historyDate.minusDays(1).format(dateFormat));
+            middleDateBtn.setText(historyDate.format(dateFormat));
+            rightDateBtn.setText(historyDate.plusDays(1).format(dateFormat));
+        } else {
+            leftDateBtn.setText("Yesterday");
+            middleDateBtn.setText("Today");
+            rightDateBtn.setText("Tomorrow");
+        }
+
+        updateCaloriesInformation();
+        updateMealHistoryTable();
+    }
+
+    private void updateCaloriesInformation() {
+        double total = 0.0;
+
+        if (!mealsTable.getItems().isEmpty()) {
+            for (Meal meal : mealsTable.getItems()) {
+
+                total = total + meal.getCalories();
+            }
+        }
+
+        calorieTotalLabel.setText(Integer.toString((int) total));
+        calorieGoalLabel.setText(Integer.toString((int) currentCaloriesGoal));
+    }
+
+    private void updateMealHistoryTable() {
+        mealsTable.getItems().clear();
+        System.out.println(meals);
+        mealsTable.getItems().setAll(meals);
     }
 
 }

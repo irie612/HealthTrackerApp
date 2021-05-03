@@ -144,6 +144,14 @@
 }
 
 .history-stats {
-    -fx-border-color: #0bbcbc;
+    -fx-border-color: #73d3f1;
     -fx-padding: 10;
+}
+
+.prev-dates-btn {
+    -fx-text-fill: #73d3f1;
+}
+
+.next-dates-btn {
+    -fx-text-fill: #73d3f1;
 }

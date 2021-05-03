@@ -129,12 +129,12 @@
                             <VBox VBox.vgrow="ALWAYS" styleClass="date-time-box">
                                 <HBox>
                                     <Label text="Date:"/>
-                                    <DatePicker fx:id="mealDate" styleClass="meal-date"/>
+                                    <DatePicker fx:id="mealDatePicker" styleClass="meal-date"/>
                                 </HBox>
 
                                 <HBox>
                                     <Label text="Time:"/>
-                                    <TextField fx:id="mealTime" styleClass="meal-time"/>
+                                    <TextField fx:id="mealTimeField" styleClass="meal-time"/>
                                 </HBox>
 
                             </VBox>
@@ -160,12 +160,14 @@
             <Tab text="History">
                 <VBox VBox.vgrow="ALWAYS" spacing="10">
 
-                    <HBox alignment="CENTER">
-                        <Button text="&#9664;"/>
-                        <Button text="Yesterday"/>
-                        <Button text="Today"/>
-                        <Button text="Tomorrow"/>
-                        <Button text="&#9654;"/>
+                    <HBox alignment="CENTER" spacing="3">
+                        <Button fx:id="prevDatesBtn" styleClass="prev-dates-btn" text="&#9664;"
+                                onAction="#prevDatesOnClick"/>
+                        <Button fx:id="leftDateBtn" styleClass="left-date-btn" text="Yesterday"/>
+                        <Button fx:id="middleDateBtn" styleClass="middle-date-btn" text="Today"/>
+                        <Button fx:id="rightDateBtn" styleClass="right-date-btn" text="Tomorrow"/>
+                        <Button fx:id="nextDatesBtn" styleClass="next-dates-btn" text="&#9654;"
+                                onAction="#nextDatesOnClick"/>
                     </HBox>
 
                     <HBox styleClass="history-stats" alignment="CENTER" spacing="100">
@@ -173,29 +175,26 @@
                             <Insets right="5" bottom="5" top="5" left="5"/>
                         </VBox.margin>
                         <VBox alignment="CENTER_LEFT">
-                            <Label text="Total" textAlignment="CENTER"/>
-                            <Label fx:id="calorieTotalValue" text="1700"/>
-                            <Label text="kcal"/>
+                            <VBox alignment="CENTER">
+                                <Label text="Total" textAlignment="CENTER"/>
+                                <Label fx:id="calorieTotalLabel" text="1700" textAlignment="CENTER"/>
+                                <Label text="kcal" textAlignment="CENTER"/>
+                            </VBox>
                         </VBox>
 
                         <VBox alignment="CENTER_LEFT">
-                            <Label text="Goal" textAlignment="CENTER"/>
-                            <Label fx:id="calorieGoalValue" text="2000"/>
-                            <Label text="kcal"/>
+                            <VBox alignment="CENTER">
+                                <Label text="Goal" textAlignment="CENTER"/>
+                                <Label fx:id="calorieGoalLabel" text="2000" textAlignment="CENTER"/>
+                                <Label text="kcal" textAlignment="CENTER"/>
+                            </VBox>
                         </VBox>
                     </HBox>
 
-                    <TableView VBox.vgrow="ALWAYS">
+                    <TableView fx:id="mealsTable" VBox.vgrow="ALWAYS">
                         <VBox.margin>
                             <Insets right="5" bottom="5" top="5" left="5"/>
                         </VBox.margin>
-                        <columns>
-                            <TableColumn text="Food"/>
-                            <TableColumn text="Meal type"/>
-                            <TableColumn text="Date"/>
-                            <TableColumn text="Time"/>
-                            <TableColumn text="Calories"/>
-                        </columns>
                     </TableView>
                 </VBox>
             </Tab>
