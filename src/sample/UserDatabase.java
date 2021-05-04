@@ -2,7 +2,7 @@ package sample;
 
 import java.io.*;
 
-public class UserDatabase extends Database2<Users> {
+public class UserDatabase extends Database<Users> {
 
     public UserDatabase(String url) throws IOException{
 
