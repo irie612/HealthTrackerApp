@@ -1,77 +1,73 @@
 package sample;
 
-import sample.Users;
-
 import java.io.*;
-import java.lang.reflect.Array;
-import java.nio.Buffer;
 import java.util.ArrayList;
+import java.util.List;
 
-public class Database {
+public abstract class Database<T> {
 
-    ArrayList<Users> users;
-    private String fileName;
-    private File file;
+    protected List<T> data;
+    protected BufferedWriter fw;
+    private final File file;
+    protected String url;
+    protected BufferedReader fileReader;
+    protected String delimiter;
 
-    public Database(String fileName){
 
-        file = new File(fileName);
-        this.fileName = fileName;
-        users = new ArrayList<>();
-    }
+    private final static String DEFAULT_DELIMITER = ",";
 
-    public void addUser(String username, String password){
-
-        Users u = new Users(username, password);
-        users.add(u);
-    }
-
-    public ArrayList<Users> getUsers(){
-        return users;
-    }
-
-    public void save() throws IOException{
-
-        try(BufferedWriter bw = new BufferedWriter(new FileWriter(file))){
-            for(Users user : users){
-
-                String[] values = {user.getUsername(), user.getPassword()};
-                String line = String.join(";",values);
-                bw.append(line);
-                bw.append("\n");
-            }
-            bw.flush();
-        }
-    }
-
-    public void load() throws IOException{
-
-        users.clear();
-        try(BufferedReader br = new BufferedReader(new FileReader(fileName))){
-
-            String s;
-            while((s = br.readLine()) !=null){
-
-                String[] values = s.split(";");
-                String userName = values[0];
-                String password = values[1];
-                addUser(userName, password);
-
-            }
-        }
-    }
-
-    public static void main(String[] args) throws IOException {
-        Database database = new Database("users.csv");
-//        database.addUser("joshua", "12345");
-//        database.save();
-
-        database.load();
-        for(Users u : database.getUsers()){
-            System.out.println(u);
+    public Database(String url) throws IOException {
+        file = new File(url);
+        this.url = url;
+        delimiter = DEFAULT_DELIMITER;
+        if (!file.exists()) {
+            //file not found
+            throw new FileNotFoundException(url + " file not found");
+        } else if (!file.canWrite()) {
+            //not writable
+            throw new IOException("Cannot write to file: Change file permissions");
+        } else if (!file.canRead()) {
+            //not readable
+            throw new IOException("Cannot read file: Change file permissions");
         }
 
+        data = new ArrayList<>();
     }
 
+    public Database(String url, String delimiter) throws IOException {
+        file = new File(url);
+        this.url = url;
+        this.delimiter = delimiter;
+//        if (!file.exists()) {
+//            //file not found
+//            throw new FileNotFoundException();
+//        } else if (!file.canWrite()) {
+//            //not writable
+//            //TODO throw exception
+//        } else if (!file.canRead()) {
+//            //not readable
+//            //TODO throw exception
+//        }
+        fw = new BufferedWriter(new FileWriter(file));
+        fileReader = new BufferedReader(new FileReader(file));
+        data = new ArrayList<>();
+    }
 
+    public String getUrl() {
+        return url;
+    }
+
+    public T get(int i) {
+        return data.get(i);
+    }
+
+    public int size() {
+        return data.size();
+    }
+
+    public abstract void insert(T t) throws IOException;
+
+    public abstract void loadElements() throws IOException;
+
+    //TODO add delete
 }
