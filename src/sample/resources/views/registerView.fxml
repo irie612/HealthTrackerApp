@@ -29,6 +29,7 @@
                 <Label styleClass="field-label" text="Email"/>
             </HBox>
             <TextField fx:id="emailField" styleClass="field" focusTraversable="false" promptText="Enter Email"/>
+            <Label fx:id="emailValidation" styleClass="field-label" text=""  />
 
             <HBox>
                 <Label styleClass="field-label" text="Username"/>

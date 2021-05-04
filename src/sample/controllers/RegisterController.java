@@ -15,17 +15,22 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import sample.Database;
+import sample.LoginDatabase;
+import sample.UserDatabase;
 import sample.Users;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class RegisterController {
 
     @FXML
     private TextField emailField;
+    @FXML
+    private Label emailValidation;
     @FXML
     private TextField usernameField;
     @FXML
@@ -37,12 +42,15 @@ public class RegisterController {
     @FXML
     private Label userRegister;
 
+    String regex = "^(.+)@(.+)$";
+
 
 
     @FXML
     private void registerBtnOnClick() throws IOException {
 
-        Database users;
+        LoginDatabase log;
+        UserDatabase users;
         String username = usernameField.getText();
         String email = emailField.getText();
         String password = passwordField.getText();
@@ -60,6 +68,20 @@ public class RegisterController {
         }
         else{
             emailField.setEffect(null);
+        }
+
+        // email validation
+
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(email);
+        if(!matcher.matches()){
+
+            emailValidation.setText("invalid email");
+            emailField.setEffect(new DropShadow(5, Color.RED));
+        }
+        else{
+            emailValidation.setText("");
+            emailField.setEffect(new DropShadow(5, Color.GREEN));
         }
 
         // check userField is empty
@@ -99,24 +121,26 @@ public class RegisterController {
         }
 
         // save to database
-        if(isEmailEmpty || isUsernameEmpty || isPasswordEmpty|| isConfirmPasswordEmpty){
-            userRegister.setText("There are information missing");
+        if(isEmailEmpty || isUsernameEmpty || isPasswordEmpty|| isConfirmPasswordEmpty || !matcher.matches() || !isPwdConfirmed){
+            userRegister.setText("Information missing or Invalid information");
         }
         else{
             userRegister.setText("user has been registered successfully");
 
 
-            users = new Database("users.txt");
+            log = new LoginDatabase("account.txt", ";");
+            users = new UserDatabase("users.txt", ";");
             try{
-                users.load();
+                log.loadElements();
+                users.loadElements();
             }
             catch (FileNotFoundException e){
-                users.addUser(username, password);
-                users.save();
+                log.insert(new Users(username, password));
+                users.insert(new Users(username, email, 0, 0));
             }
 
-            users.addUser(username, password);
-            users.save();
+            log.insert(new Users(username, password));
+            users.insert(new Users(username, email, 0, 0));
         }
     }
 
