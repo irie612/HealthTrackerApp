@@ -28,7 +28,7 @@ public class UserDatabase extends Database<Users> {
     }
 
     @Override
-    public void loadElements() throws IOException {
+    public void load() throws IOException {
 
         fileReader = new BufferedReader(new FileReader(url));
         String line;
