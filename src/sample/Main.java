@@ -6,13 +6,18 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+
 public class Main extends Application {
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("resources/views/sample.fxml"));
-        primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 300, 275));
+    public void start(Stage primaryStage) throws Exception {
+        Parent root = FXMLLoader.load(getClass().getResource("resources/views/userGroupView.fxml"));
+//        "resources/groupsListCellView.fxml"
+//        "resources/views/groupsView.fxml"
+        primaryStage.setTitle("Health Tracker");
+        primaryStage.setScene(new Scene(root, 800, 600));
+        primaryStage.setMinWidth(800);
+//        primaryStage.setScene(new Scene(root, 700, 430));
         primaryStage.show();
     }
 
