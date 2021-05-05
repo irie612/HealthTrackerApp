@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+<HBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="sample.controllers.GroupsController"
+      prefHeight="400.0" prefWidth="600.0" styleClass="root">
+
+    <VBox styleClass="navigation">
+        <Label text="Health tracker"/>
+
+        <HBox styleClass="nav-btn">
+            <!--            <ImageView>-->
+            <!--                <Image url="@../images/baseline_home_white_24dp.png"/>-->
+            <!--            </ImageView>-->
+            <Label text="Home"/>
+        </HBox>
+        <HBox styleClass="nav-btn">
+            <!--            <ImageView>-->
+            <!--                <Image url="@../images/baseline_restaurant_white_24dp.png"/>-->
+            <!--            </ImageView>-->
+            <Label text="Meal"/>
+        </HBox>
+        <HBox fx:id="switchExercise" styleClass="nav-btn">
+            <!--            <ImageView>-->
+            <!--                <Image url="@../images/baseline_fitness_center_white_24dp.png"/>-->
+            <!--            </ImageView>-->
+            <Label text="Exercise"/>
+        </HBox>
+        <HBox fx:id="switchGroup" styleClass="nav-btn">
+            <!--            <ImageView>-->
+            <!--                <Image url="@../images/baseline_groups_white_24dp.png"/>-->
+            <!--            </ImageView>-->
+            <Label text="Group"/>
+        </HBox>
+
+        <HBox fx:id="switchAccount" styleClass="nav-btn">
+            <!--            <ImageView>-->
+            <!--                <Image url="@../images/baseline_person_white_24dp.png"/>-->
+            <!--            </ImageView>-->
+            <Label text="Account"/>
+        </HBox>
+    </VBox>
+
+    <HBox styleClass="content-section" HBox.hgrow="ALWAYS">
+
+        <VBox styleClass="groups-box" HBox.hgrow="ALWAYS">
+            <Label styleClass="your-groups-label" text="Your Groups"/>
+            <ListView fx:id="groupsList" styleClass="groups-list" VBox.vgrow="ALWAYS">
+
+            </ListView>
+        </VBox>
+
+        <VBox styleClass="group-actions" HBox.hgrow="ALWAYS" alignment="CENTER">
+            <VBox VBox.vgrow="ALWAYS" alignment="CENTER">
+                <VBox styleClass="join-group-box" alignment="CENTER" VBox.vgrow="NEVER">
+                    <Label styleClass="join-label" text="Join"/>
+                    <HBox alignment="CENTER" spacing="5">
+                        <Label text="Code"/>
+                        <TextField fx:id="groupCodeField"/>
+                    </HBox>
+                    <Button fx:id="joinBtn" styleClass="join-btn" text="Join" onAction="#joinGroupOnClick"/>
+                    <Label fx:id="joinGroupMessageLabel" visible="false"/>
+
+
+                </VBox>
+            </VBox>
+
+
+            <Separator/>
+
+            <VBox VBox.vgrow="ALWAYS" alignment="CENTER">
+                <VBox styleClass="create-group-box" alignment="CENTER" VBox.vgrow="NEVER">
+                    <Label styleClass="create-label" text="Create"/>
+                    <HBox alignment="CENTER" spacing="5">
+                        <Label text="Group name"/>
+                        <TextField fx:id="groupNameField"/>
+                    </HBox>
+                    <Button fx:id="createBtn" styleClass="create-btn" text="Create"/>
+                </VBox>
+            </VBox>
+
+
+        </VBox>
+    </HBox>
+
+
+    <stylesheets>
+        <URL value="@../groups.css"/>
+    </stylesheets>
+</HBox>
