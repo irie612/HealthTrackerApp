@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+
+<BorderPane fx:controller="sample.controllers.RegisterController"
+            xmlns:fx="http://javafx.com/fxml" styleClass="login">
+
+    
+    <top>
+        <BorderPane styleClass="header-section">
+            <left>
+                <BorderPane>
+                    <center>
+                        <Label styleClass="header-label" text="Health Tracker"/>
+                    </center>
+                </BorderPane>
+            </left>
+        </BorderPane>
+    </top>
+
+    <center>
+        <VBox styleClass="content-section" alignment="CENTER">
+
+            <Label styleClass="content-header" text="Register"/>
+
+            <HBox>
+                <Label styleClass="field-label" text="Email"/>
+            </HBox>
+            <TextField fx:id="emailField" styleClass="field" focusTraversable="false" promptText="Enter Email"/>
+            <Label fx:id="emailValidation" styleClass="field-label" text=""  />
+
+            <HBox>
+                <Label styleClass="field-label" text="Username"/>
+            </HBox>
+            <TextField fx:id="usernameField" styleClass="field" focusTraversable="false" promptText="Enter Username"/>
+
+            <HBox>
+                <Label styleClass="field-label" text="Password"/>
+            </HBox>
+            <PasswordField fx:id="passwordField" styleClass="field" focusTraversable="false"
+                           promptText="Enter Password"/>
+
+            <HBox>
+                <Label styleClass="field-label" text="Confirm Password"/>
+            </HBox>
+            <PasswordField fx:id="confirmPwdField" styleClass="field" focusTraversable="false"
+                           promptText="Confirm password" />
+
+            <Label fx:id="confirmMsg" styleClass="field-label" text=""  />
+
+
+            <Button fx:id="registerBtn" styleClass="login-btn" text="Register" onAction="#registerBtnOnClick"/>
+
+
+            <Label fx:id="userRegister" styleClass="field-label" text=""  />
+
+
+        </VBox>
+    </center>
+
+    <bottom>
+        <BorderPane styleClass="footer-section">
+            <left>
+                <BorderPane>
+                    <center>
+                        <Button fx:id="Login" styleClass="exit-btn" text="Login" onAction="#backToLoginOnClick"/>
+                    </center>
+                </BorderPane>
+            </left>
+            <right>
+                <BorderPane>
+                    <center>
+                        <Button text="Exit" styleClass="exit-btn" onAction="#exitBtnOnClick"/>
+                    </center>
+                </BorderPane>
+            </right>
+        </BorderPane>
+    </bottom>
+
+    <stylesheets>
+        <URL value="@../login.css"/>
+    </stylesheets>
+
+</BorderPane>

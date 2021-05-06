@@ -38,17 +38,17 @@ public abstract class Database<T> {
         file = new File(url);
         this.url = url;
         this.delimiter = delimiter;
-        if (!file.exists()) {
-            //file not found
-            throw new FileNotFoundException();
-        } else if (!file.canWrite()) {
-            //not writable
-            //TODO throw exception
-        } else if (!file.canRead()) {
-            //not readable
-            //TODO throw exception
-        }
-
+//        if (!file.exists()) {
+//            //file not found
+//            throw new FileNotFoundException();
+//        } else if (!file.canWrite()) {
+//            //not writable
+//            //TODO throw exception
+//        } else if (!file.canRead()) {
+//            //not readable
+//            //TODO throw exception
+//        }
+        fw = new BufferedWriter(new FileWriter(file));
         fileReader = new BufferedReader(new FileReader(file));
         data = new ArrayList<>();
     }
@@ -68,6 +68,7 @@ public abstract class Database<T> {
     public abstract void insert(T t) throws IOException;
 
     public abstract void loadElements() throws IOException;
+
 
     //TODO add delete
 }
