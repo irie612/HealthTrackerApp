@@ -67,7 +67,8 @@ public abstract class Database<T> {
 
     public abstract void insert(T t) throws IOException;
 
-    public abstract void load() throws IOException;
+    public abstract void loadElements() throws IOException;
+
 
     //TODO add delete
 }
