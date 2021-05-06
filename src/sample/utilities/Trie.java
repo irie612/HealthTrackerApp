@@ -218,6 +218,7 @@ public class Trie implements Collection<String>, Iterable<String> {
     public ArrayList<String> getKeysFromPrefix(String prefix) {
         ArrayList<String> keys = new ArrayList<>();
 
+        prefix = prefix.toLowerCase();
 
         TrieNode temp = getNodeOfPrefix(prefix);
 

@@ -33,10 +33,6 @@ public class TrieNode implements Comparable<TrieNode> {
         offspring = new HashMap<>();
     }
 
-    public int offspringSize() {
-        return offspring.size();
-    }
-
     public ArrayList<TrieNode> getAllOffspring() {
         return new ArrayList<>(offspring.values());
     }
