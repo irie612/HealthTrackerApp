@@ -38,6 +38,7 @@ public class Main extends Application {
 
         primaryStage.setScene(mealScene);
         primaryStage.getIcons().add(new Image("sample/resources/images/baseline_fitness_center_white_24dp.png"));
+
         primaryStage.show();
     }
 

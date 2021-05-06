@@ -8,21 +8,21 @@ public class Users {
 
     // TODO: methods to add joinUserGroup, addExercise
 
-    private String username;
-    private String password;
-    private String email;
-    private double height;
-    private double weight;
-    private ArrayList<Meal> mealDiary;
-    private ArrayList<Goals> userGoals;
+   private String username;
+   private String password;
+   private String email;
+   private double height;
+   private double weight;
+   private ArrayList<Meal> mealDiary = new ArrayList<>();
+   private ArrayList<Goals> userGoals = new ArrayList<>();
 
 
-    Users(String uname, String pwd) {
+    public Users(String uname, String pwd){
         this.username = uname;
         this.password = pwd;
     }
 
-    Users(String uname, String email, double height, double weight) {
+    public Users(String uname, String email, double height, double weight){
 
         this.username = uname;
         this.email = email;
@@ -79,26 +79,33 @@ public class Users {
         mealDiary.add(meal);
     }
 
-    public void addCalorieGoal(Goals.goalType goalType, LocalDate startDate, LocalDate endDate, int cal) {
-
-        CaloriesGoals c = new CaloriesGoals(goalType, startDate, endDate, cal);
-        userGoals.add(c);
+    public ArrayList<Meal> getUsersMeal(){
+        return mealDiary;
     }
 
-    public void addExerciseGoal(Goals.goalType goalType, LocalTime exerciseDone, LocalDate startDate, LocalDate endDate) {
+    public void addCalorieGoal(CaloriesGoals cal){
 
-        ExerciseGoals e = new ExerciseGoals(goalType, exerciseDone, startDate, endDate);
-        userGoals.add(e);
+        userGoals.add(cal);
     }
 
-    public void addWeightGoal(Goals.goalType goalType, LocalDate startDate, LocalDate endDate, int weight) {
+    public void addExerciseGoal(ExerciseGoals ex){
 
-        WeightGoals w = new WeightGoals(goalType, startDate, endDate, weight);
-        userGoals.add(w);
+        userGoals.add(ex);
+    }
+
+    public void addWeightGoal(WeightGoals weight ){
+
+        userGoals.add(weight);
+    }
+
+    public ArrayList<Goals> getUserGoals(){
+
+        return userGoals;
     }
 
     public String toString() {
         return "username : " + username + " email : " + email + " height : " + height + " weight : " + weight;
     }
+
 
 }

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<?import java.net.URL?>
+<HBox fx:controller="sample.controllers.UserGroupViewController"
+            xmlns:fx="http://javafx.com/fxml" prefHeight="450.0" prefWidth="650.0" >
+
+    <VBox styleClass="navigation">
+        <Label text="Health tracker"/>
+
+        <HBox styleClass="nav-btn" onMouseClicked="#switchToDashboard">
+            <Label text="Home"/>
+        </HBox>
+        <HBox styleClass="nav-btn">
+            <Label text="Meal"/>
+        </HBox>
+        <HBox fx:id="switchExercise" styleClass="nav-btn">
+
+            <Label text="Exercise"/>
+        </HBox>
+        <HBox fx:id="switchGroup" styleClass="nav-btn">
+
+            <Label text="Group"/>
+        </HBox>
+
+        <HBox fx:id="switchAccount" styleClass="nav-btn">
+            <Label text="Account"/>
+        </HBox>
+
+
+    </VBox>
+
+    <VBox styleClass="box"  HBox.hgrow="ALWAYS">
+        <HBox VBox.vgrow="NEVER">
+
+            <Label text="Group Name "/>
+            <Label fx:id="groupName" text=""/>
+        </HBox>
+
+        <HBox VBox.vgrow="NEVER">
+            <Label text="Group Goal "/>
+            <Label fx:id="groupGoal" text=""/>
+        </HBox>
+
+        <HBox VBox.vgrow="NEVER">
+            <VBox HBox.hgrow="ALWAYS" >
+                <TableView fx:id="achievementTable" prefHeight="100"  >
+                    <columns>
+
+                        <TableColumn fx:id="achievements" text="Achievements"/>
+                        <TableColumn fx:id="points" text="Points"/>
+                        <TableColumn fx:id="complete-btn" />
+
+                    </columns>
+                </TableView>
+            </VBox>
+        </HBox>
+        <HBox VBox.vgrow="ALWAYS">
+
+        </HBox>
+
+        <HBox VBox.vgrow="NEVER">
+            <VBox HBox.hgrow="ALWAYS">
+                <Button fx:id="leave" text="Leave Group" onAction="#leaveGroupOnClick"/>
+            </VBox>
+        </HBox>
+
+    </VBox>
+
+    <VBox styleClass="box" HBox.hgrow="ALWAYS">
+        <Label text="Leader Board"/>
+
+        <TableView  fx:id="leaderBoardTable" >
+            <columns>
+                <TableColumn  fx:id="ranking" text="Ranking"/>
+                <TableColumn  fx:id="uName" text="Username"/>
+                <TableColumn  fx:id="score" text="Score"/>
+            </columns>
+        </TableView>
+    </VBox>
+
+    <stylesheets>
+        <URL value="@../UserGroupView.css"/>
+    </stylesheets>
+</HBox>
