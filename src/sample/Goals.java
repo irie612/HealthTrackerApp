@@ -1,7 +1,6 @@
 package sample;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 public abstract class Goals {
     private LocalDate startDate;
@@ -10,27 +9,27 @@ public abstract class Goals {
 
     public enum goalType {WEIGHT, EXERCISE, CALORIES}
 
-    public void setStartDate(int y, int m, int d){
+    public void setStartDate(int y, int m, int d) {
         startDate = LocalDate.of(y, m, d);
     }
 
-    public void setEndDate(int y, int m , int d){
+    public void setEndDate(int y, int m, int d) {
         endDate = LocalDate.of(y, m, d);
     }
 
-    public LocalDate getStartDate(){
+    public LocalDate getStartDate() {
         return this.startDate;
     }
 
-    public LocalDate getEndDate(){
+    public LocalDate getEndDate() {
         return this.endDate;
     }
 
-    public goalType getType(){
+    public goalType getType() {
         return type;
     }
 
-    Goals(goalType t, LocalDate sDate, LocalDate eDate){
+    Goals(goalType t, LocalDate sDate, LocalDate eDate) {
         this.startDate = sDate;
         this.endDate = eDate;
         this.type = t;
@@ -40,6 +39,6 @@ public abstract class Goals {
 
     @Override
     public String toString() {
-        return  "Goal type : "+ type +" start : " + startDate + " ends : " +endDate;
+        return "Goal type : " + type + " start : " + startDate + " ends : " + endDate;
     }
 }

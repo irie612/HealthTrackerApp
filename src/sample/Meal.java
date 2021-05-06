@@ -63,6 +63,14 @@ public class Meal {
         return time;
     }
 
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public void setTime(LocalTime time) {
+        this.time = time;
+    }
+
     public void setDate(int day, int month, int year) {
         this.date = LocalDate.of(year, month, day);
     }

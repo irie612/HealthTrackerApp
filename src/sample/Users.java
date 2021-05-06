@@ -1,7 +1,5 @@
 package sample;
 
-import sample.Meal;
-
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -77,7 +75,7 @@ public class Users {
         this.username = username;
     }
 
-    public void addMeal(Meal meal){
+    public void addMeal(Meal meal) {
         mealDiary.add(meal);
     }
 
@@ -105,8 +103,8 @@ public class Users {
         return userGoals;
     }
 
-    public String toString(){
-        return "username : " + username + " email : "+ email+ " height : " +height+ " weight : " + weight;
+    public String toString() {
+        return "username : " + username + " email : " + email + " height : " + height + " weight : " + weight;
     }
 
 
