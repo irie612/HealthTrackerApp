@@ -30,6 +30,15 @@ public class Meal {
 
     }
 
+    public Meal(long id, String name, MealType type, double calories, LocalDate date, LocalTime time) {
+        this.id = id;
+        this.name = name;
+        this.type = type;
+        this.calories = calories;
+        this.date = date;
+        this.time = time;
+    }
+
     public long getId() {
         return id;
     }
@@ -52,6 +61,14 @@ public class Meal {
 
     public LocalTime getTime() {
         return time;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public void setTime(LocalTime time) {
+        this.time = time;
     }
 
     public void setDate(int day, int month, int year) {

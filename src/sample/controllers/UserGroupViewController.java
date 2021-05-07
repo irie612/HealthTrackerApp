@@ -92,6 +92,5 @@ public class UserGroupViewController implements Initializable {
         };
 
         timer.schedule(task, 2500); //wait 2 and half seconds
-
     }
 }
