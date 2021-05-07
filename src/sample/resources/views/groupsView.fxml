@@ -78,7 +78,7 @@
                         <Label text="Group name"/>
                         <TextField fx:id="groupNameField"/>
                     </HBox>
-                    <Button fx:id="createBtn" styleClass="create-btn" text="Create"/>
+                    <Button fx:id="createBtn" styleClass="create-btn" text="Create" onAction="#createBtnOnClick"/>
                 </VBox>
             </VBox>
 

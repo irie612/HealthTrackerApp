@@ -13,14 +13,16 @@ public class UserGroup {
 
     HashMap<String, Integer> leaderBoard;
 
-    public UserGroup(String groupName, String admin, int capacity){
+    public static final int DEFAULT_CAPACITY = 30;
+
+    public UserGroup(String groupName, String admin, int capacity) {
 
         this.groupName = groupName;
         this.admin = admin;
         this.capacity = capacity;
     }
 
-    public UserGroup(String groupName, String admin, int capacity, String code){
+    public UserGroup(String groupName, String admin, int capacity, String code) {
 
         this.groupName = groupName;
         this.admin = admin;

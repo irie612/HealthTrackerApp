@@ -10,11 +10,15 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
-    @Override
-    public void start(Stage primaryStage) throws Exception{
 
-        Parent mealRoot = FXMLLoader.load(getClass().getResource("resources/views/mealView.fxml"));
-        Scene mealScene = new Scene(mealRoot);
+    public static UserGroup userGroup;
+    public static Users currentUser;
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+
+//        Parent mealRoot = FXMLLoader.load(getClass().getResource("resources/views/mealView.fxml"));
+//        Scene mealScene = new Scene(mealRoot);
 
 
 //        "resources/views/mealView.fxml
@@ -34,12 +38,17 @@ public class Main extends Application {
         Parent exerciseRoot = FXMLLoader.load(getClass().getResource("resources/views/ExerciseView.fxml"));
         exerciseScene = new Scene(exerciseRoot);
 
-        Parent groupRoot = FXMLLoader.load(getClass().getResource("resources/views/GroupView.fxml"));
-        groupScene = new Scene(groupRoot);*/
 
-        primaryStage.setScene(mealScene);
+        */
+//        Parent groupRoot = FXMLLoader.load(getClass().getResource("resources/views/userGroupView.fxml"));
+//        Scene groupScene = new Scene(groupRoot);
+
+        Parent groupsRoot = FXMLLoader.load(getClass().getResource("resources/views/groupsView.fxml"));
+        Scene groupsScene = new Scene(groupsRoot);
+
+        primaryStage.setScene(groupsScene);
         primaryStage.getIcons().add(new Image("sample/resources/images/baseline_fitness_center_white_24dp.png"));
-
+        primaryStage.setMinWidth(800);
         primaryStage.show();
     }
 

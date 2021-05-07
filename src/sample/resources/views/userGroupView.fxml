@@ -38,7 +38,7 @@
         <VBox styleClass="group-info-box" HBox.hgrow="ALWAYS" spacing="10">
             <HBox VBox.vgrow="NEVER" spacing="30" alignment="CENTER_LEFT">
                 <HBox HBox.hgrow="ALWAYS" spacing="3" alignment="CENTER_LEFT">
-                    <Label fx:id="groupName" styleClass="group-name-label" text="Group name placeholder"
+                    <Label fx:id="groupNameLabel" styleClass="group-name-label" text="Group name placeholder"
                            textAlignment="CENTER"/>
                 </HBox>
                 <HBox alignment="CENTER_LEFT">

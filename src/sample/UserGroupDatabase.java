@@ -47,4 +47,8 @@ public class UserGroupDatabase extends Database<UserGroup> {
         }
         fileReader.close();
     }
+
+
+    //TODO getGroupByName
+
 }

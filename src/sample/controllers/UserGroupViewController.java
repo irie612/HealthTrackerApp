@@ -11,6 +11,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.MouseEvent;
+import sample.Main;
+import sample.UserGroup;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -30,13 +32,24 @@ public class UserGroupViewController implements Initializable {
     @FXML
     public ImageView copyIcon;
 
+    @FXML
+    public Label groupNameLabel;
+
+    @FXML
+    public Label capacityLabel;
+
     private String groupCode;
+
+    private UserGroup currentGroup;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        groupCode = "JDHDGT";
+        currentGroup = Main.userGroup;
+        groupCode = currentGroup.getCode();
         groupCodeLabel.setText(groupCode);
+        groupNameLabel.setText(currentGroup.getGroupName());
+        capacityLabel.setText(String.valueOf(currentGroup.getCapacity()));
 
 
         initializeLeaderboardTable();
