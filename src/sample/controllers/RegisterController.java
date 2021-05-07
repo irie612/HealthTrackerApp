@@ -123,8 +123,8 @@ public class RegisterController {
         else{
             userRegister.setText("user has been registered successfully");
 
-            log = new LoginDatabase("src/sample/data/account.csv", ";");
-            users = new UserDatabase("src/sample/data/users.csv", ";");
+            log = new LoginDatabase("src/sample/data/account.csv");
+            users = new UserDatabase("src/sample/data/users.csv");
 
             log.insert(new Users(username, password));
             users.insert(new Users(username, email, 0, 0));

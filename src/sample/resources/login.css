@@ -1,5 +1,5 @@
 @font-face {
-    src: url('Baloo2-Regular.ttf');
+    src: url('font/Baloo2-Regular.ttf');
 }
 .root{
     -fx-font-family: "Baloo 2";
