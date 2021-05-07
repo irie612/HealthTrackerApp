@@ -49,7 +49,7 @@ public class LoginController {
             passwordField.setEffect(null);
         }
 
-        log = new LoginDatabase("account.txt",";");
+        log = new LoginDatabase("src/sample/data/account.csv",";");
 
 
         try{

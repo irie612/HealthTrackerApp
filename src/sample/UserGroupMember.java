@@ -1,3 +1,5 @@
+package sample;
+
 public class UserGroupMember {
 
     private String groupName;
