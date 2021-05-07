@@ -65,6 +65,10 @@ public abstract class Database<T> {
         return data.size();
     }
 
+    public boolean contains(T o) {
+        return data.contains(o);
+    }
+
     public abstract void insert(T t) throws IOException;
 
     public abstract void loadElements() throws IOException;
