@@ -49,14 +49,14 @@ public class LoginController {
             passwordField.setEffect(null);
         }
 
-        log = new LoginDatabase("src/sample/data/account.csv",";");
+        log = new LoginDatabase("src/sample/data/account.csv");
 
 
         try{
             log.loadElements();
             Users user = new Users(username, password);
             if(log.containUser(user)){
-                Parent parent = FXMLLoader.load(getClass().getResource("../resources/views/UserGroupView.fxml"));
+                Parent parent = FXMLLoader.load(getClass().getResource("../resources/views/groupsView.fxml"));
                 Scene scene = new Scene(parent);
                 Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 window.setScene(scene);

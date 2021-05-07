@@ -1,5 +1,7 @@
 package sample.controllers;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,10 +14,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import sample.Database;
 import sample.LoginDatabase;
 import sample.UserDatabase;
 import sample.Users;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -119,8 +123,8 @@ public class RegisterController {
         else{
             userRegister.setText("user has been registered successfully");
 
-            log = new LoginDatabase("src/sample/data/account.csv", ",");
-            users = new UserDatabase("src/sample/data/users.csv", ",");
+            log = new LoginDatabase("src/sample/data/account.csv");
+            users = new UserDatabase("src/sample/data/users.csv");
 
             log.insert(new Users(username, password));
             users.insert(new Users(username, email, 0, 0));
