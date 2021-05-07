@@ -1,33 +1,32 @@
-.login {
-    -fx-font-family: "Tahoma"; /* font */
+@font-face {
+    src: url('Baloo2-Regular.ttf');
+}
+.root{
+    -fx-font-family: "Baloo 2";
 }
 
-.header-section {
-    -fx-background-color: #059d9d;
-    -fx-pref-height: 90px;
-}
 
 .header-label {
     -fx-text-fill: #FFFFFF;
-    -fx-font-size: 20px;
+    -fx-font-size: 25px;
     -fx-padding: 0 0 0 20;
 }
 
 .content-section {
 
     -fx-min-width: 200px;
-    -fx-max-width: 300px;
+    -fx-max-width: 400px;
     -fx-spacing: 15px;
     -fx-padding: 20px;
 }
 
 .content-header {
-    -fx-font-size: 18px;
+    -fx-font-size: 20px;
     -fx-text-alignment: center;
 }
 
 .field-label {
-    -fx-font-size: 14px;
+    -fx-font-size: 18px;
 }
 
 .register-btn {
@@ -47,18 +46,31 @@
 
 .login-btn {
     -fx-text-fill: #FFFFFF;
-    -fx-background-color: #059d9d;
+    -fx-background-color: #5bc0de;
     border-radius: 4px;
     -fx-font-size: 14px;
-    -fx-pref-width: 300px;
+    -fx-pref-width: 400px;
 }
 
 .login-btn:hover {
     -fx-background-color: #0bbcbc;
+
+}
+
+.login-btn2{
+    -fx-background-color: #5bc0de;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 14px;
+    -fx-padding: 10 20 10 20
+}
+
+.login-btn2:hover {
+    -fx-background-color: #0bbcbc;
+
 }
 
 .exit-btn {
-    -fx-background-color: #059d9d;
+    -fx-background-color: #d9534f;
     -fx-text-fill: #FFFFFF;
     -fx-font-size: 14px;
     -fx-padding: 10 20 10 20
@@ -69,7 +81,12 @@
     -fx-background-color: #0bbcbc;
 }
 
-.footer-section {
-    -fx-pref-height: 60px;
-    -fx-padding: 10px;
+.vbox-content{
+    -fx-background-color: #5bc0de;
+}
+
+.welcome-label{
+    -fx-font-family: "Baloo 2";
+    -fx-font-size: 30;
+    -fx-text-fill: #FFFFFF;
 }

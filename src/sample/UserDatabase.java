@@ -17,7 +17,7 @@ public class UserDatabase extends Database<Users> {
     @Override
     public void insert(Users users) throws IOException {
 
-        fw = new BufferedWriter(new FileWriter(url));
+        fw = new BufferedWriter(new FileWriter(url, true));
         data.add(users);
 
         String row = users.getUsername() + delimiter + users.getEmail() + delimiter + users.getWeight() + delimiter +
@@ -28,8 +28,7 @@ public class UserDatabase extends Database<Users> {
     }
 
     @Override
-    public void load() throws IOException {
-
+    public void loadElements() throws IOException {
         fileReader = new BufferedReader(new FileReader(url));
         String line;
 
@@ -46,7 +45,6 @@ public class UserDatabase extends Database<Users> {
 
             data.add(new Users(username, email, height, weight));
         }
-
         fileReader.close();
     }
 }

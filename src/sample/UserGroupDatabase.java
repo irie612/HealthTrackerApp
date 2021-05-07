@@ -17,7 +17,7 @@ public class UserGroupDatabase extends Database<UserGroup> {
     @Override
     public void insert(UserGroup userGroup) throws IOException {
 
-        fw = new BufferedWriter(new FileWriter(url));
+        fw = new BufferedWriter(new FileWriter(url, true));
         data.add(userGroup);
 
         String row = userGroup.getGroupName() + delimiter + userGroup.getAdmin() + delimiter + userGroup.getCapacity() +
@@ -29,7 +29,7 @@ public class UserGroupDatabase extends Database<UserGroup> {
     }
 
     @Override
-    public void load() throws IOException {
+    public void loadElements() throws IOException {
         fileReader = new BufferedReader(new FileReader(url));
         String line;
 

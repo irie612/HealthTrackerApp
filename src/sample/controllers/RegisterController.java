@@ -30,15 +30,11 @@ public class RegisterController {
     @FXML
     private TextField emailField;
     @FXML
-    private Label emailValidation;
-    @FXML
     private TextField usernameField;
     @FXML
     private PasswordField passwordField;
     @FXML
     private PasswordField confirmPwdField;
-    @FXML
-    private Label confirmMsg;
     @FXML
     private Label userRegister;
 
@@ -76,11 +72,10 @@ public class RegisterController {
         Matcher matcher = pattern.matcher(email);
         if(!matcher.matches()){
 
-            emailValidation.setText("invalid email");
             emailField.setEffect(new DropShadow(5, Color.RED));
         }
         else{
-            emailValidation.setText("");
+
             emailField.setEffect(new DropShadow(5, Color.GREEN));
         }
 
@@ -109,15 +104,16 @@ public class RegisterController {
             confirmPwdField.setEffect(null);
         }
 
-
-
         // check if passwordFiled and confirmPwdField match
         if(!isPwdConfirmed){
-            confirmMsg.setText("The password does not match");
+
+            passwordField.setEffect(new DropShadow(5, Color.RED));
+            confirmPwdField.setEffect(new DropShadow(5, Color.RED));
         }
         else{
 
-            confirmMsg.setText("The password match");
+            passwordField.setEffect(new DropShadow(5, Color.GREEN));
+            confirmPwdField.setEffect(new DropShadow(5, Color.GREEN));
         }
 
         // save to database
@@ -127,17 +123,8 @@ public class RegisterController {
         else{
             userRegister.setText("user has been registered successfully");
 
-
             log = new LoginDatabase("account.txt", ";");
             users = new UserDatabase("users.txt", ";");
-            try{
-                log.loadElements();
-                users.loadElements();
-            }
-            catch (FileNotFoundException e){
-                log.insert(new Users(username, password));
-                users.insert(new Users(username, email, 0, 0));
-            }
 
             log.insert(new Users(username, password));
             users.insert(new Users(username, email, 0, 0));

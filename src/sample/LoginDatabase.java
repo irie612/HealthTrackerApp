@@ -1,6 +1,7 @@
 package sample;
 
 import java.io.*;
+import java.util.NoSuchElementException;
 
 public class LoginDatabase extends Database<Users> {
 
@@ -17,7 +18,7 @@ public class LoginDatabase extends Database<Users> {
     @Override
     public void insert(Users users) throws IOException {
 
-        fw = new BufferedWriter(new FileWriter(url));
+        fw = new BufferedWriter(new FileWriter(url, true));
         data.add(users);
 
         String row = users.getUsername() + delimiter + users.getPassword();
@@ -27,8 +28,7 @@ public class LoginDatabase extends Database<Users> {
     }
 
     @Override
-    public void load() throws IOException {
-
+    public void loadElements() throws IOException {
         fileReader = new BufferedReader(new FileReader(url));
         String line;
 
@@ -43,4 +43,21 @@ public class LoginDatabase extends Database<Users> {
         }
         fileReader.close();
     }
+
+    public boolean containUser(Users u){
+        for(Users users: data){
+            if(users.getPassword().equals(u.getPassword())){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static void main(String[] args) throws IOException {
+        LoginDatabase log = new LoginDatabase("account.txt", ";");
+        log.loadElements();
+        Users user = new Users("vail", "1234");
+        System.out.println(log.containUser(user));
+    }
+
 }
