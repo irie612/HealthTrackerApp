@@ -12,8 +12,10 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import sample.Main;
 import sample.Meal;
 import sample.utilities.Trie;
 
@@ -433,6 +435,15 @@ public class MealController implements Initializable {
         mealsTable.getItems().clear();
         System.out.println(meals);
         mealsTable.getItems().setAll(meals);
+    }
+
+
+    public void navGroupsBtnOnClick(MouseEvent mouseEvent) throws IOException {
+        Main.switchToGroups(mouseEvent, this.getClass());
+    }
+
+    public void navMealBtnOnClick(MouseEvent mouseEvent) throws IOException {
+        Main.switchToMeal(mouseEvent, this.getClass());
     }
 
 }
