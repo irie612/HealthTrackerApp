@@ -1,0 +1,96 @@
+@font-face {
+    /*font-family: Baloo2-Regular;*/
+    src: url('font/Baloo2-Regular.ttf');
+}
+
+.root {
+    -fx-font-family: 'Baloo2-Regular'; /* font */
+    /*-fx-min-width: 600;*/
+    /*-fx-min-height: 400;*/
+}
+
+.navigation {
+    -fx-background-color: #5bc0de;
+    /*-fx-background-color: #059d9d;*/
+    -fx-pref-width: 120;
+    -fx-max-width: 150;
+    -fx-spacing: 5;
+}
+
+.nav-btn {
+    -fx-background-color: #5bc0de;
+    /*-fx-background-color: #059d9d;*/
+    -fx-text-fill: #FFFFFF;
+    -fx-padding: 5;
+    -fx-pref-height: 50;
+    -fx-alignment: CENTER-LEFT;
+    -fx-spacing: 5;
+}
+
+.nav-btn .label {
+    -fx-text-fill: #FFFFFF;
+}
+
+.nav-btn:hover {
+    -fx-background-color: #73d3f1;
+    /*-fx-background-color: #0bbcbc;*/
+}
+
+.content-section {
+    -fx-padding: 8px;
+    -fx-spacing: 5px;
+}
+
+
+.leaderboard-box {
+    -fx-spacing: 10px;
+    -fx-padding: 5px;
+}
+
+.copy-btn {
+
+}
+
+.copy-btn:hover {
+    -fx-border-color: #5bc0de;
+}
+
+.group-info-box {
+    -fx-padding: 5px;
+    -fx-spacing: 5px;
+}
+
+.leave-btn {
+    -fx-background-color: #d9534f;
+    -fx-text-fill: #ffffff;
+}
+
+.leave-btn:hover {
+    -fx-background-color: #ff6661;
+}
+
+.copy-response-label {
+    -fx-font-size: 10px;
+    -fx-text-fill: "#5cb85c";
+}
+
+.group-name-label {
+    -fx-font-size: 24px;
+}
+
+.max-capacity-label {
+
+}
+
+.capacity-label {
+
+}
+
+.group-code-info-label {
+    -fx-font-size: 16px;
+}
+
+.group-code-label {
+    -fx-font-size: 16px;
+}
+

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+<HBox fx:controller="sample.controllers.UserGroupViewController"
+      xmlns:fx="http://javafx.com/fxml" prefHeight="430.0" prefWidth="700.0" styleClass="root">
+
+    <VBox styleClass="navigation">
+        <Label text="Health tracker"/>
+
+        <HBox styleClass="nav-btn" onMouseClicked="#switchToDashboard">
+            <Label text="Home"/>
+        </HBox>
+        <HBox styleClass="nav-btn">
+            <Label text="Meal"/>
+        </HBox>
+        <HBox fx:id="switchExercise" styleClass="nav-btn">
+
+            <Label text="Exercise"/>
+        </HBox>
+        <HBox fx:id="switchGroup" styleClass="nav-btn">
+
+            <Label text="Group"/>
+        </HBox>
+
+        <HBox fx:id="switchAccount" styleClass="nav-btn">
+            <Label text="Account"/>
+        </HBox>
+
+    </VBox>
+
+    <HBox styleClass="content-section" HBox.hgrow="ALWAYS">
+
+        <VBox styleClass="group-info-box" HBox.hgrow="ALWAYS" spacing="10">
+            <HBox VBox.vgrow="NEVER" spacing="30" alignment="CENTER_LEFT">
+                <HBox HBox.hgrow="ALWAYS" spacing="3" alignment="CENTER_LEFT">
+                    <Label fx:id="groupName" styleClass="group-name-label" text="Group name placeholder"
+                           textAlignment="CENTER"/>
+                </HBox>
+                <HBox alignment="CENTER_LEFT">
+                    <ImageView>
+                        <Image url="@../images/baseline_people_black_18dp.png" requestedWidth="18"
+                               requestedHeight="18"/>
+                    </ImageView>
+                    <Label fx:id="capacityLabel" styleClass="capacity-label" text="0" textAlignment="CENTER"/>
+                    <Label fx:id="maxCapacityLabel" styleClass="max-capacity-label" text="/30" textAlignment="CENTER"/>
+                </HBox>
+
+            </HBox>
+
+
+            <HBox spacing="3" alignment="CENTER_LEFT">
+                <Label text="Group code: " styleClass="group-code-info-label"/>
+                <Label fx:id="groupCodeLabel" styleClass="group-code-label" text="JDHDGE"/>
+                <VBox onMouseClicked="#copyIconOnClick">
+                    <ImageView fx:id="copyIcon">
+                        <Image url="@../images/content_copy_24dp.png" requestedWidth="22" requestedHeight="22"/>
+                    </ImageView>
+                </VBox>
+
+
+            </HBox>
+
+            <Label fx:id="copyResponseLabel" styleClass="copy-response-label" visible="false"
+                   text="Code copied to the clipboard"/>
+
+            <HBox VBox.vgrow="NEVER" spacing="3">
+                <Label text="Group Goal "/>
+                <Label fx:id="groupGoal" text=""/>
+            </HBox>
+
+            <HBox VBox.vgrow="NEVER">
+                <VBox HBox.hgrow="ALWAYS">
+                    <TableView fx:id="achievementTable" prefHeight="100">
+                        <columns>
+
+                            <!--                        <TableColumn fx:id="achievements" text="Achievements"/>-->
+                            <!--                        <TableColumn fx:id="points" text="Points"/>-->
+                            <!--                        <TableColumn fx:id="complete-btn" text="hghg" />-->
+
+                        </columns>
+                    </TableView>
+                </VBox>
+            </HBox>
+            <HBox VBox.vgrow="ALWAYS">
+            </HBox>
+
+            <HBox VBox.vgrow="NEVER">
+                <VBox HBox.hgrow="ALWAYS">
+                    <Button fx:id="leaveBtn" styleClass="leave-btn" text="Leave Group" onAction="#leaveGroupOnClick"/>
+                </VBox>
+            </HBox>
+
+        </VBox>
+
+        <VBox styleClass="leaderboard-box" HBox.hgrow="ALWAYS">
+            <Label text="Leaderboard"/>
+
+            <TableView fx:id="leaderBoardTable" VBox.vgrow="ALWAYS">
+                <columns>
+                    <!--                <TableColumn  fx:id="ranking" text="Ranking"/>-->
+                    <!--                <TableColumn  fx:id="uName" text="Username"/>-->
+                    <!--                <TableColumn  fx:id="score" text="Score"/>-->
+                </columns>
+            </TableView>
+        </VBox>
+
+    </HBox>
+
+    <stylesheets>
+        <URL value="@../userGroups.css"/>
+    </stylesheets>
+</HBox>
