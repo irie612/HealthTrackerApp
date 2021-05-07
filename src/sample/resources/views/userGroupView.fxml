@@ -2,8 +2,7 @@
 
 
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import java.net.URL?>
 <HBox fx:controller="sample.controllers.UserGroupViewController"
@@ -13,23 +12,37 @@
         <Label text="Health tracker"/>
 
         <HBox styleClass="nav-btn" onMouseClicked="#switchToDashboard">
+            <ImageView>
+                <Image url="@../images/baseline_home_white_24dp.png"/>
+            </ImageView>
             <Label text="Home"/>
         </HBox>
-        <HBox styleClass="nav-btn">
+        <HBox styleClass="nav-btn" onMouseClicked="#navMealBtnOnClick">
+            <ImageView>
+                <Image url="@../images/baseline_restaurant_white_24dp.png"/>
+            </ImageView>
             <Label text="Meal"/>
         </HBox>
         <HBox fx:id="switchExercise" styleClass="nav-btn">
-
+            <ImageView>
+                <Image url="@../images/baseline_fitness_center_white_24dp.png"/>
+            </ImageView>
             <Label text="Exercise"/>
         </HBox>
-        <HBox fx:id="switchGroup" styleClass="nav-btn">
-
+        <HBox fx:id="switchGroup" styleClass="nav-btn" onMouseClicked="#navGroupsBtnOnClick">
+            <ImageView>
+                <Image url="@../images/baseline_groups_white_24dp.png"/>
+            </ImageView>
             <Label text="Group"/>
         </HBox>
 
         <HBox fx:id="switchAccount" styleClass="nav-btn">
+            <ImageView>
+                <Image url="@../images/baseline_person_white_24dp.png"/>
+            </ImageView>
             <Label text="Account"/>
         </HBox>
+
 
     </VBox>
 

@@ -21,7 +21,7 @@
             </ImageView>
             <Label text="Home"/>
         </HBox>
-        <HBox styleClass="nav-btn">
+        <HBox styleClass="nav-btn" onMouseClicked="#navMealBtnOnClick">
             <ImageView>
                 <Image url="@../images/baseline_restaurant_white_24dp.png"/>
             </ImageView>
@@ -33,7 +33,7 @@
             </ImageView>
             <Label text="Exercise"/>
         </HBox>
-        <HBox fx:id="switchGroup" styleClass="nav-btn">
+        <HBox fx:id="switchGroup" styleClass="nav-btn" onMouseClicked="#navGroupsBtnOnClick">
             <ImageView>
                 <Image url="@../images/baseline_groups_white_24dp.png"/>
             </ImageView>

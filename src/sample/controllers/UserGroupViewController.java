@@ -14,6 +14,7 @@ import javafx.scene.input.MouseEvent;
 import sample.Main;
 import sample.UserGroup;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.Timer;
@@ -105,5 +106,13 @@ public class UserGroupViewController implements Initializable {
         };
 
         timer.schedule(task, 2500); //wait 2 and half seconds
+    }
+
+    public void navGroupsBtnOnClick(MouseEvent mouseEvent) throws IOException {
+        Main.switchToGroups(mouseEvent, this.getClass());
+    }
+
+    public void navMealBtnOnClick(MouseEvent mouseEvent) throws IOException {
+        Main.switchToMeal(mouseEvent, this.getClass());
     }
 }
