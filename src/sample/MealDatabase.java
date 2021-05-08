@@ -35,7 +35,7 @@ public class MealDatabase extends Database<Meal> {
 
     @Override
     public void update(Meal meal, Meal t2) throws IOException {
-
+        throw new UnsupportedEncodingException();
     }
 
     @Override

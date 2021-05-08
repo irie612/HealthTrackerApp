@@ -28,7 +28,7 @@ public class LoginDatabase extends Database<Users> {
 
     @Override
     public void update(Users users, Users t2) throws IOException {
-
+        throw new UnsupportedEncodingException();
     }
 
     @Override
