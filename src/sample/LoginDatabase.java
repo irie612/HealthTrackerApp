@@ -1,7 +1,6 @@
 package sample;
 
 import java.io.*;
-import java.util.NoSuchElementException;
 
 public class LoginDatabase extends Database<Users> {
 
@@ -28,11 +27,26 @@ public class LoginDatabase extends Database<Users> {
     }
 
     @Override
+    public void update(Users users, Users t2) throws IOException {
+
+    }
+
+    @Override
+    public void delete(Users users) throws IOException {
+        throw new UnsupportedEncodingException();
+    }
+
+    @Override
+    public void writeAllData() throws IOException {
+        throw new UnsupportedEncodingException();
+    }
+
+    @Override
     public void loadElements() throws IOException {
         fileReader = new BufferedReader(new FileReader(url));
         String line;
 
-        while((line = fileReader.readLine()) != null){
+        while ((line = fileReader.readLine()) != null) {
 
             String[] tokens = line.split(delimiter);
             String userName = tokens[0].trim();

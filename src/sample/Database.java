@@ -20,17 +20,18 @@ public abstract class Database<T> {
         file = new File(url);
         this.url = url;
         delimiter = DEFAULT_DELIMITER;
-        if (!file.exists()) {
-            //file not found
-            throw new FileNotFoundException(url + " file not found");
-        } else if (!file.canWrite()) {
-            //not writable
-            throw new IOException("Cannot write to file: Change file permissions");
-        } else if (!file.canRead()) {
-            //not readable
-            throw new IOException("Cannot read file: Change file permissions");
-        }
-
+//        if (!file.exists()) {
+//            //file not found
+//            throw new FileNotFoundException(url + " file not found");
+//        } else if (!file.canWrite()) {
+//            //not writable
+//            throw new IOException("Cannot write to file: Change file permissions");
+//        } else if (!file.canRead()) {
+//            //not readable
+//            throw new IOException("Cannot read file: Change file permissions");
+//        }
+//        fw = new BufferedWriter(new FileWriter(file));
+//        fileReader = new BufferedReader(new FileReader(file));
         data = new ArrayList<>();
     }
 
@@ -53,6 +54,12 @@ public abstract class Database<T> {
         data = new ArrayList<>();
     }
 
+    public void clearFile() throws IOException {
+        fw = new BufferedWriter(new FileWriter(url));
+        fw.write("");
+        fw.close();
+    }
+
     public String getUrl() {
         return url;
     }
@@ -70,6 +77,12 @@ public abstract class Database<T> {
     }
 
     public abstract void insert(T t) throws IOException;
+
+    public abstract void update(T t, T t2) throws IOException;
+
+    public abstract void delete(T t) throws IOException;
+
+    public abstract void writeAllData() throws IOException;
 
     public abstract void loadElements() throws IOException;
 
