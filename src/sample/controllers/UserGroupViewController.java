@@ -1,31 +1,37 @@
 package sample.controllers;
 
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.MouseEvent;
-import sample.Main;
-import sample.UserGroup;
+import javafx.util.Callback;
+import sample.*;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ResourceBundle;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 import static javafx.scene.control.TableView.CONSTRAINED_RESIZE_POLICY;
 
 public class UserGroupViewController implements Initializable {
 
     @FXML
-    public TableView leaderBoardTable;
+    public TableView<UserGroupMember> leaderBoardTable;
     @FXML
     public Label groupCodeLabel;
     @FXML
@@ -39,27 +45,82 @@ public class UserGroupViewController implements Initializable {
     @FXML
     public Label capacityLabel;
 
+    @FXML
+    public ListView<Achievement> achievementListView;
+
     private String groupCode;
 
     private UserGroup currentGroup;
+
+    private Users currentUser;
+
+    private MemberDatabase memberDatabase;
+
+    private UserGroupDatabase userGroupDatabase;
+
+    private ObservableList<Achievement> achievementObservableList;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         currentGroup = Main.userGroup;
+        currentUser = Main.currentUser;
+
         groupCode = currentGroup.getCode();
         groupCodeLabel.setText(groupCode);
         groupNameLabel.setText(currentGroup.getGroupName());
         capacityLabel.setText(String.valueOf(currentGroup.getCapacity()));
 
+        try {
+            memberDatabase = new MemberDatabase("src/sample/data/member.csv");
+            memberDatabase.loadElements();
+
+            userGroupDatabase = new UserGroupDatabase("src/sample/data/userGroups.csv");
+            userGroupDatabase.loadElements();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         initializeLeaderboardTable();
+
+        achievementObservableList = FXCollections.observableArrayList();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy");
+        achievementObservableList.add(new Achievement("Walk 2.5 miles", 3,
+                currentUser.getUsername(), LocalDate.parse("21/05/21", formatter), currentGroup.getGroupName()));
+        achievementObservableList.add(new Achievement("Walk 5 miles", 5,
+                currentUser.getUsername(), LocalDate.parse("21/05/21", formatter), currentGroup.getGroupName()));
+        achievementObservableList.add(new Achievement("Walk 7 miles", 10,
+                currentUser.getUsername(), LocalDate.parse("21/05/21", formatter), currentGroup.getGroupName()));
+
+        achievementListView.setPlaceholder(new Label("No group objectives available. Come back later"));
+        achievementListView.setItems(achievementObservableList);
+        achievementListView.setCellFactory(achievementListView -> new AchievementListViewCell());
+
     }
 
     public void switchToDashboard(MouseEvent mouseEvent) {
     }
 
-    public void leaveGroupOnClick(ActionEvent actionEvent) {
+    public void leaveGroupOnClick(ActionEvent actionEvent) throws IOException {
+        for (UserGroupMember member : memberDatabase.getAllByGroup(currentGroup.getGroupName())) {
+            if (member.getMemberUsername().equals(currentUser.getUsername())) {
+                memberDatabase.delete(member);
+                userGroupDatabase.update(currentGroup, new UserGroup(currentGroup.getGroupName(),
+                        currentGroup.getAdmin(), currentGroup.getCapacity() - 1,
+                        currentGroup.getCode()));
+                currentGroup = userGroupDatabase.getByGroupName(currentGroup.getGroupName());
+                if (currentGroup.getCapacity() == 0) {
+                    userGroupDatabase.delete(currentGroup);
+                }
+
+                Main.switchToGroups(actionEvent, getClass());
+            }
+        }
+
+
     }
 
     public void initializeLeaderboardTable() {
@@ -69,21 +130,36 @@ public class UserGroupViewController implements Initializable {
         TableColumn rankColumn = new TableColumn("Pos");
 //        rankColumn.setMinWidth(20);
 //        rankColumn.prefWidthProperty().bind(leaderBoardTable.widthProperty().divide(4));
-//        mealTypeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
+        rankColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<UserGroupMember, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<UserGroupMember, String> p) {
+                return new ReadOnlyObjectWrapper(leaderBoardTable.getItems().indexOf(p.getValue()) + 1 + "");
+            }
+        });
+
         rankColumn.resizableProperty().setValue(true);
         leaderBoardTable.getColumns().add(rankColumn);
 
-        TableColumn userColumn = new TableColumn("User");
+        TableColumn<UserGroupMember, String> userColumn = new TableColumn<>("User");
 //        userColumn.prefWidthProperty().bind(leaderBoardTable.widthProperty().divide(2));
-//        mealTypeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
+        userColumn.setCellValueFactory(new PropertyValueFactory<>("memberUsername"));
         userColumn.resizableProperty().setValue(true);
         leaderBoardTable.getColumns().add(userColumn);
 
-        TableColumn scoreColumn = new TableColumn("Score");
+        TableColumn<UserGroupMember, Integer> scoreColumn = new TableColumn<>("Score");
 //        scoreColumn.prefWidthProperty().bind(leaderBoardTable.widthProperty().divide(4));
-//        mealTypeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
+        scoreColumn.setCellValueFactory(new PropertyValueFactory<>("memberScore"));
         scoreColumn.resizableProperty().setValue(true);
         leaderBoardTable.getColumns().add(scoreColumn);
+        ArrayList<UserGroupMember> members = memberDatabase.getAllByGroup(currentGroup.getGroupName());
+        members.sort(new Comparator<UserGroupMember>() {
+            @Override
+            public int compare(UserGroupMember o1, UserGroupMember o2) {
+                return o2.getMemberScore() - o1.getMemberScore();
+            }
+        });
+        leaderBoardTable.getItems().addAll(members);
+
     }
 
 

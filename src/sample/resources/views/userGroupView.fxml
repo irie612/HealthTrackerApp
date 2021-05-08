@@ -87,16 +87,9 @@
             </HBox>
 
             <HBox VBox.vgrow="NEVER">
-                <VBox HBox.hgrow="ALWAYS">
-                    <TableView fx:id="achievementTable" prefHeight="100">
-                        <columns>
-
-                            <!--                        <TableColumn fx:id="achievements" text="Achievements"/>-->
-                            <!--                        <TableColumn fx:id="points" text="Points"/>-->
-                            <!--                        <TableColumn fx:id="complete-btn" text="hghg" />-->
-
-                        </columns>
-                    </TableView>
+                <VBox HBox.hgrow="ALWAYS" spacing="5">
+                    <Label text="Group objectives"/>
+                    <ListView fx:id="achievementListView" styleClass="achievement-list-view"/>
                 </VBox>
             </HBox>
             <HBox VBox.vgrow="ALWAYS">

@@ -1,6 +1,9 @@
 package sample.controllers;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -14,13 +17,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import sample.Main;
-import sample.UserGroup;
-import sample.UserGroupDatabase;
-import sample.Users;
+import sample.*;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.NoSuchElementException;
 import java.util.ResourceBundle;
 
 public class GroupsController implements Initializable {
@@ -36,7 +37,9 @@ public class GroupsController implements Initializable {
     @FXML
     public Label joinGroupMessageLabel;
     @FXML
-    private ListView<String> groupsList;
+    private ListView<UserGroup> groupsListView;
+
+    private ObservableList<UserGroup> groupObservableList;
 
     public static final String JOINED_GROUP_MSG = "Joined group successfully";
 
@@ -46,6 +49,8 @@ public class GroupsController implements Initializable {
 
     private UserGroupDatabase userGroupDatabase;
 
+    private MemberDatabase memberDatabase;
+
     private Users currentUser;
 
     private UserGroup createdGroup;
@@ -53,23 +58,34 @@ public class GroupsController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
-        currentUser = new Users("dhdhgd", "hjdhdhd", 929, 27);
+        currentUser = Main.currentUser;
+////        currentUser = new Users("John", "john@john.john", 1.8, 10.6);
+//        Main.currentUser = currentUser;
         try {
             userGroupDatabase = new UserGroupDatabase("src/sample/data/userGroups.csv");
             userGroupDatabase.loadElements();
 
+            memberDatabase = new MemberDatabase("src/sample/data/member.csv");
 
-            //usermembers db
-            //find user - get list of groups
-
-            //get groups from database and store in list
+            memberDatabase.loadElements();
 
 
         } catch (IOException e) {
             e.printStackTrace();
         }
-        groupsList.setPlaceholder(new Label("You are currently not in any groups"));
+
+        groupObservableList = FXCollections.observableArrayList();
+
+
+        for (UserGroupMember member : memberDatabase.getAllByUserName(currentUser.getUsername())) {
+            groupObservableList.add(userGroupDatabase.getByGroupName(member.getGroupName()));
+        }
+
+
+        groupsListView.setPlaceholder(new Label("You are currently not in any groups"));
+        groupsListView.setItems(groupObservableList);
+        groupsListView.setCellFactory(groupsListView -> new GroupsListViewCell());
+
     }
 
     public void joinGroupOnClick(ActionEvent event) {
@@ -78,11 +94,37 @@ public class GroupsController implements Initializable {
         if (!code.isEmpty()) {
 
             System.out.println(code);
+            joinGroupMessageLabel.setText("join");
+
+            try {
+                boolean joined = joinGroup(currentUser, code);
+
+                if (joined) {
+                    System.out.println(joined);
+                    Main.userGroup = userGroupDatabase.getByGroupCode(code);
+                    switchToUserGroup(event, getClass());
+                } else {
+                    joinGroupMessageLabel.setText(JOIN_GROUP_FAILED_MSG);
+                    joinGroupMessageLabel.setTextFill(Color.valueOf("#d9534f"));
+                    joinGroupMessageLabel.setVisible(true);
+
+                }
+            } catch (Exception e) {
+                if (e.getMessage().equals("Group with code not found")) { //TODO make constant
+
+                    joinGroupMessageLabel.setText(GROUP_NOT_FOUND_MSG);
+                    joinGroupMessageLabel.setTextFill(Color.valueOf("#f0ad4e"));
+                    joinGroupMessageLabel.setVisible(true);
+
+                } else {
+                    e.printStackTrace();
+                }
+            }
 
             //check code
-            joinGroupMessageLabel.setText(JOINED_GROUP_MSG);
-            joinGroupMessageLabel.setTextFill(Color.valueOf("#5cb85c"));
-            joinGroupMessageLabel.setVisible(true);
+//            joinGroupMessageLabel.setText(JOINED_GROUP_MSG);
+//            joinGroupMessageLabel.setTextFill(Color.valueOf("#5cb85c"));
+//            joinGroupMessageLabel.setVisible(true);
 //
 //            joinGroupMessageLabel.setText(GROUP_NOT_FOUND_MSG);
 //            joinGroupMessageLabel.setTextFill(Color.valueOf("#f0ad4e"));
@@ -101,6 +143,32 @@ public class GroupsController implements Initializable {
 
     }
 
+    public boolean joinGroup(Users user, String code) {
+        UserGroup group;
+
+        if ((group = userGroupDatabase.getByGroupCode(code)) != null
+                && group.getCapacity() < UserGroup.DEFAULT_CAPACITY) {
+
+
+            for (UserGroupMember member : memberDatabase.getAllByGroup(group.getGroupName())) {
+                if (member.getMemberUsername().equals(user.getUsername())) {
+                    return false;
+                }
+            }
+
+            try {
+                memberDatabase.insert(new UserGroupMember(group.getGroupName(), user.getUsername(), 0));
+                userGroupDatabase.update(userGroupDatabase.getByGroupCode(code),
+                        new UserGroup(group.getGroupName(), group.getAdmin(), group.getCapacity() + 1, group.getCode()));
+            } catch (NoSuchElementException | IOException e) {
+                e.printStackTrace();
+                return false;
+            }
+            return true;
+        }
+        return false;
+    }
+
     public void createBtnOnClick(ActionEvent event) throws IOException {
         String groupName = groupNameField.getText();
         String admin = currentUser.getUsername();
@@ -108,19 +176,9 @@ public class GroupsController implements Initializable {
         boolean created = createGroup(groupName, admin, 1);
 
         if (created) {
-            switchToUserGroup(event);
+            switchToUserGroup(event, getClass());
         }
     }
-
-    public void switchToUserGroup(ActionEvent event) throws IOException {
-
-        Parent parent = FXMLLoader.load(getClass().getResource("../resources/views/userGroupView.fxml"));
-        Scene scene = new Scene(parent);
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        window.setScene(scene);
-        window.show();
-    }
-
     public boolean createGroup(String groupName, String admin, int capacity) {
         String generatedCode = generateCode(10);
 
@@ -129,6 +187,8 @@ public class GroupsController implements Initializable {
         try {
             if (!userGroupDatabase.contains(newGroup)) {
                 userGroupDatabase.insert(newGroup);
+                UserGroupMember newMember = new UserGroupMember(groupName, admin, 0);
+                memberDatabase.insert(newMember);
                 Main.userGroup = newGroup;
             } else
                 return false;
@@ -165,6 +225,15 @@ public class GroupsController implements Initializable {
         }
 
         return sb.toString();
+    }
+
+    public static void switchToUserGroup(Event event, Class c) throws IOException {
+
+        Parent parent = FXMLLoader.load(c.getResource("../resources/views/userGroupView.fxml"));
+        Scene scene = new Scene(parent);
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene(scene);
+        window.show();
     }
 
     public void navGroupsBtnOnClick(MouseEvent mouseEvent) throws IOException {

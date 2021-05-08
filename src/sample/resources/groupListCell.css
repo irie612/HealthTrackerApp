@@ -1,0 +1,16 @@
+@font-face {
+    src: url('font/Baloo2-Regular.ttf');
+}
+
+.cell {
+    -fx-font-family: "Baloo 2";
+    -fx-padding: 15 0 15 0;
+}
+
+.cell-group-capacity {
+    -fx-font-size: 14px;
+}
+
+.cell-group-name {
+    -fx-font-size: 16px;
+}

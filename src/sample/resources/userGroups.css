@@ -1,10 +1,9 @@
 @font-face {
-    /*font-family: Baloo2-Regular;*/
     src: url('font/Baloo2-Regular.ttf');
 }
 
 .root {
-    -fx-font-family: 'Baloo2-Regular'; /* font */
+    -fx-font-family: "Baloo 2"; /* font */
     /*-fx-min-width: 600;*/
     /*-fx-min-height: 400;*/
 }
@@ -94,3 +93,14 @@
     -fx-font-size: 16px;
 }
 
+
+. achievement-list-view .cell:filled:selected {
+    -fx-background: -fx-control-inner-background;
+    -fx-background-color: -fx-table-cell-border-color, -fx-background;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-table-cell-border-color: derive(-fx-color, 5%);
+}
+
+.achievement-list-view .cell:odd:filled:selected {
+    -fx-background: -fx-control-inner-background-alt;
+}

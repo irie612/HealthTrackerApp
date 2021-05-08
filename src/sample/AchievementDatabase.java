@@ -22,8 +22,8 @@ public class AchievementDatabase extends Database<Achievement> {
         fw = new BufferedWriter(new FileWriter(url, true));
         data.add(achievement);
 
-        String row = achievement.getName()+ delimiter + achievement.getScore()+ delimiter + achievement.getUserName()+
-                delimiter + achievement.getDeadline().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))+ achievement.getUserGroup();
+        String row = achievement.getName() + delimiter + achievement.getScore() + delimiter + achievement.getUserName() +
+                delimiter + achievement.getDeadline().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + delimiter + achievement.getUserGroupName();
 
         fw.write(row);
         fw.newLine();
@@ -62,6 +62,9 @@ public class AchievementDatabase extends Database<Achievement> {
 
             int score = Integer.parseInt(s);
             LocalDate date = LocalDate.parse(d, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+
+            data.add(new Achievement(name, score, userName, date, u));
         }
+        fileReader.close();
     }
 }

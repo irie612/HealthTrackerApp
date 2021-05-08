@@ -14,6 +14,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import sample.LoginDatabase;
+import sample.Main;
 import sample.Users;
 
 import java.io.FileNotFoundException;
@@ -56,6 +57,7 @@ public class LoginController {
             log.loadElements();
             Users user = new Users(username, password);
             if(log.containUser(user)){
+                Main.currentUser = user;
                 Parent parent = FXMLLoader.load(getClass().getResource("../resources/views/groupsView.fxml"));
                 Scene scene = new Scene(parent);
                 Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();

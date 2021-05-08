@@ -1,5 +1,7 @@
 package sample;
 
+import java.util.Objects;
+
 public class UserGroupMember {
 
     private String groupName;
@@ -22,5 +24,21 @@ public class UserGroupMember {
 
     public int getMemberScore() {
         return memberScore;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserGroupMember member = (UserGroupMember) o;
+        return memberScore == member.memberScore &&
+                Objects.equals(groupName, member.groupName) &&
+                Objects.equals(memberUsername, member.memberUsername);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(groupName, memberUsername, memberScore);
     }
 }

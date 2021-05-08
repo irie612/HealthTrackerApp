@@ -1,13 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.HBox?>
-<HBox xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="sample.controllers.GroupsListViewCell"
-      spacing="5" padding="2">
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+<HBox fx:id="hbox" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
 
-        <Label fx:id="cellGroupName" text="Group Name"/>
-        <Label fx:id="cellGroupCapacity" text="0/30"/>
+        <HBox styleClass="cell" HBox.hgrow="ALWAYS" onMouseClicked="#cellOnClick">
+                <HBox>
+                        <Label fx:id="cellGroupName" styleClass="cell-group-name" text="Group Name"/>
+                </HBox>
 
+                <HBox HBox.hgrow="ALWAYS" alignment="CENTER_RIGHT">
+                        <ImageView>
+                                <Image url="@../images/baseline_people_black_18dp.png" smooth="true"/>
+                        </ImageView>
+                        <Label fx:id="cellGroupCapacity" styleClass="cell-group-capacity" text="0"/>
+                </HBox>
+        </HBox>
+
+
+        <stylesheets>
+                <URL value="@../groupListCell.css"/>
+        </stylesheets>
 </HBox>

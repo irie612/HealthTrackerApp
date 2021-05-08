@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+<HBox fx:id="hbox" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
+
+        <HBox styleClass="cell" HBox.hgrow="ALWAYS">
+                <VBox spacing="8">
+                        <Label fx:id="cellAchievementName" styleClass="cell-achievement-name" text="Walk 2.5 miles"/>
+                        <HBox spacing="5">
+                                <Label text="Ends"/>
+                                <Label fx:id="cellAchievementEndDate" styleClass="cell-achievement-endDate"
+                                       text="10/05/21"/>
+                        </HBox>
+
+                </VBox>
+
+                <HBox HBox.hgrow="ALWAYS" alignment="CENTER_RIGHT" spacing="5" onMouseClicked="#completeAchievement">
+
+                        <Label fx:id="cellAchievementPoints" styleClass="cell-achievement-points" text="+3"/>
+                        <ImageView fx:id="tickImg">
+                                <Image url="@../images/check_circle_outline_blue_24dp.png" smooth="true"/>
+                        </ImageView>
+                </HBox>
+        </HBox>
+
+
+        <stylesheets>
+                <URL value="@../achievementListCell.css"/>
+        </stylesheets>
+</HBox>

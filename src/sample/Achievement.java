@@ -1,6 +1,7 @@
 package sample;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class Achievement {
 
@@ -8,7 +9,7 @@ public class Achievement {
     int score;
     String userName;
     LocalDate deadline;
-    UserGroup userGroup;
+    String userGroupName;
 
     public Achievement(String name, int score, String userName, LocalDate deadline){
 
@@ -18,13 +19,13 @@ public class Achievement {
         this.deadline = deadline;
     }
 
-    public Achievement(String name, int score, String userName, LocalDate deadline, UserGroup userGroup){
+    public Achievement(String name, int score, String userName, LocalDate deadline, String userGroupName) {
 
         this.name = name;
         this.score = score;
         this.userName = userName;
         this.deadline = deadline;
-        this.userGroup = userGroup;
+        this.userGroupName = userGroupName;
     }
 
     public String getName() {
@@ -43,8 +44,8 @@ public class Achievement {
         return deadline;
     }
 
-    public UserGroup getUserGroup() {
-        return userGroup;
+    public String getUserGroupName() {
+        return userGroupName;
     }
 
     public void setName(String name) {
@@ -63,7 +64,24 @@ public class Achievement {
         this.deadline = deadline;
     }
 
-    public void setUserGroup(UserGroup userGroup) {
-        this.userGroup = userGroup;
+    public void setUserGroupName(String userGroupName) {
+        this.userGroupName = userGroupName;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Achievement that = (Achievement) o;
+        return score == that.score &&
+                Objects.equals(name, that.name) &&
+                Objects.equals(userName, that.userName) &&
+                Objects.equals(deadline, that.deadline) &&
+                Objects.equals(userGroupName, that.userGroupName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, score, userName, deadline, userGroupName);
     }
 }

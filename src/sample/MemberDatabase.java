@@ -32,7 +32,12 @@ public class MemberDatabase extends Database<UserGroupMember> {
 
     @Override
     public void update(UserGroupMember userGroupMember, UserGroupMember t2) throws IOException {
-        throw new UnsupportedEncodingException();
+        if (data.contains(userGroupMember)) {
+            data.remove(userGroupMember);
+            data.add(t2);
+            writeAllData();
+        }
+
     }
 
     @Override

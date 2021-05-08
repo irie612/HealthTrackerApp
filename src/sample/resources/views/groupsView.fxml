@@ -51,9 +51,8 @@
 
         <VBox styleClass="groups-box" HBox.hgrow="ALWAYS">
             <Label styleClass="your-groups-label" text="Your Groups"/>
-            <ListView fx:id="groupsList" styleClass="groups-list" VBox.vgrow="ALWAYS">
+            <ListView fx:id="groupsListView" styleClass="groups-list" VBox.vgrow="ALWAYS"/>
 
-            </ListView>
         </VBox>
 
         <VBox styleClass="group-actions" HBox.hgrow="ALWAYS" alignment="CENTER">
