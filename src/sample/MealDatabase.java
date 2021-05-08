@@ -34,6 +34,21 @@ public class MealDatabase extends Database<Meal> {
     }
 
     @Override
+    public void update(Meal meal, Meal t2) throws IOException {
+
+    }
+
+    @Override
+    public void delete(Meal meal) throws IOException {
+        throw new UnsupportedEncodingException();
+    }
+
+    @Override
+    public void writeAllData() throws IOException {
+        throw new UnsupportedEncodingException();
+    }
+
+    @Override
     public void loadElements() throws IOException {
 
         fileReader = new BufferedReader(new FileReader(url));

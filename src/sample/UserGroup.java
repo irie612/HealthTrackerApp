@@ -76,14 +76,23 @@ public class UserGroup {
 
         leaderBoard = getLeaderBoard();
         Iterator iterator = leaderBoard.entrySet().iterator();
-        while(iterator.hasNext()){
+        while (iterator.hasNext()) {
 
             Map.Entry m = (Map.Entry) iterator.next();
             System.out.println(m.getKey() + " : " + m.getValue());
         }
     }
 
-
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        } else {
+            UserGroup group = (UserGroup) obj;
+            return this.groupName.equals(group.groupName) && this.admin.equals(group.admin) &&
+                    this.capacity == group.capacity && this.code.equals(group.code);
+        }
+    }
 
     public static void main(String[] args) {
         Users user = new Users("joshua", "joshua@gmail.com", 1.80, 60);

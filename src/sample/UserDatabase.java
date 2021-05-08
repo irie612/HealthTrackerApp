@@ -21,10 +21,25 @@ public class UserDatabase extends Database<Users> {
         data.add(users);
 
         String row = users.getUsername() + delimiter + users.getEmail() + delimiter + users.getWeight() + delimiter +
-                    users.getHeight();
+                users.getHeight();
         fw.write(row);
         fw.newLine();
         fw.close();
+    }
+
+    @Override
+    public void update(Users users, Users t2) throws IOException {
+        throw new UnsupportedEncodingException();
+    }
+
+    @Override
+    public void delete(Users users) throws IOException {
+        throw new UnsupportedEncodingException();
+    }
+
+    @Override
+    public void writeAllData() throws IOException {
+        throw new UnsupportedEncodingException();
     }
 
     @Override
@@ -32,7 +47,7 @@ public class UserDatabase extends Database<Users> {
         fileReader = new BufferedReader(new FileReader(url));
         String line;
 
-        while((line = fileReader.readLine()) != null){
+        while ((line = fileReader.readLine()) != null) {
 
             String[] tokens = line.split(delimiter);
             String username = tokens[0].trim();
