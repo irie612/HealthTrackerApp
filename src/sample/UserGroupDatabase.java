@@ -29,7 +29,7 @@ public class UserGroupDatabase extends Database<UserGroup> {
     }
 
     @Override
-    public void load() throws IOException {
+    public void loadElements() throws IOException {
         fileReader = new BufferedReader(new FileReader(url));
         String line;
 
