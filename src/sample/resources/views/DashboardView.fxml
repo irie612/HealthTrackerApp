@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<HBox prefHeight="450.0" prefWidth="650.0" styleClass="root" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controllers.DashboardController">
+   <stylesheets>
+      <URL value="@../mealView.css"/>
+   </stylesheets>
+   <children>
+      <VBox styleClass="navigation">
+         <children>
+            <Label text="Health tracker" />
+            <HBox styleClass="nav-btn">
+               <children>
+                  <ImageView>
+                     <image>
+                        <Image url="@../../resources/images/baseline_home_white_24dp.png" />
+                     </image>
+                  </ImageView>
+                  <Label text="Home" />
+               </children>
+            </HBox>
+            <HBox styleClass="nav-btn" onMouseClicked="#switchToMeal">
+               <children>
+                  <ImageView>
+                     <image>
+                        <Image url="@../../resources/images/baseline_restaurant_white_24dp.png" />
+                     </image>
+                  </ImageView>
+                  <Label text="Meal" />
+               </children>
+            </HBox>
+            <HBox styleClass="nav-btn" onMouseClicked="#switchToExercise">
+               <children>
+                  <ImageView>
+                     <image>
+                        <Image url="@../../resources/images/baseline_fitness_center_white_24dp.png" />
+                     </image>
+                  </ImageView>
+                  <Label text="Exercise" />
+               </children>
+            </HBox>
+            <HBox styleClass="nav-btn" onMouseClicked="#switchToGroup">
+               <children>
+                  <ImageView>
+                     <image>
+                        <Image url="@../../resources/images/baseline_groups_white_24dp.png" />
+                     </image>
+                  </ImageView>
+                  <Label text="Group" />
+               </children>
+            </HBox>
+            <HBox styleClass="nav-btn" onMouseClicked="#switchToAccount">
+               <children>
+                  <ImageView>
+                     <image>
+                        <Image url="@../../resources/images/baseline_person_white_24dp.png" />
+                     </image>
+                  </ImageView>
+                  <Label text="Account" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <VBox style="-fx-padding: 5 0 0 5" HBox.hgrow="ALWAYS">
+         <children>
+            <Label prefHeight="58.0" prefWidth="87.0" styleClass="meal-diary-title" text="Home" />
+            <TabPane prefHeight="387.0" prefWidth="526.0" side="RIGHT" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+               <tabs>
+                  <Tab text="Current Goals">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <AnchorPane layoutX="35.0" layoutY="34.0" prefHeight="245.0" prefWidth="347.0" style="-fx-background-color: #D3D3D3;">
+                                 <children>
+                                    <Label layoutX="107.0" layoutY="5.0" text="Place Holder For Goals" />
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                     <content>
+                        <HBox prefHeight="196.0" prefWidth="497.0">
+                           <children>
+                              <VBox prefHeight="149.0" prefWidth="497.0">
+                                 <children>
+                                    <VBox prefHeight="322.0" prefWidth="497.0">
+                                       <children>
+                                          <GridPane prefHeight="151.0" prefWidth="497.0">
+                                            <columnConstraints>
+                                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="115.3333511352539" minWidth="10.0" prefWidth="57.333323160807296" />
+                                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="189.33334350585938" minWidth="10.0" prefWidth="189.33334350585938" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="173.99996948242188" minWidth="10.0" prefWidth="173.99996948242188" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="107.3333740234375" minWidth="10.0" prefWidth="50.000030517578125" />
+                                            </columnConstraints>
+                                            <rowConstraints>
+                                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                            </rowConstraints>
+                                             <children>
+                                                <Label text="Current Weight" GridPane.columnIndex="1" />
+                                                <Label text="Exercise done today" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                                <Label text="Calories Eaten today" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                             </children>
+                                             <padding>
+                                                <Insets left="10.0" right="10.0" />
+                                             </padding>
+                                          </GridPane>
+                                       </children>
+                                    </VBox>
+                                    <VBox prefHeight="387.0" prefWidth="465.0">
+                                       <children>
+                                          <HBox prefHeight="75.0" prefWidth="497.0">
+                                             <children>
+                                                <TableView prefHeight="75.0" prefWidth="498.0" styleClass="meal-table">
+                                                   <columns>
+                                                      <TableColumn minWidth="100.0" prefWidth="136.66667449474335" text="Current Exercise Goals" />
+                                                      <TableColumn minWidth="0.0" prefWidth="68.0" text="Distance" />
+                                                      <TableColumn minWidth="77.33328247070312" prefWidth="77.33328247070312" text="Time" />
+                                                      <TableColumn minWidth="88.0" prefWidth="88.0" text="Difficulty" />
+                                                      <TableColumn minWidth="100.0" prefWidth="127.33328247070312" text="End Date" />
+                                                   </columns>
+                                                </TableView>
+                                             </children>
+                                          </HBox>
+                                          <HBox prefHeight="75.0" prefWidth="497.0">
+                                             <children>
+                                                <TableView prefHeight="128.0" prefWidth="498.0" styleClass="meal-table">
+                                                   <columns>
+                                                      <TableColumn minWidth="100.0" prefWidth="162.00004851818085" text="Current Weight Goals" />
+                                                      <TableColumn minWidth="0.0" prefWidth="167.33328247070312" text="Weight to Lose" />
+                                                      <TableColumn minWidth="0.0" prefWidth="167.99990844726562" text="End Date" />
+                                                   </columns>
+                                                </TableView>
+                                             </children>
+                                          </HBox>
+                                          <HBox prefHeight="75.0" prefWidth="497.0">
+                                             <children>
+                                                <TableView prefHeight="75.0" prefWidth="498.0" styleClass="meal-table">
+                                                   <columns>
+                                                      <TableColumn minWidth="100.0" prefWidth="175.3333615064621" text="Current Calorie Intake Goals" />
+                                                      <TableColumn minWidth="0.0" prefWidth="151.33328247070312" text="Daily Calories" />
+                                                      <TableColumn minWidth="0.0" prefWidth="167.99990844726562" text="End Date" />
+                                                   </columns>
+                                                </TableView>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                     </content>
+                  </Tab>
+                  <Tab text="Completed Goals">
+                     <content>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <VBox prefHeight="387.0" prefWidth="497.0">
+                                 <children>
+                                    <HBox prefHeight="129.0" prefWidth="497.0">
+                                       <children>
+                                          <TableView prefHeight="128.0" prefWidth="498.0" styleClass="meal-table">
+                                             <columns>
+                                                <TableColumn minWidth="100.0" prefWidth="144.00004851818085" text="Complete Exercise Goals" />
+                                                <TableColumn minWidth="0.0" prefWidth="68.00006103515625" text="Distance" />
+                                                <TableColumn minWidth="70.66659545898438" prefWidth="70.66659545898438" text="Time" />
+                                                <TableColumn minWidth="88.0" prefWidth="88.0" text="Difficulty" />
+                                                <TableColumn minWidth="100.0" prefWidth="127.33328247070312" text="Completion Date" />
+                                             </columns>
+                                          </TableView>
+                                       </children>
+                                    </HBox>
+                                    <HBox prefHeight="129.0" prefWidth="497.0">
+                                       <children>
+                                          <TableView prefHeight="128.0" prefWidth="498.0" styleClass="meal-table">
+                                             <columns>
+                                                <TableColumn minWidth="100.0" prefWidth="162.6667355298996" text="Complete Weight Goals" />
+                                                <TableColumn minWidth="0.0" prefWidth="167.99990844726562" text="Weight Lost" />
+                                                <TableColumn minWidth="0.0" prefWidth="167.99990844726562" text="Completion Date" />
+                                             </columns>
+                                          </TableView>
+                                       </children>
+                                    </HBox>
+                                    <HBox prefHeight="128.0" prefWidth="497.0">
+                                       <children>
+                                          <TableView prefHeight="129.0" prefWidth="498.0" styleClass="meal-table">
+                                             <columns>
+                                                <TableColumn minWidth="100.0" prefWidth="175.3333615064621" text="Complete Calorie Intake Goals" />
+                                                <TableColumn minWidth="0.0" prefWidth="151.33328247070312" text="Daily Calories" />
+                                                <TableColumn minWidth="0.0" prefWidth="167.99990844726562" text="Completion Date" />
+                                             </columns>
+                                          </TableView>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                     </content>
+                  </Tab>
+                  <Tab text="New Goal">
+                     <content>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <HBox prefHeight="399.0" prefWidth="247.0">
+                                 <children>
+                                    <VBox prefHeight="399.0" prefWidth="247.0">
+                                       <children>
+                                          <Label text="Exercise Goal">
+
+                                             <font>
+                                                <Font size="17.0" />
+                                             </font>
+                                          </Label>
+                                          <GridPane prefHeight="338.0" prefWidth="240.0">
+                                             <columnConstraints>
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="119.33336639404297" minWidth="10.0" prefWidth="97.99999237060547" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="156.00000762939453" minWidth="10.0" prefWidth="150.00000762939453" />
+                                             </columnConstraints>
+                                             <rowConstraints>
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                             </rowConstraints>
+                                             <children>
+                                                <Label text="Distance" />
+                                                <Label text="Time" GridPane.rowIndex="1" />
+                                                <Label text="Difficulty" GridPane.rowIndex="2" />
+                                                <Label text="End Date" GridPane.rowIndex="3" />
+                                                <TextField prefHeight="25.0" prefWidth="139.0" GridPane.columnIndex="1" />
+                                                <TextField prefHeight="25.0" prefWidth="138.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                                <ChoiceBox prefHeight="25.0" prefWidth="139.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                                <DatePicker prefHeight="25.0" prefWidth="141.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                                <Button styleClass="add-meal-btn" text="Submit" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                             </children>
+                                             <padding>
+                                                <Insets left="10.0" right="10.0" />
+                                             </padding>
+                                          </GridPane>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <VBox prefHeight="399.0" prefWidth="247.0">
+                                 <children>
+                                    <Label text="Weight Goal">
+                                       <font>
+                                          <Font size="17.0" />
+                                       </font>
+                                    </Label>
+                                    <GridPane prefHeight="338.0" prefWidth="229.0">
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="119.33336639404297" minWidth="10.0" prefWidth="97.99999237060547" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="156.00000762939453" minWidth="10.0" prefWidth="150.00000762939453" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <Label text="Weight to Lose" />
+                                          <Label text="End Date" GridPane.rowIndex="1" />
+                                          <TextField prefHeight="25.0" prefWidth="139.0" GridPane.columnIndex="1" />
+                                          <DatePicker prefHeight="25.0" prefWidth="141.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                          <Button styleClass="add-meal-btn" text="Submit" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                       </children>
+                                       <padding>
+                                          <Insets left="10.0" right="10.0" />
+                                       </padding>
+                                    </GridPane>
+                                    <Label text="Calorie Intake Goal">
+                                       <font>
+                                          <Font size="17.0" />
+                                       </font>
+                                    </Label>
+                                    <GridPane prefHeight="338.0" prefWidth="229.0">
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="119.33336639404297" minWidth="10.0" prefWidth="97.99999237060547" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="156.00000762939453" minWidth="10.0" prefWidth="150.00000762939453" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <Label text="Daily Calories" />
+                                          <Label text="End Date" GridPane.rowIndex="1" />
+                                          <TextField prefHeight="25.0" prefWidth="139.0" GridPane.columnIndex="1" />
+                                          <DatePicker prefHeight="25.0" prefWidth="141.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                          <Button styleClass="add-meal-btn" text="Submit" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                       </children>
+                                       <padding>
+                                          <Insets left="10.0" right="10.0" />
+                                       </padding>
+                                    </GridPane>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                     </content>
+                  </Tab>
+               </tabs>
+            </TabPane>
+         </children>
+      </VBox>
+   </children>
+</HBox>

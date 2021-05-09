@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+<HBox prefHeight="450.0" prefWidth="650.0" styleClass="root" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controllers.ExerciseController">
+   <stylesheets>
+      <URL value="@../../resources/mealView.css" />
+   </stylesheets>
+   <children>
+      <VBox maxWidth="188.0" prefHeight="450.0" prefWidth="188.0" styleClass="navigation">
+         <children>
+            <Label text="Health tracker" />
+            <HBox onMouseClicked="#switchToDashboard" styleClass="nav-btn">
+               <children>
+                  <ImageView>
+                     <image>
+                        <Image url="@../../resources/images/baseline_home_white_24dp.png" />
+                     </image>
+                  </ImageView>
+                  <Label text="Home" />
+               </children>
+            </HBox>
+            <HBox onMouseClicked="#switchToMeal" styleClass="nav-btn">
+               <children>
+                  <ImageView>
+                     <image>
+                        <Image url="@../../resources/images/baseline_restaurant_white_24dp.png" />
+                     </image>
+                  </ImageView>
+                  <Label text="Meal" />
+               </children>
+            </HBox>
+            <HBox styleClass="nav-btn">
+               <children>
+                  <ImageView>
+                     <image>
+                        <Image url="@../../resources/images/baseline_fitness_center_white_24dp.png" />
+                     </image>
+                  </ImageView>
+                  <Label text="Exercise" />
+               </children>
+            </HBox>
+            <HBox onMouseClicked="#switchToGroup" styleClass="nav-btn">
+               <children>
+                  <ImageView>
+                     <image>
+                        <Image url="@../../resources/images/baseline_groups_white_24dp.png" />
+                     </image>
+                  </ImageView>
+                  <Label text="Group" />
+               </children>
+            </HBox>
+            <HBox onMouseClicked="#switchToAccount" styleClass="nav-btn">
+               <children>
+                  <ImageView>
+                     <image>
+                        <Image url="@../../resources/images/baseline_person_white_24dp.png" />
+                     </image>
+                  </ImageView>
+                  <Label text="Account" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <VBox style="-fx-padding: 5 0 0 5" HBox.hgrow="ALWAYS">
+         <children>
+            <Label prefHeight="58.0" prefWidth="193.0" styleClass="meal-diary-title" text="Exercise Diary" />
+            <TabPane prefHeight="387.0" prefWidth="526.0" side="RIGHT" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+               <tabs>
+                  <Tab text="Track">
+                     <content>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <HBox prefHeight="387.0" prefWidth="497.0">
+                                 <children>
+                                    <VBox prefHeight="387.0" prefWidth="497.0">
+                                       <children>
+                                          <GridPane prefHeight="373.0" prefWidth="443.0">
+                                             <columnConstraints>
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="119.33336639404297" minWidth="10.0" prefWidth="46.333351135253906" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="187.666628519694" minWidth="10.0" prefWidth="154.66668701171875" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="258.3333333333333" minWidth="10.0" prefWidth="203.99997965494796" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="156.00000762939453" minWidth="10.0" prefWidth="50.00007120768231" />
+                                             </columnConstraints>
+                                             <rowConstraints>
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                             </rowConstraints>
+                                             <children>
+                                                <Label text="Exercise Type" GridPane.columnIndex="1" />
+                                                <Label text="Time" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                                <Label text="Difficulty" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                                <Label text="Date" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                                <TextField prefHeight="25.0" prefWidth="138.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                                                <ChoiceBox fx:id="exerciseTypeChoice" prefHeight="25.0" prefWidth="195.0" GridPane.columnIndex="2">
+                                                   <items>
+                                                      <FXCollections fx:factory="observableArrayList">
+                                                         <String fx:value="Walking"/>
+                                                         <String fx:value="Running"/>
+                                                         <String fx:value="Cycling"/>
+                                                         <String fx:value="Swimming"/>
+                                                         <String fx:value="Yoga"/>
+                                                         <String fx:value="Other"/>
+                                                      </FXCollections>
+                                                   </items>
+                                                </ChoiceBox>
+                                                <DatePicker prefHeight="25.0" prefWidth="196.0" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                                                <Button styleClass="add-meal-btn" text="Submit" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+                                                <TextField prefHeight="25.0" prefWidth="208.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                                <Label text="Distance" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                                <ChoiceBox prefHeight="25.0" prefWidth="195.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                                             </children>
+                                             <padding>
+                                                <Insets left="10.0" right="10.0" />
+                                             </padding>
+                                          </GridPane>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </HBox>
+                     </content></Tab>
+                  <Tab text="History">
+                     <VBox spacing="10" VBox.vgrow="ALWAYS">
+
+                        <HBox alignment="CENTER" spacing="3">
+                           <Button fx:id="prevDatesBtn" onAction="#prevDatesOnClick" styleClass="prev-dates-btn" text="◀" />
+                           <Button fx:id="leftDateBtn" styleClass="left-date-btn" text="Yesterday" />
+                           <Button fx:id="middleDateBtn" styleClass="middle-date-btn" text="Today" />
+                           <Button fx:id="rightDateBtn" styleClass="right-date-btn" text="Tomorrow" />
+                           <Button fx:id="nextDatesBtn" onAction="#nextDatesOnClick" styleClass="next-dates-btn" text="▶" />
+                        </HBox>
+
+                        <HBox alignment="CENTER" spacing="100" styleClass="history-stats">
+                           <VBox.margin>
+                              <Insets bottom="5" left="5" right="5" top="5" />
+                           </VBox.margin>
+                           <VBox alignment="CENTER_LEFT">
+                              <VBox alignment="CENTER">
+                                 <Label text="Total" textAlignment="CENTER" />
+                                 <Label fx:id="exerciseTotalLabel" text="1700" textAlignment="CENTER" />
+                                 <Label text="steps" textAlignment="CENTER" />
+                              </VBox>
+                           </VBox>
+
+                           <VBox alignment="CENTER_LEFT">
+                              <VBox alignment="CENTER">
+                                 <Label text="Goal" textAlignment="CENTER" />
+                                 <Label fx:id="exerciseGoalLabel" text="8000" textAlignment="CENTER" />
+                                 <Label text="steps" textAlignment="CENTER" />
+                              </VBox>
+                           </VBox>
+                        </HBox>
+
+                        <TableView fx:id="exerciseTable" VBox.vgrow="ALWAYS">
+                           <VBox.margin>
+                              <Insets bottom="5" left="5" right="5" top="5" />
+                           </VBox.margin>
+                        </TableView>
+                     </VBox>
+                  </Tab>
+               </tabs>
+            </TabPane>
+         </children>
+      </VBox>
+   </children>
+</HBox>

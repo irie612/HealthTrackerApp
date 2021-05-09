@@ -12,6 +12,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import sample.Meal;
@@ -368,12 +369,37 @@ public class MealController implements Initializable {
         }
     }
 
-    public void switchToDashboard(ActionEvent event) throws IOException {
-        Parent dashboardRoot = FXMLLoader.load(getClass().getResource("../resources/views/sample.fxml"));
+    public void switchToDashboard(MouseEvent event) throws IOException {
+        Parent dashboardRoot = FXMLLoader.load(getClass().getResource("../resources/views/DashboardView.fxml"));
         Scene dashboardScene = new Scene(dashboardRoot);
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene(dashboardScene);
         window.show();
+    }
+
+    public void switchToExercise(MouseEvent event) throws IOException {
+        Parent dashboardRoot = FXMLLoader.load(getClass().getResource("../resources/views/ExerciseView.fxml"));
+        Scene dashboardScene = new Scene(dashboardRoot);
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene(dashboardScene);
+        window.show();
+    }
+
+    public void switchToGroup(MouseEvent event) throws IOException {
+        Parent dashboardRoot = FXMLLoader.load(getClass().getResource("../resources/views/UserGroupView.fxml"));
+        Scene dashboardScene = new Scene(dashboardRoot);
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene(dashboardScene);
+        window.show();
+    }
+
+    public void switchToAccount(MouseEvent event) throws IOException {
+        //TODO add file path for account view
+        /*Parent dashboardRoot = FXMLLoader.load(getClass().getResource("../resources/views/.fxml"));
+        Scene dashboardScene = new Scene(dashboardRoot);
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene(dashboardScene);
+        window.show();*/
     }
 
     public void updateCalorieGoal(ActionEvent event) {

@@ -1,7 +1,5 @@
 package sample.controllers;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,7 +12,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import sample.Database;
 import sample.LoginDatabase;
 import sample.UserDatabase;
 import sample.Users;
@@ -147,7 +144,7 @@ public class RegisterController {
    @FXML
     public void backToLoginOnClick(ActionEvent event) throws IOException {
 
-        Parent parent = FXMLLoader.load(getClass().getResource("../resources/views/loginview.fxml"));
+        Parent parent = FXMLLoader.load(getClass().getResource("../resources/views/LoginView.fxml"));
         Scene scene = new Scene(parent);
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene(scene);

@@ -27,20 +27,20 @@
             </ImageView>
             <Label text="Meal"/>
         </HBox>
-        <HBox fx:id="switchExercise" styleClass="nav-btn">
+        <HBox styleClass="nav-btn" onMouseClicked="#switchToExercise">
             <ImageView>
                 <Image url="@../images/baseline_fitness_center_white_24dp.png"/>
             </ImageView>
             <Label text="Exercise"/>
         </HBox>
-        <HBox fx:id="switchGroup" styleClass="nav-btn">
+        <HBox styleClass="nav-btn" onMouseClicked="#switchToGroup">
             <ImageView>
                 <Image url="@../images/baseline_groups_white_24dp.png"/>
             </ImageView>
             <Label text="Group"/>
         </HBox>
 
-        <HBox fx:id="switchAccount" styleClass="nav-btn">
+        <HBox styleClass="nav-btn" onMouseClicked="#switchToAccount">
             <ImageView>
                 <Image url="@../images/baseline_person_white_24dp.png"/>
             </ImageView>
