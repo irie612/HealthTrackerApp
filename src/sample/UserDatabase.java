@@ -62,4 +62,14 @@ public class UserDatabase extends Database<Users> {
         }
         fileReader.close();
     }
+
+    public boolean isUserNameUsed(String username){
+
+        for(Users user: data){
+            if(user.getUsername().equals(username)){
+                return true;
+            };
+        }
+        return false;
+    }
 }

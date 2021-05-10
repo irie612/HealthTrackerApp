@@ -23,11 +23,11 @@
         </HBox>
         <TextField fx:id="emailField" styleClass="field" focusTraversable="false" promptText="Enter Email"/>
 
-
         <HBox>
             <Label styleClass="field-label" text="Username"/>
         </HBox>
         <TextField fx:id="usernameField" styleClass="field" focusTraversable="false" promptText="Enter Username"/>
+        <Label fx:id="isUNameUsed" text=""/>
 
         <HBox>
             <Label styleClass="field-label" text="Password"/>
