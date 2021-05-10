@@ -2,27 +2,26 @@ package sample.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 import sample.LoginDatabase;
+import sample.Main;
 import sample.User;
 import sample.UserDatabase;
 
 import java.io.IOException;
+import java.net.URL;
 import java.time.LocalDate;
+import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
-public class RegisterController {
+public class RegisterController implements Initializable {
 
     @FXML
     private TextField emailField;
@@ -37,15 +36,31 @@ public class RegisterController {
     @FXML
     private Label isUNameUsed;
 
+    private LoginDatabase log;
+
+    private UserDatabase users;
+
     String regex = "^(.+)@(.+)$";
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        try {
+            log = new LoginDatabase("src/sample/data/account.csv");
+            log.loadElements();
+
+            users = new UserDatabase("src/sample/data/users.csv");
+            users.loadElements();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
 
 
     @FXML
-    private void registerBtnOnClick() throws IOException {
+    private void registerBtnOnClick(ActionEvent event) throws IOException {
 
-        LoginDatabase log = new LoginDatabase("src/sample/data/account.csv");
-        UserDatabase  users = new UserDatabase("src/sample/data/users.csv");;
         String username = usernameField.getText();
         String email = emailField.getText();
         String password = passwordField.getText();
@@ -88,8 +103,7 @@ public class RegisterController {
             usernameField.setEffect(null);
         }
 
-        users.loadElements();
-        if(!isUserNameUsed){
+        if (isUserNameUsed) {
             usernameField.setEffect(new DropShadow(5, Color.RED));
             isUNameUsed.setText("This username is already taken");
         }
@@ -124,28 +138,27 @@ public class RegisterController {
 
         // save to database
         if (isEmailEmpty || isUsernameEmpty || isPasswordEmpty || isConfirmPasswordEmpty || !matcher.matches() || !isPwdConfirmed
-                || !isUserNameUsed) {
+                || isUserNameUsed) {
             userRegister.setText("Information missing or Invalid information");
         } else {
             userRegister.setText("user has been registered successfully");
 
             log.insert(new User(username, password));
-            users.insert(new User("", username, email, 0, 0, LocalDate.of(1901, 1, 1)));
+            User newUser = new User("", username, email, 0, 0, LocalDate.of(1901, 1, 1));
+            users.insert(newUser);
+            Main.currentUser = newUser;
+            Main.switchView("../resources/views/EditAccount.fxml", event, getClass());
         }
     }
 
    @FXML
     public void backToLoginOnClick(ActionEvent event) throws IOException {
-
-        Parent parent = FXMLLoader.load(getClass().getResource("../resources/views/loginview.fxml"));
-        Scene scene = new Scene(parent);
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        window.setScene(scene);
-        window.show();
+       Main.switchView("../resources/views/loginview.fxml", event, getClass());
     }
 
     @FXML
     private void exitBtnOnClick() {
         System.exit(0);
     }
+
 }

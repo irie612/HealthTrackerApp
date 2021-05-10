@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import java.net.URL?>
+<HBox prefHeight="450.0" prefWidth="650.0" styleClass="root" xmlns="http://javafx.com/javafx/"
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controllers.AccountController">
+
+    <VBox styleClass="navigation">
+        <Label text="Health tracker"/>
+
+        <HBox onMouseClicked="#switchToDashboard" styleClass="nav-btn">
+            <ImageView>
+                <Image url="@../images/baseline_home_white_24dp.png"/>
+            </ImageView>
+            <Label text="Home"/>
+        </HBox>
+        <HBox fx:id="switchMeal" styleClass="nav-btn">
+            <ImageView>
+                <Image url="@../images/baseline_restaurant_white_24dp.png"/>
+            </ImageView>
+            <Label text="Meal"/>
+        </HBox>
+        <HBox styleClass="nav-btn">
+            <ImageView>
+                <Image url="@../images/baseline_fitness_center_white_24dp.png"/>
+            </ImageView>
+            <Label text="Exercise"/>
+        </HBox>
+        <HBox fx:id="switchGroup" styleClass="nav-btn">
+            <ImageView>
+                <Image url="@../images/baseline_groups_white_24dp.png"/>
+            </ImageView>
+            <Label text="Group"/>
+        </HBox>
+
+        <HBox styleClass="nav-btn">
+            <ImageView>
+                <Image url="@../images/baseline_person_white_24dp.png"/>
+            </ImageView>
+            <Label text="Account"/>
+        </HBox>
+
+    </VBox>
+    <VBox style="-fx-padding: 5 0 0 5" HBox.hgrow="ALWAYS">
+
+        <Label prefHeight="37.0" prefWidth="229.0" styleClass="account-title" text="Account">
+            <font>
+                <Font name="System Bold" size="20.0"/>
+            </font>
+        </Label>
+        <VBox VBox.vgrow="ALWAYS">
+            <GridPane VBox.vgrow="ALWAYS">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="257.0" minWidth="10.0" prefWidth="98.0"/>
+                    <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" maxWidth="408.0" minWidth="10.0"
+                                       prefWidth="407.0"/>
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints vgrow="ALWAYS"/>
+                    <RowConstraints vgrow="ALWAYS"/>
+                    <RowConstraints vgrow="ALWAYS"/>
+                    <RowConstraints vgrow="ALWAYS"/>
+                    <RowConstraints vgrow="ALWAYS"/>
+                    <RowConstraints vgrow="ALWAYS"/>
+                    <RowConstraints vgrow="ALWAYS"/>
+                </rowConstraints>
+                <children>
+                    <Label text="Name"/>
+                    <Label text="Email" GridPane.rowIndex="2"/>
+                    <Label text="DoB" GridPane.rowIndex="3"/>
+                    <Label text="Height" GridPane.rowIndex="4"/>
+                    <Label text="Weight" GridPane.rowIndex="5"/>
+                    <Label text="Username" GridPane.rowIndex="1"/>
+                    <Label text="BMI" GridPane.rowIndex="6"/>
+                    <Label fx:id="name" GridPane.columnIndex="1"/>
+                    <Label fx:id="username" GridPane.columnIndex="1"
+                           GridPane.rowIndex="1"/>
+                    <Label fx:id="email" GridPane.columnIndex="1"
+                           GridPane.rowIndex="2"/>
+                    <Label fx:id="DoB" GridPane.columnIndex="1"
+                           GridPane.rowIndex="3"/>
+                    <Label fx:id="height" GridPane.columnIndex="1"
+                           GridPane.rowIndex="4"/>
+                    <Label fx:id="weight" GridPane.columnIndex="1"
+                           GridPane.rowIndex="5"/>
+                    <Label fx:id="BMI" GridPane.columnIndex="1"
+                           GridPane.rowIndex="6"/>
+                </children>
+                <padding>
+                    <Insets left="20.0" right="10.0"/>
+                </padding>
+            </GridPane>
+            <Button fx:id="editBtn" onMouseClicked="#switchToEditAccount" prefHeight="29.0" prefWidth="75.0"
+                    styleClass="save-btn" text="Edit">
+                <VBox.margin>
+                    <Insets left="300.0" top="40.0"/>
+                </VBox.margin>
+            </Button>
+        </VBox>
+    </VBox>
+
+    <stylesheets>
+        <URL value="@../accountView.css"/>
+    </stylesheets>
+</HBox>

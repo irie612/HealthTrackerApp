@@ -17,13 +17,13 @@ public class UserDatabase extends Database<User> {
     }
 
     @Override
-    public void insert(User users) throws IOException {
+    public void insert(User user) throws IOException {
 
         fw = new BufferedWriter(new FileWriter(url, true));
-        data.add(users);
+        data.add(user);
 
-        String row = users.getUsername() + delimiter + users.getEmail() + delimiter + users.getWeight() + delimiter +
-                users.getHeight();
+        String row = user.getName() + delimiter + user.getUsername() + delimiter + user.getEmail() + delimiter + user.getWeight() + delimiter +
+                user.getHeight() + delimiter + user.getDoB().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         fw.write(row);
         fw.newLine();
         fw.close();
@@ -88,7 +88,6 @@ public class UserDatabase extends Database<User> {
             if (user.getUsername().equals(username)) {
                 return true;
             }
-            ;
         }
         return false;
     }
