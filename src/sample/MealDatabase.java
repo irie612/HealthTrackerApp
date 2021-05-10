@@ -4,6 +4,7 @@ import java.io.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 public class MealDatabase extends Database<Meal> {
 
@@ -25,7 +26,7 @@ public class MealDatabase extends Database<Meal> {
         String row = meal.getId() + delimiter + meal.getName() + delimiter + meal.getType()
                 + delimiter + meal.getCalories() + delimiter +
                 meal.getDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + delimiter +
-                meal.getTime().format(DateTimeFormatter.ofPattern("HH:mm"));
+                meal.getTime().format(DateTimeFormatter.ofPattern("HH:mm")) + delimiter + meal.getUserName();
 
         System.out.println(row);
         fw.write(row);
@@ -45,7 +46,7 @@ public class MealDatabase extends Database<Meal> {
 
     @Override
     public void writeAllData() throws IOException {
-        throw new UnsupportedEncodingException();
+
     }
 
     @Override
@@ -56,10 +57,7 @@ public class MealDatabase extends Database<Meal> {
         while ((line = fileReader.readLine()) != null) {
             String[] tokens = line.split(delimiter);
 
-//            System.out.println(Arrays.toString(tokens));
             long id = Long.parseLong(tokens[0].trim());
-//            System.out.println(id);
-
 
             String name = tokens[1].trim();
 
@@ -74,7 +72,9 @@ public class MealDatabase extends Database<Meal> {
             String time = tokens[5].trim();
             LocalTime t = LocalTime.parse(time, DateTimeFormatter.ofPattern("HH:mm"));
 
-            data.add(new Meal(id, name, mealType, cal, d, t));
+            String userName = tokens[6].trim();
+
+            data.add(new Meal(id, name, mealType, cal, userName, d, t));
 
 
 //            for (String e : tokens) {
@@ -95,14 +95,34 @@ public class MealDatabase extends Database<Meal> {
         throw new Exception("Element not found");
     }
 
+    public ArrayList<Meal> getAllByUserName(String userName) {
+        ArrayList<Meal> meals = new ArrayList<>();
+        for (Meal meal : data) {
+            if (meal.getUserName().equals(userName)) {
+                meals.add(meal);
+            }
+        }
+        return meals;
+    }
+
+    public ArrayList<Meal> getAllByUserNameAtDate(String userName, LocalDate date) {
+        ArrayList<Meal> meals = new ArrayList<>();
+        for (Meal meal : data) {
+            if (meal.getUserName().equals(userName) && meal.getDate().equals(date)) {
+                meals.add(meal);
+            }
+        }
+        return meals;
+    }
+
     //Test harness
     public static void main(String[] args) {
 
         MealDatabase mealDB = null;
 
-        Meal m = new Meal(1, "Cereal", Meal.MealType.BREAKFAST, 300);
-        Meal d = new Meal(2, "Water", Meal.MealType.DRINK, 0);
-        Meal d1 = new Meal(3, "Orange Juice", Meal.MealType.DRINK, 99);
+        Meal m = new Meal(1, "Cereal", Meal.MealType.BREAKFAST, 300, "user1");
+        Meal d = new Meal(2, "Water", Meal.MealType.DRINK, 0, "user2");
+        Meal d1 = new Meal(3, "Orange Juice", Meal.MealType.DRINK, 99, "user3");
         try {
             mealDB = new MealDatabase("src/sample/data/meals.csv");
             mealDB.loadElements();

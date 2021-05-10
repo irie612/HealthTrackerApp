@@ -17,6 +17,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import sample.Main;
 import sample.Meal;
+import sample.MealDatabase;
 import sample.utilities.Trie;
 
 import java.io.BufferedReader;
@@ -102,6 +103,7 @@ public class MealController implements Initializable {
     private double currentCaloriesGoal;
 
     private ArrayList<Meal> meals;
+    private MealDatabase mealDatabase;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -110,6 +112,10 @@ public class MealController implements Initializable {
         try {
             loadFoodData();
             foodChoice.getItems().setAll(foodData);
+
+            mealDatabase = new MealDatabase("src/sample/data/meals.csv");
+            mealDatabase.loadElements();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -224,15 +230,6 @@ public class MealController implements Initializable {
         mealsTable.setPlaceholder(new Label("No meal items to display"));
         mealsTable.columnResizePolicyProperty().set(CONSTRAINED_RESIZE_POLICY);
         mealsTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-//        selectAllCheckbox.setOnAction(event -> {
-//
-//            if (selectAllCheckbox.isSelected()) {
-//                mealItemsTable.getSelectionModel().selectAll();
-//         s   } else {
-//                mealItemsTable.getSelectionModel().clearSelection();
-//            }
-//
-//        });
 
         TableColumn<Meal, Meal.MealType> mealTypeColumn = new TableColumn<>("Meal Type");
         mealTypeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
@@ -253,6 +250,9 @@ public class MealController implements Initializable {
         mealTimeColumn.resizableProperty().setValue(true);
         mealsTable.getColumns().add(mealTimeColumn);
 
+        updateMealHistoryTable(historyDate);
+        updateCaloriesInformation();
+
     }
 
     @FXML
@@ -271,7 +271,7 @@ public class MealController implements Initializable {
     }
 
     @FXML
-    private void saveMeal() {
+    private void saveMeal() throws IOException {
 
         if (!mealItemsTable.getItems().isEmpty()) {
             LocalTime time = LocalTime.parse(mealTimeField.getText(), timeFormat);
@@ -279,8 +279,7 @@ public class MealController implements Initializable {
             for (Meal m : mealItemsTable.getItems()) {
                 m.setTime(time);
                 m.setDate(date);
-
-                meals.add(m); //TODO just testing, add to database instead
+                mealDatabase.insert(m);
             }
             System.out.println("Saved meal");
         }
@@ -352,7 +351,8 @@ public class MealController implements Initializable {
             Meal m;
             for (int i = 0; i < quantity; i++) {
 
-                m = new Meal(1, food, Meal.MealType.valueOf(mealType.toUpperCase()), calories);
+                m = new Meal(1, food, Meal.MealType.valueOf(mealType.toUpperCase()), calories,
+                        Main.currentUser.getUsername());
                 mealItemsTable.getItems().add(m);
                 System.out.println(m);
             }
@@ -396,8 +396,23 @@ public class MealController implements Initializable {
             rightDateBtn.setText("Tomorrow");
         }
 
+        updateMealHistoryTable(historyDate);
         updateCaloriesInformation();
-        updateMealHistoryTable();
+    }
+
+    public void leftDateOnClick(ActionEvent event) {
+        updateMealHistoryTable(historyDate.minusDays(1));
+        updateCaloriesInformation();
+    }
+
+    public void middleDateOnClick(ActionEvent event) {
+        updateMealHistoryTable(historyDate);
+        updateCaloriesInformation();
+    }
+
+    public void rightDateOnClick(ActionEvent event) {
+        updateMealHistoryTable(historyDate.plusDays(1));
+        updateCaloriesInformation();
     }
 
     public void nextDatesOnClick(ActionEvent event) {
@@ -413,8 +428,8 @@ public class MealController implements Initializable {
             rightDateBtn.setText("Tomorrow");
         }
 
+        updateMealHistoryTable(historyDate);
         updateCaloriesInformation();
-        updateMealHistoryTable();
     }
 
     private void updateCaloriesInformation() {
@@ -431,19 +446,18 @@ public class MealController implements Initializable {
         calorieGoalLabel.setText(Integer.toString((int) currentCaloriesGoal));
     }
 
-    private void updateMealHistoryTable() {
+    private void updateMealHistoryTable(LocalDate date) {
         mealsTable.getItems().clear();
-        System.out.println(meals);
-        mealsTable.getItems().setAll(meals);
+        mealsTable.getItems().setAll(mealDatabase.getAllByUserNameAtDate(Main.currentUser.getUsername(), date));
     }
 
 
     public void navGroupsBtnOnClick(MouseEvent mouseEvent) throws IOException {
-        Main.switchToGroups(mouseEvent, this.getClass());
+        Main.switchView("../resources/views/groupsView.fxml", mouseEvent, getClass());
     }
 
     public void navMealBtnOnClick(MouseEvent mouseEvent) throws IOException {
-        Main.switchToMeal(mouseEvent, this.getClass());
+        Main.switchView("../resources/views/mealView.fxml", mouseEvent, getClass());
     }
 
 }

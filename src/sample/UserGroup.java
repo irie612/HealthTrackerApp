@@ -95,7 +95,7 @@ public class UserGroup {
     }
 
     public static void main(String[] args) {
-        Users user = new Users("joshua", "joshua@gmail.com", 1.80, 60);
+        User user = new User("joshua", "joshua@gmail.com", 1.80, 60);
         UserGroup userGroup = new UserGroup("abc", user.getUsername(), 30);
         userGroup.update(user.getUsername(), 100);
         userGroup.iterator();

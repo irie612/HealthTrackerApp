@@ -37,7 +37,7 @@
             <Label text="Group"/>
         </HBox>
 
-        <HBox fx:id="switchAccount" styleClass="nav-btn">
+        <HBox fx:id="switchAccount" styleClass="nav-btn" onMouseClicked="#navAccountBtnOnClick">
             <ImageView>
                 <Image url="@../images/baseline_person_white_24dp.png"/>
             </ImageView>

@@ -2,37 +2,37 @@ package sample;
 
 import java.io.*;
 
-public class LoginDatabase extends Database<Users> {
+public class LoginDatabase extends Database<User> {
 
-    public LoginDatabase(String url) throws IOException{
+    public LoginDatabase(String url) throws IOException {
 
         super(url);
     }
 
-    public LoginDatabase(String url, String delimiter) throws IOException{
+    public LoginDatabase(String url, String delimiter) throws IOException {
 
         super(url, delimiter);
     }
 
     @Override
-    public void insert(Users users) throws IOException {
+    public void insert(User user) throws IOException {
 
         fw = new BufferedWriter(new FileWriter(url, true));
-        data.add(users);
+        data.add(user);
 
-        String row = users.getUsername() + delimiter + users.getPassword();
+        String row = user.getUsername() + delimiter + user.getPassword();
         fw.write(row);
         fw.newLine();
         fw.close();
     }
 
     @Override
-    public void update(Users users, Users t2) throws IOException {
+    public void update(User user, User t2) throws IOException {
         throw new UnsupportedEncodingException();
     }
 
     @Override
-    public void delete(Users users) throws IOException {
+    public void delete(User user) throws IOException {
         throw new UnsupportedEncodingException();
     }
 
@@ -52,15 +52,15 @@ public class LoginDatabase extends Database<Users> {
             String userName = tokens[0].trim();
             String password = tokens[1].trim();
 
-            data.add(new Users(userName, password));
+            data.add(new User(userName, password));
 
         }
         fileReader.close();
     }
 
-    public boolean containUser(Users u){
-        for(Users users: data){
-            if(users.getPassword().equals(u.getPassword())){
+    public boolean containUser(User u) {
+        for (User user : data) {
+            if (user.getPassword().equals(u.getPassword())) {
                 return true;
             }
         }
@@ -70,7 +70,7 @@ public class LoginDatabase extends Database<Users> {
     public static void main(String[] args) throws IOException {
         LoginDatabase log = new LoginDatabase("account.txt", ";");
         log.loadElements();
-        Users user = new Users("vail", "1234");
+        User user = new User("vail", "1234");
         System.out.println(log.containUser(user));
     }
 

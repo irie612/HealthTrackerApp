@@ -32,7 +32,6 @@ public class UserGroupDatabase extends Database<UserGroup> {
     @Override
     public void update(UserGroup oldValue, UserGroup newValue) throws IOException {
         if (data.contains(oldValue)) {
-
             data.remove(oldValue);
             data.add(newValue);
             writeAllData();

@@ -52,7 +52,7 @@ public class UserGroupViewController implements Initializable {
 
     private UserGroup currentGroup;
 
-    private Users currentUser;
+    private User currentUser;
 
     private MemberDatabase memberDatabase;
 
@@ -116,7 +116,7 @@ public class UserGroupViewController implements Initializable {
                     userGroupDatabase.delete(currentGroup);
                 }
 
-                Main.switchToGroups(actionEvent, getClass());
+                Main.switchView("../resources/views/groupsView.fxml", actionEvent, getClass());
             }
         }
 
@@ -185,10 +185,10 @@ public class UserGroupViewController implements Initializable {
     }
 
     public void navGroupsBtnOnClick(MouseEvent mouseEvent) throws IOException {
-        Main.switchToGroups(mouseEvent, this.getClass());
+        Main.switchView("../resources/views/groupsView.fxml", mouseEvent, getClass());
     }
 
     public void navMealBtnOnClick(MouseEvent mouseEvent) throws IOException {
-        Main.switchToMeal(mouseEvent, this.getClass());
+        Main.switchView("../resources/views/mealView.fxml", mouseEvent, getClass());
     }
 }

@@ -15,7 +15,8 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import sample.LoginDatabase;
 import sample.Main;
-import sample.Users;
+import sample.User;
+import sample.UserDatabase;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -30,8 +31,10 @@ public class LoginController {
     @FXML
     private Label canLogIn;
 
+    private UserDatabase userDatabase;
+
     @FXML
-    public void loginBtnOnClick(ActionEvent event) throws IOException{
+    public void loginBtnOnClick(ActionEvent event) throws IOException {
         LoginDatabase log;
         String username = usernameField.getText();
         String password = passwordField.getText();
@@ -51,20 +54,21 @@ public class LoginController {
         }
 
         log = new LoginDatabase("src/sample/data/account.csv");
+        userDatabase = new UserDatabase("src/sample/data/users.csv");
 
 
-        try{
+        try {
             log.loadElements();
-            Users user = new Users(username, password);
-            if(log.containUser(user)){
-                Main.currentUser = user;
+            userDatabase.loadElements();
+            User user = new User(username, password);
+            if (log.containUser(user)) {
+                Main.currentUser = userDatabase.getUserByUsername(user.getUsername());
                 Parent parent = FXMLLoader.load(getClass().getResource("../resources/views/groupsView.fxml"));
                 Scene scene = new Scene(parent);
                 Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 window.setScene(scene);
                 window.show();
-            }
-            else{
+            } else {
                 canLogIn.setText("Invalid information given");
             }
 

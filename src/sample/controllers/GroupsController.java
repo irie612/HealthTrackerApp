@@ -51,7 +51,7 @@ public class GroupsController implements Initializable {
 
     private MemberDatabase memberDatabase;
 
-    private Users currentUser;
+    private User currentUser;
 
     private UserGroup createdGroup;
 
@@ -59,8 +59,7 @@ public class GroupsController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         currentUser = Main.currentUser;
-////        currentUser = new Users("John", "john@john.john", 1.8, 10.6);
-//        Main.currentUser = currentUser;
+
         try {
             userGroupDatabase = new UserGroupDatabase("src/sample/data/userGroups.csv");
             userGroupDatabase.loadElements();
@@ -143,7 +142,7 @@ public class GroupsController implements Initializable {
 
     }
 
-    public boolean joinGroup(Users user, String code) {
+    public boolean joinGroup(User user, String code) {
         UserGroup group;
 
         if ((group = userGroupDatabase.getByGroupCode(code)) != null
@@ -237,10 +236,14 @@ public class GroupsController implements Initializable {
     }
 
     public void navGroupsBtnOnClick(MouseEvent mouseEvent) throws IOException {
-        Main.switchToGroups(mouseEvent, this.getClass());
+        Main.switchView("../resources/views/groupsView.fxml", mouseEvent, getClass());
     }
 
     public void navMealBtnOnClick(MouseEvent mouseEvent) throws IOException {
-        Main.switchToMeal(mouseEvent, this.getClass());
+        Main.switchView("../resources/views/mealView.fxml", mouseEvent, getClass());
+    }
+
+    public void navAccountBtnOnClick(MouseEvent mouseEvent) throws IOException {
+        Main.switchView("../resources/views/Account.fxml", mouseEvent, getClass());
     }
 }

@@ -4,8 +4,6 @@
 
 .root {
     -fx-font-family: "Baloo 2"; /* font */
-    /*-fx-min-width: 600;*/
-    /*-fx-min-height: 400;*/
 }
 
 .navigation {

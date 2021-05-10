@@ -1,7 +1,9 @@
+@font-face {
+    src: url('font/Baloo2-Regular.ttf');
+}
+
 .root {
-    /*-fx-font-family: "Tahoma"; !* font *!*/
-    /*-fx-min-width: 600;*/
-    /*-fx-min-height: 400;*/
+    -fx-font-family: "Baloo 2"; /* font */
 }
 
 .navigation {

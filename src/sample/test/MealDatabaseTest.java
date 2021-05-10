@@ -51,7 +51,7 @@ public class MealDatabaseTest {
         try {
             mealDB = new MealDatabase(file.getPath());
             mealDB.loadElements();
-            Meal m = new Meal(4, "Ham Sandwich", Meal.MealType.LUNCH, 255.6);
+            Meal m = new Meal(4, "Ham Sandwich", Meal.MealType.LUNCH, 255.6, "user1");
             mealDB.insert(m);
             assertEquals(m.getName(), mealDB.get(3).getName());
 

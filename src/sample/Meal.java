@@ -13,13 +13,12 @@ public class Meal {
     private double calories;
     private LocalDate date;
     private LocalTime time;
+    private String userName;
 
     public enum MealType {BREAKFAST, LUNCH, DINNER, SNACK, DRINK}
 
-    private enum Month {
-    }
 
-    public Meal(long id, String name, MealType type, double calories) {
+    public Meal(long id, String name, MealType type, double calories, String userName) {
 
         this.id = id;
         this.name = name;
@@ -27,16 +26,18 @@ public class Meal {
         this.calories = calories;
         this.date = LocalDate.now();
         this.time = LocalTime.now();
+        this.userName = userName;
 
     }
 
-    public Meal(long id, String name, MealType type, double calories, LocalDate date, LocalTime time) {
+    public Meal(long id, String name, MealType type, double calories, String userName, LocalDate date, LocalTime time) {
         this.id = id;
         this.name = name;
         this.type = type;
         this.calories = calories;
         this.date = date;
         this.time = time;
+        this.userName = userName;
     }
 
     public long getId() {
@@ -80,6 +81,10 @@ public class Meal {
             this.time = LocalTime.of(hour, minute);
         else
             throw new IllegalArgumentException("Argument out of range");
+    }
+
+    public String getUserName() {
+        return userName;
     }
 
     @Override

@@ -1,15 +1,14 @@
 package sample.test;
 
 import org.junit.Test;
+import sample.User;
 import sample.UserGroup;
-import sample.Users;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThrows;
 
 public class UserGroupTest {
 
-    Users user = new Users("abc", "abc@gmail.com", 1.80, 60);
+    User user = new User("abc", "abc@gmail.com", 1.80, 60);
     UserGroup userGroup = new UserGroup("xyz", user.getUsername(), 30, "qwertyuiop");
 
     @Test
