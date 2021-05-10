@@ -1,5 +1,6 @@
 package sample.controllers;
 
+import javafx.animation.RotateTransition;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -17,7 +18,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.transform.Rotate;
 import javafx.util.Callback;
+import javafx.util.Duration;
 import sample.*;
 
 import java.io.IOException;
@@ -47,6 +50,9 @@ public class UserGroupViewController implements Initializable {
 
     @FXML
     public ListView<Achievement> achievementListView;
+
+    @FXML
+    public ImageView refreshImg;
 
     private String groupCode;
 
@@ -190,5 +196,38 @@ public class UserGroupViewController implements Initializable {
 
     public void navMealBtnOnClick(MouseEvent mouseEvent) throws IOException {
         Main.switchView("../resources/views/mealView.fxml", mouseEvent, getClass());
+    }
+
+    public void navAccountBtnOnClick(MouseEvent mouseEvent) throws IOException {
+        Main.switchView("../resources/views/Account.fxml", mouseEvent, getClass());
+    }
+
+    public void refreshLeaderboard(MouseEvent event) throws IOException {
+
+        RotateTransition rotate = new RotateTransition();
+
+        rotate.setAxis(Rotate.Z_AXIS);
+        rotate.setByAngle(-360);
+        rotate.setDuration(Duration.millis(1000));
+        rotate.setNode(refreshImg);
+        rotate.play();
+
+        memberDatabase.clearAllData();
+        memberDatabase.loadElements();
+
+        System.out.println("refresh");
+        leaderBoardTable.getItems().clear();
+        System.out.println(leaderBoardTable.getItems().isEmpty());
+        leaderBoardTable.refresh();
+
+        ArrayList<UserGroupMember> members = memberDatabase.getAllByGroup(currentGroup.getGroupName());
+        members.sort(new Comparator<UserGroupMember>() {
+            @Override
+            public int compare(UserGroupMember o1, UserGroupMember o2) {
+                return o2.getMemberScore() - o1.getMemberScore();
+            }
+        });
+        System.out.println(members);
+        leaderBoardTable.getItems().setAll(members);
     }
 }

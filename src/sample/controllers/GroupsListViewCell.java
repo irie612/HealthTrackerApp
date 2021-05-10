@@ -62,6 +62,6 @@ public class GroupsListViewCell extends ListCell<UserGroup> {
 
     public void cellOnClick(MouseEvent event) throws IOException {
         Main.userGroup = this.userGroup;
-        GroupsController.switchToUserGroup(event, getClass());
+        Main.switchView("../resources/views/userGroupView.fxml", event, getClass());
     }
 }

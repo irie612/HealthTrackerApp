@@ -60,6 +60,10 @@ public abstract class Database<T> {
         fw.close();
     }
 
+    public void clearAllData() {
+        data.clear();
+    }
+
     public String getUrl() {
         return url;
     }

@@ -3,20 +3,14 @@ package sample.controllers;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 import sample.*;
 
 import java.io.IOException;
@@ -101,7 +95,7 @@ public class GroupsController implements Initializable {
                 if (joined) {
                     System.out.println(joined);
                     Main.userGroup = userGroupDatabase.getByGroupCode(code);
-                    switchToUserGroup(event, getClass());
+                    Main.switchView("../resources/views/userGroupView.fxml", event, getClass());
                 } else {
                     joinGroupMessageLabel.setText(JOIN_GROUP_FAILED_MSG);
                     joinGroupMessageLabel.setTextFill(Color.valueOf("#d9534f"));
@@ -175,7 +169,7 @@ public class GroupsController implements Initializable {
         boolean created = createGroup(groupName, admin, 1);
 
         if (created) {
-            switchToUserGroup(event, getClass());
+            Main.switchView("../resources/views/userGroupView.fxml", event, getClass());
         }
     }
     public boolean createGroup(String groupName, String admin, int capacity) {
@@ -225,16 +219,6 @@ public class GroupsController implements Initializable {
 
         return sb.toString();
     }
-
-    public static void switchToUserGroup(Event event, Class c) throws IOException {
-
-        Parent parent = FXMLLoader.load(c.getResource("../resources/views/userGroupView.fxml"));
-        Scene scene = new Scene(parent);
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        window.setScene(scene);
-        window.show();
-    }
-
     public void navGroupsBtnOnClick(MouseEvent mouseEvent) throws IOException {
         Main.switchView("../resources/views/groupsView.fxml", mouseEvent, getClass());
     }

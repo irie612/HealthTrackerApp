@@ -3,63 +3,65 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import java.net.URL?>
-
 <HBox fx:controller="sample.controllers.RegisterController"
-            xmlns:fx="http://javafx.com/fxml" styleClass="root" prefHeight="450.0" prefWidth="650.0">
+      xmlns:fx="http://javafx.com/fxml" styleClass="root" prefHeight="450.0" prefWidth="650.0">
 
     <VBox styleClass="vbox-content" HBox.hgrow="NEVER" alignment="CENTER">
 
         <Label styleClass="welcome-label" text="Welcome" alignment="CENTER"/>
-        <Label styleClass="welcome-label" text="To HealthTracker" alignment="CENTER" />
+        <Label styleClass="welcome-label" text="To HealthTracker" alignment="CENTER"/>
 
     </VBox>
 
-    <VBox styleClass="content-section" HBox.hgrow="ALWAYS" alignment="CENTER" >
+    <HBox alignment="CENTER" HBox.hgrow="ALWAYS">
+        <VBox styleClass="content-section" alignment="CENTER">
 
-        <Label styleClass="content-header" text="Register"/>
+            <Label styleClass="content-header" text="Register"/>
 
-        <HBox>
-            <Label styleClass="field-label" text="Email"/>
-        </HBox>
-        <TextField fx:id="emailField" styleClass="field" focusTraversable="false" promptText="Enter Email"/>
-
-        <HBox>
-            <Label styleClass="field-label" text="Username"/>
-        </HBox>
-        <TextField fx:id="usernameField" styleClass="field" focusTraversable="false" promptText="Enter Username"/>
-        <Label fx:id="isUNameUsed" text=""/>
-
-        <HBox>
-            <Label styleClass="field-label" text="Password"/>
-
-        </HBox>
-        <PasswordField fx:id="passwordField" styleClass="field" focusTraversable="false"
-                       promptText="Enter Password"/>
-
-        <HBox>
-            <Label styleClass="field-label" text="Confirm Password"/>
-        </HBox>
-        <PasswordField fx:id="confirmPwdField" styleClass="field" focusTraversable="false"
-                       promptText="Confirm password" />
-
-        <Button fx:id="registerBtn" styleClass="login-btn" text="Register" onAction="#registerBtnOnClick"/>
-
-
-        <Label fx:id="userRegister" styleClass="field-label" text=""  />
-
-        <HBox>
-            <HBox HBox.hgrow="ALWAYS">
-                <Button fx:id="Login" styleClass="login-btn2" text="Login" onAction="#backToLoginOnClick"/>
-            </HBox>
             <HBox>
-                <Button text="Exit" styleClass="exit-btn" onAction="#exitBtnOnClick"/>
+                <Label styleClass="field-label" text="Email"/>
             </HBox>
-        </HBox>
+            <TextField fx:id="emailField" styleClass="field" focusTraversable="false" promptText="Enter Email"/>
 
-    </VBox>
+            <HBox>
+                <Label styleClass="field-label" text="Username"/>
+            </HBox>
+            <TextField fx:id="usernameField" styleClass="field" focusTraversable="false" promptText="Enter Username"/>
+            <Label fx:id="isUNameUsed" text=""/>
+
+            <HBox>
+                <Label styleClass="field-label" text="Password"/>
+
+            </HBox>
+            <PasswordField fx:id="passwordField" styleClass="field" focusTraversable="false"
+                           promptText="Enter Password"/>
+
+            <HBox>
+                <Label styleClass="field-label" text="Confirm Password"/>
+            </HBox>
+            <PasswordField fx:id="confirmPwdField" styleClass="field" focusTraversable="false"
+                           promptText="Confirm password"/>
+
+            <Button fx:id="registerBtn" styleClass="login-btn" text="Register" onAction="#registerBtnOnClick"/>
+
+
+            <Label fx:id="userRegister" styleClass="field-label" text=""/>
+
+            <HBox>
+                <HBox HBox.hgrow="ALWAYS">
+                    <Button fx:id="Login" styleClass="login-btn2" text="Login" onAction="#backToLoginOnClick"/>
+                </HBox>
+                <HBox>
+                    <Button text="Exit" styleClass="exit-btn" onAction="#exitBtnOnClick"/>
+                </HBox>
+            </HBox>
+
+        </VBox>
+    </HBox>
+
 
     <stylesheets>
-        <URL value="@../login.css"/>
+        <URL value="@../register.css"/>
     </stylesheets>
 
 </HBox>

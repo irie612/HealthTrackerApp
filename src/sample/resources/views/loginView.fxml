@@ -2,39 +2,41 @@
 <?import javafx.scene.layout.*?>
 <?import java.net.URL?>
 <HBox fx:controller="sample.controllers.LoginController"
-            xmlns:fx="http://javafx.com/fxml" styleClass="login" prefHeight="450.0" prefWidth="650.0">
+      xmlns:fx="http://javafx.com/fxml" styleClass="login" prefHeight="450.0" prefWidth="650.0">
 
     <VBox styleClass="vbox-content" HBox.hgrow="NEVER" alignment="CENTER">
 
         <Label styleClass="welcome-label" text="Welcome" alignment="CENTER"/>
-        <Label styleClass="welcome-label" text="To HealthTracker" alignment="CENTER" />
+        <Label styleClass="welcome-label" text="To HealthTracker" alignment="CENTER"/>
 
     </VBox>
 
-    <VBox HBox.hgrow="ALWAYS" styleClass="content-section" alignment="CENTER">
+    <HBox alignment="CENTER" style="-fx-border-color: deeppink" HBox.hgrow="ALWAYS">
+        <VBox HBox.hgrow="ALWAYS" styleClass="content-section" alignment="CENTER">
 
-        <Label styleClass="content-header" text="Login"/>
-        <HBox>
-            <Label styleClass="field-label" text="Username"/>
-        </HBox>
-        <TextField fx:id="usernameField" styleClass="field" focusTraversable="false" promptText="Enter Username"/>
-        <HBox>
-            <Label styleClass="field-label" text="Password"/>
-        </HBox>
-        <PasswordField fx:id="passwordField" styleClass="field" focusTraversable="false"
-                       promptText="Enter Password"/>
+            <Label styleClass="content-header" text="Login"/>
+            <HBox>
+                <Label styleClass="field-label" text="Username"/>
+            </HBox>
+            <TextField fx:id="usernameField" styleClass="field" focusTraversable="false" promptText="Enter Username"/>
+            <HBox>
+                <Label styleClass="field-label" text="Password"/>
+            </HBox>
+            <PasswordField fx:id="passwordField" styleClass="field" focusTraversable="false"
+                           promptText="Enter Password"/>
 
-        <Button fx:id="loginBtn" styleClass="login-btn" text="Login" onAction="#loginBtnOnClick"/>
-        <Label fx:id="canLogIn" text=""/>
+            <Button fx:id="loginBtn" styleClass="login-btn" text="Login" onAction="#loginBtnOnClick"/>
+            <Label fx:id="canLogIn" text=""/>
 
-        <HBox>
-            <Label text="New? Register here" styleClass="register-btn" onMouseClicked="#newUserOnClick"/>
-        </HBox>
+            <HBox>
+                <Label text="New? Register here" styleClass="register-btn" onMouseClicked="#newUserOnClick"/>
+            </HBox>
 
-        <HBox>
-            <Button text="Exit" styleClass="exit-btn" onAction="#exitBtnOnClick"/>
-        </HBox>
-    </VBox>
+            <HBox>
+                <Button text="Exit" styleClass="exit-btn" onAction="#exitBtnOnClick"/>
+            </HBox>
+        </VBox>
+    </HBox>
 
 
     <stylesheets>

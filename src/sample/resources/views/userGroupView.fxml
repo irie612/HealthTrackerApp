@@ -36,7 +36,7 @@
             <Label text="Group"/>
         </HBox>
 
-        <HBox fx:id="switchAccount" styleClass="nav-btn">
+        <HBox fx:id="switchAccount" styleClass="nav-btn" onMouseClicked="#navAccountBtnOnClick">
             <ImageView>
                 <Image url="@../images/baseline_person_white_24dp.png"/>
             </ImageView>
@@ -104,7 +104,22 @@
         </VBox>
 
         <VBox styleClass="leaderboard-box" HBox.hgrow="ALWAYS">
-            <Label text="Leaderboard"/>
+            <HBox>
+                <HBox HBox.hgrow="ALWAYS" alignment="CENTER_LEFT">
+                    <Label text="Leaderboard" HBox.hgrow="NEVER"/>
+                </HBox>
+
+                <HBox HBox.hgrow="ALWAYS" alignment="CENTER_RIGHT">
+                    <HBox HBox.hgrow="NEVER" onMouseClicked="#refreshLeaderboard">
+                        <ImageView fx:id="refreshImg" HBox.hgrow="NEVER">
+                            <Image url="@../images/outline_sync_black_24dp.png" requestedWidth="22"
+                                   requestedHeight="22"/>
+                        </ImageView>
+                    </HBox>
+                </HBox>
+
+            </HBox>
+
 
             <TableView fx:id="leaderBoardTable" VBox.vgrow="ALWAYS">
                 <columns>

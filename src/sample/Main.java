@@ -17,6 +17,10 @@ public class Main extends Application {
 
     public static UserGroup userGroup;
     public static User currentUser;
+    public static boolean isFullScreen;
+    public static final int DEFAULT_WIDTH = 800;
+    public static final int DEFAULT_HEIGHT = 650;
+
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -34,7 +38,8 @@ public class Main extends Application {
 //        loginScene = new Scene(loginRoot);
 //
         Parent registerRoot = FXMLLoader.load(getClass().getResource("resources/views/RegisterView.fxml"));
-        Scene registerScene = new Scene(registerRoot);
+        Scene registerScene = new Scene(registerRoot, DEFAULT_WIDTH, DEFAULT_HEIGHT);
+
 //
 //        Parent mealRoot = FXMLLoader.load(getClass().getResource("resources/views/MealView.fxml"));
 //        mealScene = new Scene(mealRoot);
@@ -51,14 +56,15 @@ public class Main extends Application {
 
         primaryStage.setScene(registerScene);
         primaryStage.getIcons().add(new Image("sample/resources/images/baseline_fitness_center_white_24dp.png"));
-        primaryStage.setMinWidth(800);
+        primaryStage.setFullScreen(false);
+        isFullScreen = false;
         primaryStage.show();
     }
 
 
     public static void switchView(String view, Event event, Class c) throws IOException {
         Parent parent = FXMLLoader.load(c.getResource(view));
-        Scene scene = new Scene(parent);
+        Scene scene = new Scene(parent, DEFAULT_WIDTH, DEFAULT_HEIGHT);
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene(scene);
         window.show();
