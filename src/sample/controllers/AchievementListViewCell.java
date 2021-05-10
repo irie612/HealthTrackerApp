@@ -1,5 +1,6 @@
 package sample.controllers;
 
+import javafx.animation.RotateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
@@ -7,6 +8,8 @@ import javafx.scene.control.ListCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.transform.Rotate;
+import javafx.util.Duration;
 import sample.*;
 
 import java.io.IOException;
@@ -97,7 +100,7 @@ public class AchievementListViewCell extends ListCell<Achievement> {
     private void completeAchievement() throws IOException {
         updateItem(achievement, false);
         if (!completed) {
-
+            tickAnimation();
             tickImg.setImage(new Image("sample/resources/images/check_circle_blue_24dp.png"));
             Achievement temp = achievement;
 //            temp.setUserName(Main.currentUser.getUsername());
@@ -124,8 +127,15 @@ public class AchievementListViewCell extends ListCell<Achievement> {
                 }
             }
         }
+    }
 
-
+    public void tickAnimation() {
+        RotateTransition rotate = new RotateTransition();
+        rotate.setByAngle(-360);
+        rotate.setAxis(Rotate.Y_AXIS);
+        rotate.setDuration(Duration.millis(500));
+        rotate.setNode(tickImg);
+        rotate.play();
     }
 
 }

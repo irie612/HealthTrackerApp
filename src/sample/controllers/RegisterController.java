@@ -170,7 +170,7 @@ public class RegisterController implements Initializable {
 
     private void welcomeAnimation() {
         FadeTransition fadeTransition = new FadeTransition();
-        fadeTransition.setDuration(Duration.millis(1500));
+        fadeTransition.setDuration(Duration.millis(2000));
         fadeTransition.setFromValue(0.1);
         fadeTransition.setToValue(10);
         fadeTransition.setNode(welcomeText);
