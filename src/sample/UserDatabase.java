@@ -1,63 +1,45 @@
 package sample;
 
 import java.io.*;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
-public class UserDatabase extends Database<User> {
+public class UserDatabase extends Database<Users> {
 
-    public UserDatabase(String url) throws IOException {
+    public UserDatabase(String url) throws IOException{
 
         super(url);
     }
 
-    public UserDatabase(String url, String delimiter) throws IOException {
+    public UserDatabase(String url, String delimiter) throws IOException{
 
         super(url, delimiter);
     }
 
     @Override
-    public void insert(User user) throws IOException {
+    public void insert(Users users) throws IOException {
 
         fw = new BufferedWriter(new FileWriter(url, true));
-        data.add(user);
+        data.add(users);
 
-        String row = user.getName() + delimiter + user.getUsername() + delimiter + user.getEmail() + delimiter + user.getWeight() + delimiter +
-                user.getHeight() + delimiter + user.getDoB().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        String row = users.getUsername() + delimiter + users.getEmail() + delimiter + users.getWeight() + delimiter +
+                users.getHeight();
         fw.write(row);
         fw.newLine();
         fw.close();
     }
 
     @Override
-    public void update(User oldValue, User newValue) throws IOException {
-
-        if (data.contains(oldValue)) {
-            data.remove(oldValue);
-            data.add(newValue);
-            writeAllData();
-        }
+    public void update(Users users, Users t2) throws IOException {
+        throw new UnsupportedEncodingException();
     }
 
     @Override
-    public void delete(User user) throws IOException {
+    public void delete(Users users) throws IOException {
         throw new UnsupportedEncodingException();
     }
 
     @Override
     public void writeAllData() throws IOException {
-        fw = new BufferedWriter(new FileWriter(url));
-
-        for (User user : data) {
-
-            String row = user.getName() + delimiter + user.getUsername() + delimiter + user.getEmail() + delimiter + user.getWeight() + delimiter +
-                    user.getHeight() + delimiter + user.getDoB().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-
-            fw.write(row);
-            fw.newLine();
-        }
-        fw.close();
-
+        throw new UnsupportedEncodingException();
     }
 
     @Override
@@ -68,29 +50,26 @@ public class UserDatabase extends Database<User> {
         while ((line = fileReader.readLine()) != null) {
 
             String[] tokens = line.split(delimiter);
-
-            String name = tokens[0].trim();
-            String username = tokens[1].trim();
-            String email = tokens[2].trim();
-            String w = tokens[3].trim();
-            String h = tokens[4].trim();
-            LocalDate dob = LocalDate.parse(tokens[5].trim(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            String username = tokens[0].trim();
+            String email = tokens[1].trim();
+            String w = tokens[2].trim();
+            String h = tokens[3].trim();
 
             double weight = Double.parseDouble(w);
             double height = Double.parseDouble(h);
 
-            data.add(new User(name, username, email, height, weight, dob));
+            data.add(new Users(username, email, height, weight));
         }
         fileReader.close();
     }
 
-    public User getUserByUsername(String username) {
-        User foundUser = null;
-        for (User user : data) {
-            if (user.getUsername().equals(username)) {
-                foundUser = user;
-            }
+    public boolean isUserNameUsed(String username){
+
+        for(Users user: data){
+            if(user.getUsername().equals(username)){
+                return true;
+            };
         }
-        return foundUser;
+        return false;
     }
 }

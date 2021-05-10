@@ -1,5 +1,7 @@
 package sample.controllers;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,10 +14,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import sample.Database;
 import sample.LoginDatabase;
-import sample.User;
 import sample.UserDatabase;
+import sample.Users;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -33,6 +37,8 @@ public class RegisterController {
     private PasswordField confirmPwdField;
     @FXML
     private Label userRegister;
+    @FXML
+    private Label isUNameUsed;
 
     String regex = "^(.+)@(.+)$";
 
@@ -41,8 +47,8 @@ public class RegisterController {
     @FXML
     private void registerBtnOnClick() throws IOException {
 
-        LoginDatabase log;
-        UserDatabase users;
+        LoginDatabase log = new LoginDatabase("src/sample/data/account.csv");
+        UserDatabase  users = new UserDatabase("src/sample/data/users.csv");;
         String username = usernameField.getText();
         String email = emailField.getText();
         String password = passwordField.getText();
@@ -53,6 +59,7 @@ public class RegisterController {
         boolean isEmailEmpty = email.isEmpty();
         boolean isPasswordEmpty = password.isEmpty();
         boolean isConfirmPasswordEmpty = confirmPassword.isEmpty();
+        boolean isUserNameUsed = users.isUserNameUsed(username);
 
         // check emailField is empty
         if(isEmailEmpty){
@@ -84,6 +91,12 @@ public class RegisterController {
             usernameField.setEffect(null);
         }
 
+        users.loadElements();
+        if(!isUserNameUsed){
+            usernameField.setEffect(new DropShadow(5, Color.RED));
+            isUNameUsed.setText("This username is already taken");
+        }
+
         // check passwordField is empty
         if(isPasswordEmpty){
             passwordField.setEffect(new DropShadow(5, Color.RED));
@@ -113,17 +126,15 @@ public class RegisterController {
         }
 
         // save to database
-        if(isEmailEmpty || isUsernameEmpty || isPasswordEmpty|| isConfirmPasswordEmpty || !matcher.matches() || !isPwdConfirmed){
+        if(isEmailEmpty || isUsernameEmpty || isPasswordEmpty|| isConfirmPasswordEmpty || !matcher.matches() || !isPwdConfirmed
+        || !isUserNameUsed){
             userRegister.setText("Information missing or Invalid information");
         }
-        else {
+        else{
             userRegister.setText("user has been registered successfully");
 
-            log = new LoginDatabase("src/sample/data/account.csv");
-            users = new UserDatabase("src/sample/data/users.csv");
-
-            log.insert(new User(username, password));
-            users.insert(new User(username, email, 0, 0));
+            log.insert(new Users(username, password));
+            users.insert(new Users(username, email, 0, 0));
         }
     }
 
