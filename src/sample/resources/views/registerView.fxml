@@ -8,9 +8,10 @@
 
     <VBox styleClass="vbox-content" HBox.hgrow="NEVER" alignment="CENTER">
 
-        <Label styleClass="welcome-label" text="Welcome" alignment="CENTER"/>
-        <Label styleClass="welcome-label" text="To HealthTracker" alignment="CENTER"/>
-
+        <VBox fx:id="welcomeText" alignment="CENTER">
+            <Label styleClass="welcome-label" text="Welcome" alignment="CENTER"/>
+            <Label styleClass="welcome-label" text="To HealthTracker" alignment="CENTER"/>
+        </VBox>
     </VBox>
 
     <HBox alignment="CENTER" HBox.hgrow="ALWAYS">

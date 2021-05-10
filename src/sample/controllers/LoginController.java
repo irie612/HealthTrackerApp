@@ -1,18 +1,17 @@
 package sample.controllers;
 
+import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.stage.Stage;
+import javafx.util.Duration;
 import sample.LoginDatabase;
 import sample.Main;
 import sample.User;
@@ -20,9 +19,11 @@ import sample.UserDatabase;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 
-public class LoginController {
+public class LoginController implements Initializable {
 
     @FXML
     private TextField usernameField;
@@ -30,12 +31,21 @@ public class LoginController {
     private PasswordField passwordField;
     @FXML
     private Label canLogIn;
+    @FXML
+    private VBox welcomeText;
 
     private UserDatabase userDatabase;
+
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        welcomeAnimation();
+    }
 
     @FXML
     public void loginBtnOnClick(ActionEvent event) throws IOException {
         LoginDatabase log;
+
         String username = usernameField.getText();
         String password = passwordField.getText();
 
@@ -85,10 +95,15 @@ public class LoginController {
 
     @FXML
     public void newUserOnClick(MouseEvent event) throws IOException {
-        Parent parent = FXMLLoader.load(getClass().getResource("../resources/views/registerView.fxml"));
-        Scene scene = new Scene(parent);
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        window.setScene(scene);
-        window.show();
+        Main.switchView("../resources/views/registerView.fxml", event, getClass());
+    }
+
+    private void welcomeAnimation() {
+        FadeTransition fadeTransition = new FadeTransition();
+        fadeTransition.setDuration(Duration.millis(1500));
+        fadeTransition.setFromValue(0.1);
+        fadeTransition.setToValue(10);
+        fadeTransition.setNode(welcomeText);
+        fadeTransition.play();
     }
 }

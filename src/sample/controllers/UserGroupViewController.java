@@ -215,7 +215,6 @@ public class UserGroupViewController implements Initializable {
         memberDatabase.clearAllData();
         memberDatabase.loadElements();
 
-        System.out.println("refresh");
         leaderBoardTable.getItems().clear();
         System.out.println(leaderBoardTable.getItems().isEmpty());
         leaderBoardTable.refresh();
@@ -227,7 +226,6 @@ public class UserGroupViewController implements Initializable {
                 return o2.getMemberScore() - o1.getMemberScore();
             }
         });
-        System.out.println(members);
         leaderBoardTable.getItems().setAll(members);
     }
 }

@@ -6,12 +6,15 @@
 
     <VBox styleClass="vbox-content" HBox.hgrow="NEVER" alignment="CENTER">
 
-        <Label styleClass="welcome-label" text="Welcome" alignment="CENTER"/>
-        <Label styleClass="welcome-label" text="To HealthTracker" alignment="CENTER"/>
+        <VBox fx:id="welcomeText" alignment="CENTER">
+            <Label styleClass="welcome-label" text="Welcome" alignment="CENTER"/>
+            <Label styleClass="welcome-label" text="To HealthTracker" alignment="CENTER"/>
+        </VBox>
+
 
     </VBox>
 
-    <HBox alignment="CENTER" style="-fx-border-color: deeppink" HBox.hgrow="ALWAYS">
+    <HBox alignment="CENTER" HBox.hgrow="ALWAYS">
         <VBox HBox.hgrow="ALWAYS" styleClass="content-section" alignment="CENTER">
 
             <Label styleClass="content-header" text="Login"/>

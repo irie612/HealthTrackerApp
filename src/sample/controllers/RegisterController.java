@@ -1,5 +1,6 @@
 package sample.controllers;
 
+import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -7,7 +8,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.util.Duration;
 import sample.LoginDatabase;
 import sample.Main;
 import sample.User;
@@ -35,6 +38,8 @@ public class RegisterController implements Initializable {
     private Label userRegister;
     @FXML
     private Label isUNameUsed;
+    @FXML
+    public VBox welcomeText;
 
     private LoginDatabase log;
 
@@ -55,7 +60,7 @@ public class RegisterController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        welcomeAnimation();
     }
 
 
@@ -152,9 +157,9 @@ public class RegisterController implements Initializable {
         }
     }
 
-   @FXML
+    @FXML
     public void backToLoginOnClick(ActionEvent event) throws IOException {
-       Main.switchView("../resources/views/loginview.fxml", event, getClass());
+        Main.switchView("../resources/views/loginview.fxml", event, getClass());
     }
 
     @FXML
@@ -162,4 +167,13 @@ public class RegisterController implements Initializable {
         System.exit(0);
     }
 
+
+    private void welcomeAnimation() {
+        FadeTransition fadeTransition = new FadeTransition();
+        fadeTransition.setDuration(Duration.millis(1500));
+        fadeTransition.setFromValue(0.1);
+        fadeTransition.setToValue(10);
+        fadeTransition.setNode(welcomeText);
+        fadeTransition.play();
+    }
 }

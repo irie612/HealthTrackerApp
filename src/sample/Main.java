@@ -17,7 +17,6 @@ public class Main extends Application {
 
     public static UserGroup userGroup;
     public static User currentUser;
-    public static boolean isFullScreen;
     public static final int DEFAULT_WIDTH = 800;
     public static final int DEFAULT_HEIGHT = 650;
 
@@ -57,7 +56,6 @@ public class Main extends Application {
         primaryStage.setScene(registerScene);
         primaryStage.getIcons().add(new Image("sample/resources/images/baseline_fitness_center_white_24dp.png"));
         primaryStage.setFullScreen(false);
-        isFullScreen = false;
         primaryStage.show();
     }
 
