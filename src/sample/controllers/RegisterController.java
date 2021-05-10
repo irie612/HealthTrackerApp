@@ -1,7 +1,5 @@
 package sample.controllers;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,13 +12,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import sample.Database;
 import sample.LoginDatabase;
+import sample.User;
 import sample.UserDatabase;
-import sample.Users;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -126,15 +123,14 @@ public class RegisterController {
         }
 
         // save to database
-        if(isEmailEmpty || isUsernameEmpty || isPasswordEmpty|| isConfirmPasswordEmpty || !matcher.matches() || !isPwdConfirmed
-        || !isUserNameUsed){
+        if (isEmailEmpty || isUsernameEmpty || isPasswordEmpty || isConfirmPasswordEmpty || !matcher.matches() || !isPwdConfirmed
+                || !isUserNameUsed) {
             userRegister.setText("Information missing or Invalid information");
-        }
-        else{
+        } else {
             userRegister.setText("user has been registered successfully");
 
-            log.insert(new Users(username, password));
-            users.insert(new Users(username, email, 0, 0));
+            log.insert(new User(username, password));
+            users.insert(new User("", username, email, 0, 0, LocalDate.of(1901, 1, 1)));
         }
     }
 
