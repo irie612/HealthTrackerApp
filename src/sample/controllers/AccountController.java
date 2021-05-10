@@ -86,4 +86,27 @@ public class AccountController {
     }
 
 
+    public void navAccountBtnOnClick(MouseEvent event) throws IOException {
+        Main.switchView("../resources/views/Account.fxml", event, getClass());
+    }
+
+    public void navGroupsBtnOnClick(MouseEvent event) throws IOException {
+        Main.switchView("../resources/views/groupsView.fxml", event, getClass());
+    }
+
+    public void navExerciseBtnOnClick(MouseEvent event) {
+    }
+
+    public void navMealBtnOnClick(MouseEvent event) throws IOException {
+        Main.switchView("../resources/views/mealView.fxml", event, getClass());
+    }
+
+    public void navDashboardBtnOnClick(MouseEvent event) {
+
+    }
+
+    public void logout(MouseEvent event) throws IOException {
+        Main.currentUser = null;
+        Main.switchView("../resources/views/loginView.fxml", event, getClass());
+    }
 }

@@ -62,12 +62,12 @@ public class LoginController {
             userDatabase.loadElements();
             User user = new User(username, password);
             if (log.containUser(user)) {
-                Main.currentUser = userDatabase.getUserByUsername(user.getUsername());
-                Parent parent = FXMLLoader.load(getClass().getResource("../resources/views/groupsView.fxml"));
-                Scene scene = new Scene(parent);
-                Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                window.setScene(scene);
-                window.show();
+                if (userDatabase.getUserByUsername(user.getUsername()) != null) {
+                    Main.currentUser = userDatabase.getUserByUsername(user.getUsername());
+                    Main.switchView("../resources/views/groupsView.fxml", event, getClass());
+                } else
+                    canLogIn.setText("System error");
+
             } else {
                 canLogIn.setText("Invalid information given");
             }

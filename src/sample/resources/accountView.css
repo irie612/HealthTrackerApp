@@ -53,11 +53,18 @@
 .save-btn {
     -fx-background-color: #5bc0de;
     -fx-text-fill: #FFFFFF;
-    -fx-padding: 5;
-    -fx-font-size: 15;
 }
 
 .save-btn:hover {
     -fx-background-color: #73d3f1;
     /*-fx-background-color: #0bbcbc;*/
+}
+
+.logout-btn {
+    -fx-background-color: #d9534f;
+    -fx-text-fill: #FFFFFF;
+}
+
+.logout-btn:hover {
+    -fx-background-color: #f16965;
 }

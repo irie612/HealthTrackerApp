@@ -460,4 +460,7 @@ public class MealController implements Initializable {
         Main.switchView("../resources/views/mealView.fxml", mouseEvent, getClass());
     }
 
+    public void navAccountBtnOnClick(MouseEvent MouseEvent) throws IOException {
+        Main.switchView("../resources/views/Account.fxml", MouseEvent, getClass());
+    }
 }

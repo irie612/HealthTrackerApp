@@ -12,32 +12,32 @@
     <VBox styleClass="navigation">
         <Label text="Health tracker"/>
 
-        <HBox onMouseClicked="#switchToDashboard" styleClass="nav-btn">
+        <HBox onMouseClicked="#navDashboardBtnOnClick" styleClass="nav-btn">
             <ImageView>
                 <Image url="@../images/baseline_home_white_24dp.png"/>
             </ImageView>
             <Label text="Home"/>
         </HBox>
-        <HBox fx:id="switchMeal" styleClass="nav-btn">
+        <HBox fx:id="switchMeal" styleClass="nav-btn" onMouseClicked="#navMealBtnOnClick">
             <ImageView>
                 <Image url="@../images/baseline_restaurant_white_24dp.png"/>
             </ImageView>
             <Label text="Meal"/>
         </HBox>
-        <HBox styleClass="nav-btn">
+        <HBox styleClass="nav-btn" onMouseClicked="#navExerciseBtnOnClick">
             <ImageView>
                 <Image url="@../images/baseline_fitness_center_white_24dp.png"/>
             </ImageView>
             <Label text="Exercise"/>
         </HBox>
-        <HBox fx:id="switchGroup" styleClass="nav-btn">
+        <HBox fx:id="switchGroup" styleClass="nav-btn" onMouseClicked="#navGroupsBtnOnClick">
             <ImageView>
                 <Image url="@../images/baseline_groups_white_24dp.png"/>
             </ImageView>
             <Label text="Group"/>
         </HBox>
 
-        <HBox styleClass="nav-btn">
+        <HBox styleClass="nav-btn" onMouseClicked="#navAccountBtnOnClick">
             <ImageView>
                 <Image url="@../images/baseline_person_white_24dp.png"/>
             </ImageView>
@@ -90,16 +90,23 @@
                     <Label fx:id="BMI" GridPane.columnIndex="1"
                            GridPane.rowIndex="6"/>
                 </children>
-                <padding>
-                    <Insets left="20.0" right="10.0"/>
-                </padding>
+
             </GridPane>
-            <Button fx:id="editBtn" onMouseClicked="#switchToEditAccount" prefHeight="29.0" prefWidth="75.0"
-                    styleClass="save-btn" text="Edit">
-                <VBox.margin>
-                    <Insets left="300.0" top="40.0"/>
-                </VBox.margin>
-            </Button>
+            <HBox HBox.hgrow="ALWAYS" spacing="10">
+
+                <Button onMouseClicked="#logout" prefHeight="29.0" prefWidth="75.0"
+                        styleClass="logout-btn" text="Logout">
+                </Button>
+
+                <Button fx:id="editBtn" onMouseClicked="#switchToEditAccount" prefHeight="29.0" prefWidth="75.0"
+                        styleClass="save-btn" text="Edit">
+                </Button>
+
+                <padding>
+                    <Insets left="5" right="5" top="5" bottom="5"/>
+                </padding>
+            </HBox>
+
         </VBox>
     </VBox>
 
