@@ -8,6 +8,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.effect.DropShadow;
@@ -49,6 +53,13 @@ public class MealController implements Initializable {
     public Button rightDateBtn;
 
     @FXML
+    public BarChart<String, Number> calorieGraph;
+    @FXML
+    public CategoryAxis xAxis;
+    @FXML
+    public NumberAxis yAxis;
+
+    @FXML
     private ChoiceBox<String> mealTypeChoice;
 
     @FXML
@@ -88,6 +99,15 @@ public class MealController implements Initializable {
 
     @FXML
     private Button saveBtn;
+
+    private final static String MONDAY = "Monday";
+    private final static String TUESDAY = "Tuesday";
+    private final static String WEDNESDAY = "Wednesday";
+    private final static String THURSDAY = "Thursday";
+    private final static String FRIDAY = "Friday";
+    private final static String SATURDAY = "Saturday";
+    private final static String SUNDAY = "Sunday";
+
 
     private static final String URL = "src/sample/data/meal_items.csv";
 
@@ -210,6 +230,8 @@ public class MealController implements Initializable {
 
         initializeMealsTable();
 
+        initializeCalorieGraph();
+
     }
 
     private void initializeMealItemsTable() {
@@ -240,6 +262,33 @@ public class MealController implements Initializable {
         mealCaloriesColumn.setCellValueFactory(new PropertyValueFactory<>("calories"));
         mealCaloriesColumn.resizableProperty().setValue(true);
         mealItemsTable.getColumns().add(mealCaloriesColumn);
+    }
+
+    private void initializeCalorieGraph() {
+
+        xAxis.setLabel("Days");
+        yAxis.setLabel("Calories");
+
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
+//        series.getNode().setStyle("-fx-background-color: #0275d8");
+//
+        LocalDate currentDate = historyDate.minusDays(6);
+        for (int i = 1; i <= 7; i++) {
+
+            System.out.println(currentDate);
+            ArrayList<Meal> meals = mealDatabase.getAllByUserNameAndDate(Main.currentUser.getUsername(), currentDate);
+            double totalCals = 0.0;
+            for (Meal m : meals) {
+                totalCals = totalCals + m.getCalories();
+            }
+            series.getData().add(new XYChart.Data<String, Number>(currentDate.getDayOfWeek().toString(), totalCals));
+            currentDate = currentDate.plusDays(1);
+
+        }
+        calorieGraph.setTitle("Calories intake for the week");
+        calorieGraph.getData().add(series);
+
+
     }
 
     private void initializeMealsTable() {

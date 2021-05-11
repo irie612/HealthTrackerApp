@@ -100,6 +100,16 @@ public class MealDatabase extends Database<Meal> {
         return meals;
     }
 
+    public ArrayList<Meal> getAllByUserNameAndDate(String userName, LocalDate date) {
+        ArrayList<Meal> meals = new ArrayList<>();
+        for (Meal meal : data) {
+            if (meal.getUserName().equals(userName) && meal.getDate().equals(date)) {
+                meals.add(meal);
+            }
+        }
+        return meals;
+    }
+
     public ArrayList<Meal> getAllByUserNameAtDate(String userName, LocalDate date) {
         ArrayList<Meal> meals = new ArrayList<>();
         for (Meal meal : data) {

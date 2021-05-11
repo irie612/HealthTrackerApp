@@ -157,3 +157,7 @@
 .next-dates-btn {
     -fx-text-fill: #73d3f1;
 }
+
+.default-color0.chart-bar {
+    -fx-bar-fill: #0275d8;
+}
