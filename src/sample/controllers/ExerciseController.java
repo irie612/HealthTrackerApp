@@ -59,7 +59,6 @@ public class ExerciseController implements Initializable {
         currentDurationGoal = 0.0;
 
         otherInput.setDisable(true);
-
         exerciseTypeChoice.setOnAction(event -> {
             if(exerciseTypeChoice.getValue() != null) {
                 otherInput.setDisable(!exerciseTypeChoice.getValue().equals(Exercise.exerciseType.OTHER));
@@ -82,7 +81,7 @@ public class ExerciseController implements Initializable {
     }
 
     private void initializeExerciseTable() {
-        exerciseTable.setPlaceholder(new Label("No meal items to display"));
+        exerciseTable.setPlaceholder(new Label("No exercise items to display"));
         exerciseTable.columnResizePolicyProperty().set(CONSTRAINED_RESIZE_POLICY);
         exerciseTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 

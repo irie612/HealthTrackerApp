@@ -104,11 +104,11 @@ public class UsersTest {
     @Test
     public void addExerciseGoalTest(){
 
-        ExerciseGoals exerciseGoals = new ExerciseGoals(Goals.goalType.EXERCISE, LocalTime.of(1,30), LocalDate.now()
+        ExerciseGoals exerciseGoals = new ExerciseGoals(Goals.goalType.EXERCISE, "WALKING", LocalTime.of(1,30), LocalDate.now()
         , LocalDate.of(2021, 9, 21));
         user2.addExerciseGoal(exerciseGoals);
         ArrayList<Goals> userGoals = user2.getUserGoals();
-        assertEquals(Goals.goalType.EXERCISE, userGoals.get(0).getType());
+        assertEquals(Goals.goalType.EXERCISE, userGoals.get(0).getGoalType());
     }
 
     @Test
@@ -117,6 +117,6 @@ public class UsersTest {
         WeightGoals weightGoals = new WeightGoals(Goals.goalType.WEIGHT, LocalDate.now(), LocalDate.of(2021,8, 21), 70);
         user2.addWeightGoal(weightGoals);
         ArrayList<Goals> userGoals = user2.getUserGoals();
-        assertEquals(Goals.goalType.WEIGHT, userGoals.get(0).getType());
+        assertEquals(Goals.goalType.WEIGHT, userGoals.get(0).getGoalType());
     }
 }

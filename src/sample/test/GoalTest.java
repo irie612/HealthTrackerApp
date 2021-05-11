@@ -50,14 +50,14 @@ public class GoalTest {
 
     @Test
     public void getTypeTest() {
-        goal = new ExerciseGoals(Goals.goalType.EXERCISE, LocalTime.of(1, 30), LocalDate.now()
+        goal = new ExerciseGoals(Goals.goalType.EXERCISE, "WALKING", LocalTime.of(1, 30), LocalDate.now()
                 , LocalDate.of(2021, 9, 7));
-        assertEquals(Goals.goalType.EXERCISE, goal.getType());
+        assertEquals(Goals.goalType.EXERCISE, goal.getGoalType());
     }
 
     @Test
     public void getExerciseToDoTest() {
-        goal2 = new ExerciseGoals(Goals.goalType.EXERCISE, LocalTime.of(1, 30), LocalDate.now()
+        goal2 = new ExerciseGoals(Goals.goalType.EXERCISE, "WALKING", LocalTime.of(1, 30), LocalDate.now()
                 , LocalDate.of(2021, 9, 7));
 
         assertEquals(LocalTime.of(1, 30), goal2.getExerciseToDo());
@@ -65,7 +65,7 @@ public class GoalTest {
 
     @Test
     public void setExerciseToDoTest() {
-        goal2 = new ExerciseGoals(Goals.goalType.EXERCISE, LocalTime.of(1, 30), LocalDate.now()
+        goal2 = new ExerciseGoals(Goals.goalType.EXERCISE, "WALKING", LocalTime.of(1, 30), LocalDate.now()
                 , LocalDate.of(2021, 9, 7));
         goal2.setExerciseToDo(1, 45, 30);
         assertEquals(LocalTime.of(1, 45, 30), goal2.getExerciseToDo());
@@ -73,7 +73,7 @@ public class GoalTest {
 
     @Test
     public void convertIntoMinTest() {
-        goal2 = new ExerciseGoals(Goals.goalType.EXERCISE, LocalTime.of(1, 30), LocalDate.now()
+        goal2 = new ExerciseGoals(Goals.goalType.EXERCISE, "WALKING", LocalTime.of(1, 30), LocalDate.now()
                 , LocalDate.of(2021, 9, 7));
         int x = goal2.convertIntoMinutes(goal2.getExerciseToDo());
         assertEquals(90, x);
@@ -111,7 +111,7 @@ public class GoalTest {
 
     @Test
     public void calProgressTest1() {
-        goal2 = new ExerciseGoals(Goals.goalType.EXERCISE, LocalTime.of(1, 30), LocalDate.now()
+        goal2 = new ExerciseGoals(Goals.goalType.EXERCISE, "WALKING", LocalTime.of(1, 30), LocalDate.now()
                 , LocalDate.of(2021, 9, 7));
         float y = goal2.calculateProgress(30);
         assertEquals((int) 33.0, (int) y);

@@ -6,6 +6,7 @@ import java.time.LocalTime;
 public class ExerciseGoals extends Goals {
 
     private LocalTime exerciseToDo;
+    private String type;
 
     public void setExerciseToDo(int h, int m, int s) {
         this.exerciseToDo = LocalTime.of(h, m, s);
@@ -15,14 +16,18 @@ public class ExerciseGoals extends Goals {
         return this.exerciseToDo;
     }
 
-    public ExerciseGoals(Goals.goalType t, LocalTime time, LocalDate sd, LocalDate ed) {
+    public ExerciseGoals(Goals.goalType t, String type, LocalTime time, LocalDate sd, LocalDate ed) {
         super(t, sd, ed);
         this.exerciseToDo = time;
+        this.type = type;
     }
 
     public int convertIntoMinutes(LocalTime time) {
-        int x = (time.getHour() * 60) + time.getMinute() + (time.getSecond() / 60);
-        return x;
+        return (time.getHour() * 60) + time.getMinute() + (time.getSecond() / 60);
+    }
+
+    public String getType(){
+        return type;
     }
 
 
