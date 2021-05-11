@@ -1,11 +1,13 @@
 package sample.controllers;
 
 import javafx.animation.RotateTransition;
+import javafx.animation.TranslateTransition;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -13,7 +15,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.effect.Glow;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
@@ -175,15 +176,13 @@ public class UserGroupViewController implements Initializable {
         content.putString(groupCode);
         clipboard.setContent(content);
         System.out.println("Copied");
-
-        copyIcon.setEffect(new Glow(0.4));
+        copyAnimation();
         copyResponseLabel.setVisible(true);
         Timer timer = new Timer();
 
         TimerTask task = new TimerTask() {
             public void run() {
                 copyResponseLabel.setVisible(false);
-                copyIcon.setEffect(null);
             }
         };
 
@@ -227,5 +226,24 @@ public class UserGroupViewController implements Initializable {
             }
         });
         leaderBoardTable.getItems().setAll(members);
+    }
+
+    private void copyAnimation() {
+        TranslateTransition forwardTransition = new TranslateTransition();
+        forwardTransition.setByX(2.5);
+        forwardTransition.setDuration(Duration.millis(250));
+        forwardTransition.setNode(copyIcon);
+        forwardTransition.setOnFinished(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                TranslateTransition backTransition = new TranslateTransition();
+                backTransition.setByX(-2.5);
+                backTransition.setDuration(Duration.millis(250));
+                backTransition.setNode(copyIcon);
+                backTransition.play();
+            }
+        });
+
+        forwardTransition.play();
     }
 }

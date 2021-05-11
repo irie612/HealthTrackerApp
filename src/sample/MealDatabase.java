@@ -46,7 +46,7 @@ public class MealDatabase extends Database<Meal> {
 
     @Override
     public void writeAllData() throws IOException {
-
+        throw new UnsupportedEncodingException();
     }
 
     @Override
@@ -75,11 +75,6 @@ public class MealDatabase extends Database<Meal> {
             String userName = tokens[6].trim();
 
             data.add(new Meal(id, name, mealType, cal, userName, d, t));
-
-
-//            for (String e : tokens) {
-//                System.out.println(e.trim());
-//            }
 
         }
         fileReader.close();

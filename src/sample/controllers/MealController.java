@@ -15,9 +15,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import sample.Main;
-import sample.Meal;
-import sample.MealDatabase;
+import sample.*;
 import sample.utilities.Trie;
 
 import java.io.BufferedReader;
@@ -101,9 +99,11 @@ public class MealController implements Initializable {
 
     private double totalCalories;
     private double currentCaloriesGoal;
+    public static final double DEFAULT_CALORIE_GOAL = 2000;
 
     private ArrayList<Meal> meals;
     private MealDatabase mealDatabase;
+    private CalorieGoalDatabase calorieGoalDatabase;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -116,6 +116,9 @@ public class MealController implements Initializable {
             mealDatabase = new MealDatabase("src/sample/data/meals.csv");
             mealDatabase.loadElements();
 
+            calorieGoalDatabase = new CalorieGoalDatabase("src/sample/data/calorieGoals.csv");
+            calorieGoalDatabase.loadElements();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -125,7 +128,21 @@ public class MealController implements Initializable {
         timeFormat = DateTimeFormatter.ofPattern("HH:mm");
 
         totalCalories = 0.0;
-        currentCaloriesGoal = 0.0;
+        CaloriesGoal goal = calorieGoalDatabase.getByUsername(Main.currentUser.getUsername());
+        if (goal != null)
+            currentCaloriesGoal = goal.getCalToBurn();
+        else {
+            try {
+                calorieGoalDatabase.insert(new CaloriesGoal(Goal.goalType.CALORIES, LocalDate.parse("01/01/1901", dateFormat),
+                        LocalDate.parse("02/01/1901", dateFormat), (int) DEFAULT_CALORIE_GOAL, Main.currentUser.getUsername()));
+                currentCaloriesGoal = DEFAULT_CALORIE_GOAL;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        calorieGoalLabel.setText(Double.toString(currentCaloriesGoal));
+
         meals = new ArrayList<>();
 
         otherInput.setOnKeyTyped(keyEvent -> foodChoice.setValue(null));
@@ -378,9 +395,12 @@ public class MealController implements Initializable {
         window.show();
     }
 
-    public void updateCalorieGoal(ActionEvent event) {
-
-        //TODO implement update calorie goal
+    public void updateCalorieGoal(ActionEvent event) throws IOException {
+        CaloriesGoal oldCaloriesGoal = calorieGoalDatabase.getByUsername(Main.currentUser.getUsername());
+        int newCalorieToBurn = Integer.parseInt(calorieGoalInput.getText());
+        calorieGoalDatabase.update(oldCaloriesGoal, new CaloriesGoal(Goal.goalType.CALORIES, LocalDate.parse("01/01/1901", dateFormat),
+                LocalDate.parse("02/01/1901", dateFormat), newCalorieToBurn, Main.currentUser.getUsername()));
+        calorieGoalLabel.setText(Integer.toString(newCalorieToBurn));
     }
 
     public void prevDatesOnClick(ActionEvent event) {
