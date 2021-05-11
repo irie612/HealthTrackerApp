@@ -4,21 +4,29 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class Exercise {
-    private double distance, caloriesBurned, duration;
-    private int steps;
+    private double distance, duration;
     private LocalDate date;
     private LocalTime time;
     private exerciseType type;
+    private String other;
 
-    public enum exerciseType {}
+    public enum exerciseType {WALKING, RUNNING, CYCLING, SWIMMING, OTHER}
 
-    public Exercise(double distance, double caloriesBurned, double duration, int steps, exerciseType type) {
+    public Exercise(double distance, double duration, exerciseType type, String other, LocalDate date, LocalTime time) {
         this.distance = distance;
-        this.caloriesBurned = caloriesBurned;
         this.duration = duration;
-        this.steps = steps;
-        this.date = LocalDate.now();
-        this.time = LocalTime.now();
+        this.date = date;
+        this.time = time;
+        this.type = type;
+        this.other = other;
+    }
+
+    public Exercise(double distance, double duration, exerciseType type, LocalDate date, LocalTime time) {
+        this.distance = distance;
+        this.duration = duration;
+        this.date = date;
+        this.time = time;
+        this.type = type;
     }
 
     public double getDistance() {
@@ -29,28 +37,12 @@ public class Exercise {
         this.distance = distance;
     }
 
-    public double getCaloriesBurned() {
-        return caloriesBurned;
-    }
-
-    public void setCaloriesBurned(double caloriesBurned) {
-        this.caloriesBurned = caloriesBurned;
-    }
-
     public double getDuration() {
         return duration;
     }
 
     public void setDuration(double duration) {
         this.duration = duration;
-    }
-
-    public int getSteps() {
-        return steps;
-    }
-
-    public void setSteps(int steps) {
-        this.steps = steps;
     }
 
     public LocalDate getDate() {
@@ -60,7 +52,6 @@ public class Exercise {
     public void setDate(int day, int month, int year) {
         this.date = LocalDate.of(year, month, day);
     }
-
 
     public LocalTime getTime() {
         return time;
@@ -77,14 +68,24 @@ public class Exercise {
         return type;
     }
 
-    @java.lang.Override
+    public void setType(exerciseType type){
+        this.type = type;
+    }
+
+    public String getOther() {
+        return other;
+    }
+
+    public void setOther(String other) {
+        this.other = other;
+    }
+
+    @Override
     public java.lang.String toString() {
         return "Exercise{" +
                 "type=" + type +
                 ", distance=" + distance +
-                ", caloriesBurned=" + caloriesBurned +
                 ", duration=" + duration +
-                ", steps=" + steps +
                 ", date=" + date +
                 ", time=" + time +
                 '}';
