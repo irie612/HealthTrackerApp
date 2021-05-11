@@ -1,95 +1,91 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
+<?import java.net.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<?import java.net.URL?>
-<HBox fx:controller="sample.controllers.UserGroupViewController"
-      xmlns:fx="http://javafx.com/fxml" prefHeight="430.0" prefWidth="700.0" styleClass="root">
+
+<HBox prefHeight="430.0" prefWidth="700.0" styleClass="root" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controllers.UserGroupViewController">
 
     <VBox styleClass="navigation">
-        <Label text="Health tracker"/>
+        <Label text="Health tracker" />
 
-        <HBox styleClass="nav-btn" onMouseClicked="#switchToDashboard">
+        <HBox onMouseClicked="#navHomeBtnOnClick" styleClass="nav-btn">
             <ImageView>
-                <Image url="@../images/baseline_home_white_24dp.png"/>
+                <Image url="@../images/baseline_home_white_24dp.png" />
             </ImageView>
-            <Label text="Home"/>
+            <Label text="Home" />
         </HBox>
-        <HBox styleClass="nav-btn" onMouseClicked="#navMealBtnOnClick">
+        <HBox onMouseClicked="#navMealBtnOnClick" styleClass="nav-btn">
             <ImageView>
-                <Image url="@../images/baseline_restaurant_white_24dp.png"/>
+                <Image url="@../images/baseline_restaurant_white_24dp.png" />
             </ImageView>
-            <Label text="Meal"/>
+            <Label text="Meal" />
         </HBox>
-        <HBox fx:id="switchExercise" styleClass="nav-btn">
+        <HBox fx:id="switchExercise" onMouseClicked="#navExerciseBtnOnClick" styleClass="nav-btn">
             <ImageView>
-                <Image url="@../images/baseline_fitness_center_white_24dp.png"/>
+                <Image url="@../images/baseline_fitness_center_white_24dp.png" />
             </ImageView>
-            <Label text="Exercise"/>
+            <Label text="Exercise" />
         </HBox>
-        <HBox fx:id="switchGroup" styleClass="nav-btn" onMouseClicked="#navGroupsBtnOnClick">
+        <HBox fx:id="switchGroup" style="-fx-background-color: #73d3f1;" styleClass="nav-btn">
             <ImageView>
-                <Image url="@../images/baseline_groups_white_24dp.png"/>
+                <Image url="@../images/baseline_groups_white_24dp.png" />
             </ImageView>
-            <Label text="Group"/>
-        </HBox>
-
-        <HBox fx:id="switchAccount" styleClass="nav-btn" onMouseClicked="#navAccountBtnOnClick">
-            <ImageView>
-                <Image url="@../images/baseline_person_white_24dp.png"/>
-            </ImageView>
-            <Label text="Account"/>
+            <Label text="Group" />
         </HBox>
 
+        <HBox fx:id="switchAccount" onMouseClicked="#navAccountBtnOnClick" styleClass="nav-btn">
+            <ImageView>
+                <Image url="@../images/baseline_person_white_24dp.png" />
+            </ImageView>
+            <Label text="Account" />
+        </HBox>
 
-    </VBox>
+
+        </VBox>
 
     <HBox styleClass="content-section" HBox.hgrow="ALWAYS">
 
-        <VBox styleClass="group-info-box" HBox.hgrow="ALWAYS" spacing="10">
-            <HBox VBox.vgrow="NEVER" spacing="30" alignment="CENTER_LEFT">
-                <HBox HBox.hgrow="ALWAYS" spacing="3" alignment="CENTER_LEFT">
-                    <Label fx:id="groupNameLabel" styleClass="group-name-label" text="Group name placeholder"
-                           textAlignment="CENTER"/>
+        <VBox spacing="10" styleClass="group-info-box" HBox.hgrow="ALWAYS">
+            <HBox alignment="CENTER_LEFT" spacing="30" VBox.vgrow="NEVER">
+                <HBox alignment="CENTER_LEFT" spacing="3" HBox.hgrow="ALWAYS">
+                    <Label fx:id="groupNameLabel" styleClass="group-name-label" text="Group name placeholder" textAlignment="CENTER" />
                 </HBox>
                 <HBox alignment="CENTER_LEFT">
                     <ImageView>
-                        <Image url="@../images/baseline_people_black_18dp.png" requestedWidth="18"
-                               requestedHeight="18"/>
+                        <Image requestedHeight="18" requestedWidth="18" url="@../images/baseline_people_black_18dp.png" />
                     </ImageView>
-                    <Label fx:id="capacityLabel" styleClass="capacity-label" text="0" textAlignment="CENTER"/>
-                    <Label fx:id="maxCapacityLabel" styleClass="max-capacity-label" text="/30" textAlignment="CENTER"/>
+                    <Label fx:id="capacityLabel" styleClass="capacity-label" text="0" textAlignment="CENTER" />
+                    <Label fx:id="maxCapacityLabel" styleClass="max-capacity-label" text="/30" textAlignment="CENTER" />
                 </HBox>
 
             </HBox>
 
 
-            <HBox spacing="3" alignment="CENTER_LEFT">
-                <Label text="Group code: " styleClass="group-code-info-label"/>
-                <Label fx:id="groupCodeLabel" styleClass="group-code-label" text="JDHDGE"/>
+            <HBox alignment="CENTER_LEFT" spacing="3">
+                <Label styleClass="group-code-info-label" text="Group code: " />
+                <Label fx:id="groupCodeLabel" styleClass="group-code-label" text="JDHDGE" />
                 <VBox onMouseClicked="#copyIconOnClick">
                     <ImageView fx:id="copyIcon">
-                        <Image url="@../images/content_copy_24dp.png" requestedWidth="22" requestedHeight="22"/>
+                        <Image requestedHeight="22" requestedWidth="22" url="@../images/content_copy_24dp.png" />
                     </ImageView>
                 </VBox>
 
 
             </HBox>
 
-            <Label fx:id="copyResponseLabel" styleClass="copy-response-label" visible="false"
-                   text="Code copied to the clipboard"/>
+            <Label fx:id="copyResponseLabel" styleClass="copy-response-label" text="Code copied to the clipboard" visible="false" />
 
-            <HBox VBox.vgrow="NEVER" spacing="3">
-                <Label text="Group Goal "/>
-                <Label fx:id="groupGoal" text=""/>
+            <HBox spacing="3" VBox.vgrow="NEVER">
+                <Label text="Group Goal " />
+                <Label fx:id="groupGoal" text="" />
             </HBox>
 
             <HBox VBox.vgrow="NEVER">
-                <VBox HBox.hgrow="ALWAYS" spacing="5">
-                    <Label text="Group objectives"/>
-                    <ListView fx:id="achievementListView" styleClass="achievement-list-view"/>
+                <VBox spacing="5" HBox.hgrow="ALWAYS">
+                    <Label text="Group objectives" />
+                    <ListView fx:id="achievementListView" styleClass="achievement-list-view" />
                 </VBox>
             </HBox>
             <HBox VBox.vgrow="ALWAYS">
@@ -97,7 +93,7 @@
 
             <HBox VBox.vgrow="NEVER">
                 <VBox HBox.hgrow="ALWAYS">
-                    <Button fx:id="leaveBtn" styleClass="leave-btn" text="Leave Group" onAction="#leaveGroupOnClick"/>
+                    <Button fx:id="leaveBtn" onAction="#leaveGroupOnClick" styleClass="leave-btn" text="Leave Group" />
                 </VBox>
             </HBox>
 
@@ -105,15 +101,14 @@
 
         <VBox styleClass="leaderboard-box" HBox.hgrow="ALWAYS">
             <HBox>
-                <HBox HBox.hgrow="ALWAYS" alignment="CENTER_LEFT">
-                    <Label text="Leaderboard" HBox.hgrow="NEVER"/>
+                <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                    <Label text="Leaderboard" HBox.hgrow="NEVER" />
                 </HBox>
 
-                <HBox HBox.hgrow="ALWAYS" alignment="CENTER_RIGHT">
-                    <HBox HBox.hgrow="NEVER" onMouseClicked="#refreshLeaderboard">
+                <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+                    <HBox onMouseClicked="#refreshLeaderboard" HBox.hgrow="NEVER">
                         <ImageView fx:id="refreshImg" HBox.hgrow="NEVER">
-                            <Image url="@../images/outline_sync_black_24dp.png" requestedWidth="22"
-                                   requestedHeight="22"/>
+                            <Image requestedHeight="22" requestedWidth="22" url="@../images/outline_sync_black_24dp.png" />
                         </ImageView>
                     </HBox>
                 </HBox>
@@ -129,10 +124,9 @@
                 </columns>
             </TableView>
         </VBox>
-
     </HBox>
 
     <stylesheets>
-        <URL value="@../userGroups.css"/>
+        <URL value="@../userGroups.css" />
     </stylesheets>
 </HBox>

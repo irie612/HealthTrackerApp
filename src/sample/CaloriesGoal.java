@@ -6,9 +6,12 @@ public class CaloriesGoal extends Goal {
 
     private int calToBurn;
 
-    public CaloriesGoal(goalType t, LocalDate sd, LocalDate ed, int c, String userName) {
+    private boolean isOld;
+
+    public CaloriesGoal(goalType t, LocalDate sd, LocalDate ed, int c, String userName, boolean isOld) {
         super(t, sd, ed, userName);
         calToBurn = c;
+        this.isOld = isOld;
     }
 
     public void setCalToBurn(int c) {
@@ -25,6 +28,13 @@ public class CaloriesGoal extends Goal {
         return ((float) currentData / (float) calToBurn) * 100;
     }
 
+    public boolean isOld() {
+        return isOld;
+    }
+
+    public void setOld(boolean old) {
+        isOld = old;
+    }
 
     @Override
     public String toString() {

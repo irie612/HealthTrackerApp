@@ -36,45 +36,45 @@ public class GoalTest {
     @Test
     public void getEndDateTest() {
         goal = new CaloriesGoal(Goal.goalType.CALORIES, LocalDate.now(), LocalDate.of(2021, 9, 7)
-                , 2000, "Test");
+                , 2000, "Test", false);
         assertEquals(LocalDate.of(2021, 9, 7), goal.getEndDate());
     }
 
     @Test
     public void setEndDateTest() {
         goal = new CaloriesGoal(Goal.goalType.CALORIES, LocalDate.now(), LocalDate.of(2021, 9, 7)
-                , 2000, "Test");
+                , 2000, "Test", false);
         goal.setEndDate(2021, 8, 23);
         assertEquals(LocalDate.of(2021, 8, 23), goal.getEndDate());
     }
 
     @Test
     public void getTypeTest() {
-        goal = new ExerciseGoal(Goal.goalType.EXERCISE, LocalTime.of(1, 30), LocalDate.now()
-                , LocalDate.of(2021, 9, 7), "Test");
-        assertEquals(Goal.goalType.EXERCISE, goal.getType());
+        goal = new ExerciseGoal(Goal.goalType.EXERCISE, "WALKING", LocalTime.of(1, 30), LocalDate.now()
+                , LocalDate.of(2021, 9, 7), "Test", false);
+        assertEquals(Goal.goalType.EXERCISE, goal.getGoalType());
     }
 
     @Test
     public void getExerciseToDoTest() {
-        goal2 = new ExerciseGoal(Goal.goalType.EXERCISE, LocalTime.of(1, 30), LocalDate.now()
-                , LocalDate.of(2021, 9, 7), "Test");
+        goal2 = new ExerciseGoal(Goal.goalType.EXERCISE, "WALKING", LocalTime.of(1, 30), LocalDate.now()
+                , LocalDate.of(2021, 9, 7), "Test", false);
 
         assertEquals(LocalTime.of(1, 30), goal2.getExerciseToDo());
     }
 
     @Test
     public void setExerciseToDoTest() {
-        goal2 = new ExerciseGoal(Goal.goalType.EXERCISE, LocalTime.of(1, 30), LocalDate.now()
-                , LocalDate.of(2021, 9, 7), "Test");
+        goal2 = new ExerciseGoal(Goal.goalType.EXERCISE, "WALKING", LocalTime.of(1, 30), LocalDate.now()
+                , LocalDate.of(2021, 9, 7), "Test", false);
         goal2.setExerciseToDo(1, 45, 30);
         assertEquals(LocalTime.of(1, 45, 30), goal2.getExerciseToDo());
     }
 
     @Test
     public void convertIntoMinTest() {
-        goal2 = new ExerciseGoal(Goal.goalType.EXERCISE, LocalTime.of(1, 30), LocalDate.now()
-                , LocalDate.of(2021, 9, 7), "Test");
+        goal2 = new ExerciseGoal(Goal.goalType.EXERCISE, "WALKING", LocalTime.of(1, 30), LocalDate.now()
+                , LocalDate.of(2021, 9, 7), "Test", false);
         int x = goal2.convertIntoMinutes(goal2.getExerciseToDo());
         assertEquals(90, x);
     }
@@ -82,14 +82,14 @@ public class GoalTest {
     @Test
     public void getCalToBurnTest() {
         goal3 = new CaloriesGoal(Goal.goalType.CALORIES, LocalDate.now(), LocalDate.of(2021, 9, 7)
-                , 2000, "Test");
+                , 2000, "Test", false);
         assertEquals(2000, goal3.getCalToBurn());
     }
 
     @Test
     public void setCalToBurn() {
         goal3 = new CaloriesGoal(Goal.goalType.CALORIES, LocalDate.now(), LocalDate.of(2021, 9, 7)
-                , 2000, "Test");
+                , 2000, "Test", false);
         goal3.setCalToBurn(3000);
         assertEquals(3000, goal3.getCalToBurn());
     }
@@ -111,8 +111,8 @@ public class GoalTest {
 
     @Test
     public void calProgressTest1() {
-        goal2 = new ExerciseGoal(Goal.goalType.EXERCISE, LocalTime.of(1, 30), LocalDate.now()
-                , LocalDate.of(2021, 9, 7), "Test");
+        goal2 = new ExerciseGoal(Goal.goalType.EXERCISE, "WALKING", LocalTime.of(1, 30), LocalDate.now()
+                , LocalDate.of(2021, 9, 7), "Test", false);
         float y = goal2.calculateProgress(30);
         assertEquals((int) 33.0, (int) y);
     }
@@ -120,7 +120,7 @@ public class GoalTest {
     @Test
     public void calProgressTest2() {
         goal3 = new CaloriesGoal(Goal.goalType.CALORIES, LocalDate.now(), LocalDate.of(2021, 9, 7)
-                , 2000, "Test");
+                , 2000, "Test", false);
         float z = goal3.calculateProgress(1000);
         assertEquals((int) 50.0, (int) z);
     }

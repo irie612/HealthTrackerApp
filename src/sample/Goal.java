@@ -5,7 +5,7 @@ import java.time.LocalDate;
 public abstract class Goal {
     private LocalDate startDate;
     private LocalDate endDate;
-    private goalType type;
+    private goalType goalType;
     private String userName;
 
     public enum goalType {WEIGHT, EXERCISE, CALORIES}
@@ -26,8 +26,8 @@ public abstract class Goal {
         return this.endDate;
     }
 
-    public goalType getType() {
-        return type;
+    public goalType getGoalType() {
+        return goalType;
     }
 
     public String getUserName() {
@@ -37,7 +37,7 @@ public abstract class Goal {
     Goal(goalType t, LocalDate sDate, LocalDate eDate, String userName) {
         this.startDate = sDate;
         this.endDate = eDate;
-        this.type = t;
+        this.goalType = t;
         this.userName = userName;
     }
 
@@ -45,6 +45,6 @@ public abstract class Goal {
 
     @Override
     public String toString() {
-        return "Goal type : " + type + " start : " + startDate + " ends : " + endDate;
+        return "Goal type : " + goalType + " start : " + startDate + " ends : " + endDate;
     }
 }

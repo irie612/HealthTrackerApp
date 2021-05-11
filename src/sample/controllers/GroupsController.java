@@ -230,4 +230,13 @@ public class GroupsController implements Initializable {
     public void navAccountBtnOnClick(MouseEvent mouseEvent) throws IOException {
         Main.switchView("../resources/views/Account.fxml", mouseEvent, getClass());
     }
+
+    public void navHomeBtnOnClick(MouseEvent mouseEvent) throws IOException {
+        Main.switchView("../resources/views/DashboardView.fxml", mouseEvent, getClass());
+    }
+
+    public void navExerciseBtnOnClick(MouseEvent mouseEvent) throws IOException {
+        Main.switchView("../resources/views/ExerciseView.fxml", mouseEvent, getClass());
+    }
+
 }

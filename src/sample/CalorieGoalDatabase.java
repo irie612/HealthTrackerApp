@@ -3,6 +3,7 @@ package sample;
 import java.io.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 public class CalorieGoalDatabase extends Database<CaloriesGoal> {
 
@@ -19,8 +20,12 @@ public class CalorieGoalDatabase extends Database<CaloriesGoal> {
         fw = new BufferedWriter(new FileWriter(url, true));
         data.add(caloriesGoal);
 
-        String row = caloriesGoal.getType() + delimiter + caloriesGoal.getStartDate() + delimiter + caloriesGoal.getEndDate() +
-                delimiter + caloriesGoal.getUserName();
+        String row = caloriesGoal.getGoalType() + delimiter +
+                caloriesGoal.getStartDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+                + delimiter + caloriesGoal.getEndDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + delimiter+
+                caloriesGoal.getCalToBurn() +
+                delimiter + caloriesGoal.getUserName() + delimiter +
+                caloriesGoal.isOld();
 
         fw.write(row);
         fw.newLine();
@@ -47,10 +52,11 @@ public class CalorieGoalDatabase extends Database<CaloriesGoal> {
 
         for (CaloriesGoal caloriesGoal : data) {
 
-            String row = caloriesGoal.getType() + delimiter +
+            String row = caloriesGoal.getGoalType() + delimiter +
                     caloriesGoal.getStartDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
                     + delimiter + caloriesGoal.getEndDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) +
-                    delimiter + caloriesGoal.getCalToBurn() + delimiter + caloriesGoal.getUserName();
+                    delimiter + caloriesGoal.getCalToBurn() + delimiter + caloriesGoal.getUserName() + delimiter +
+                    caloriesGoal.isOld();;
 
             fw.write(row);
             fw.newLine();
@@ -75,7 +81,9 @@ public class CalorieGoalDatabase extends Database<CaloriesGoal> {
 
             String userName = tokens[4].trim();
 
-            data.add(new CaloriesGoal(type, startDate, endDate, calToBurn, userName));
+            boolean isOld = Boolean.parseBoolean(tokens[5].trim());
+
+            data.add(new CaloriesGoal(type, startDate, endDate, calToBurn, userName, isOld));
 
         }
         fileReader.close();
@@ -83,13 +91,26 @@ public class CalorieGoalDatabase extends Database<CaloriesGoal> {
 
     public CaloriesGoal getByUsername(String username) {
         CaloriesGoal goal = null;
-
         for (CaloriesGoal c : data) {
             if (c.getUserName().equals(username)) {
-                goal = c;
-                break;
+                if (!c.isOld()) {
+                    goal = c;
+                    break;
+                }
             }
         }
         return goal;
+    }
+
+    public ArrayList<CaloriesGoal> getByUsernameAndOld(String username){
+        ArrayList<CaloriesGoal> goals = new ArrayList<>();
+        for (CaloriesGoal c : data) {
+            if (c.getUserName().equals(username)) {
+                if(c.isOld()){
+                    goals.add(c);
+                }
+            }
+        }
+        return goals;
     }
 }

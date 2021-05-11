@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<HBox prefHeight="450.0" prefWidth="650.0" styleClass="root" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controllers.DashboardController">
+   <stylesheets>
+      <URL value="@../mealView.css" />
+   </stylesheets>
+   <VBox styleClass="navigation">
+      <Label text="Health tracker" />
+      <HBox style="-fx-background-color: #73d3f1;" styleClass="nav-btn">
+         <ImageView>
+            <Image url="@../../resources/images/baseline_home_white_24dp.png" />
+         </ImageView>
+         <Label text="Home" />
+      </HBox>
+      <HBox onMouseClicked="#navMealBtnOnClick" styleClass="nav-btn">
+         <ImageView>
+            <Image url="@../../resources/images/baseline_restaurant_white_24dp.png" />
+         </ImageView>
+         <Label text="Meal" />
+      </HBox>
+      <HBox onMouseClicked="#navExerciseBtnOnClick" styleClass="nav-btn">
+         <ImageView>
+            <Image url="@../../resources/images/baseline_fitness_center_white_24dp.png" />
+         </ImageView>
+         <Label text="Exercise" />
+      </HBox>
+      <HBox onMouseClicked="#navGroupsBtnOnClick" styleClass="nav-btn">
+         <ImageView>
+            <Image url="@../../resources/images/baseline_groups_white_24dp.png" />
+         </ImageView>
+         <Label text="Group" />
+      </HBox>
+      <HBox onMouseClicked="#navAccountBtnOnClick" styleClass="nav-btn">
+         <ImageView>
+            <Image url="@../../resources/images/baseline_person_white_24dp.png" />
+         </ImageView>
+         <Label text="Account" />
+      </HBox>
+   </VBox>
+   <VBox style="-fx-padding: 5 0 0 5" HBox.hgrow="ALWAYS">
+      <Label prefHeight="58.0" prefWidth="87.0" styleClass="meal-diary-title" text="Home" />
+      <TabPane prefHeight="387.0" prefWidth="526.0" side="RIGHT" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+         <Tab text="Home">
+            <HBox prefHeight="196.0" prefWidth="497.0">
+               <VBox prefHeight="149.0" prefWidth="497.0">
+                  <HBox>
+                     <GridPane maxHeight="-Infinity" prefHeight="133.0" prefWidth="424.0">
+                        <columnConstraints>
+                           <ColumnConstraints hgrow="SOMETIMES" maxWidth="122.0" minWidth="10.0" prefWidth="90.0" />
+                           <ColumnConstraints hgrow="SOMETIMES" maxWidth="189.33334350585938" minWidth="10.0" prefWidth="64.0" />
+                        </columnConstraints>
+                        <rowConstraints>
+                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        </rowConstraints>
+                        <padding>
+                           <Insets left="10.0" right="10.0" />
+                        </padding>
+                        <Label text="Current Weight:" />
+                        <Label text="Exercise Today:" GridPane.rowIndex="1" />
+                        <Label fx:id="currentWeightLabel" text="100kg" GridPane.columnIndex="1" />
+                        <Label fx:id="exerciseTodayLabel" text="28 Minutes" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                     </GridPane>
+                     <GridPane maxHeight="-Infinity" prefHeight="118.0" prefWidth="368.0">
+                        <columnConstraints>
+                           <ColumnConstraints hgrow="SOMETIMES" maxWidth="134.0" minWidth="10.0" prefWidth="129.0" />
+                           <ColumnConstraints hgrow="SOMETIMES" maxWidth="141.0" minWidth="10.0" prefWidth="77.0" />
+                        </columnConstraints>
+                        <rowConstraints>
+                           <RowConstraints maxHeight="71.0" minHeight="10.0" prefHeight="36.0" vgrow="SOMETIMES" />
+                           <RowConstraints maxHeight="78.0" minHeight="19.0" prefHeight="36.0" vgrow="SOMETIMES" />
+                           <RowConstraints maxHeight="62.0" minHeight="1.0" prefHeight="41.0" vgrow="SOMETIMES" />
+                        </rowConstraints>
+                        <Label prefWidth="116.0" text="Update Calorie Goal" GridPane.rowIndex="1" />
+                        <Button fx:id="submitCalorieGoal" alignment="CENTER" mnemonicParsing="false" onMouseClicked="#updateCalorieGoal" styleClass="update-calorie-goal-btn" text="Update" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                           <GridPane.margin>
+                              <Insets />
+                           </GridPane.margin>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <TextField fx:id="dailyCaloriesInput" maxWidth="-Infinity" prefWidth="125.0" promptText="Daily Calorie Goal" GridPane.rowIndex="2" />
+                        <Label text="Calorie Goal:" />
+                        <Label fx:id="calorieGoalLabel" text="2500kcal" GridPane.columnIndex="1" />
+                     </GridPane>
+                  </HBox>
+                  <HBox>
+                     <VBox>
+                        <TableView fx:id="exerciseGoalTable" prefHeight="235.0" prefWidth="267.0" styleClass="meal-table">
+                           <VBox.margin>
+                              <Insets right="5.0" />
+                           </VBox.margin>
+                        </TableView>
+                        <HBox prefHeight="50.0" prefWidth="281.0">
+                           <Button fx:id="removeButton" alignment="TOP_LEFT" mnemonicParsing="false" onMouseClicked="#removeExerciseGoal" styleClass="remove-items-btn" text="Remove">
+                              <HBox.margin>
+                                 <Insets left="58.0" top="5.0" />
+                              </HBox.margin>
+                           </Button>
+                           <Button mnemonicParsing="false" onMouseClicked="#completeExerciseGoal" styleClass="update-calorie-goal-btn" text="Set Completed">
+                              <HBox.margin>
+                                 <Insets left="5.0" top="5.0" />
+                              </HBox.margin>
+                           </Button>
+                        </HBox>
+                     </VBox>
+                     <VBox>
+                        <Label text="Add Exercise Goal">
+                           <VBox.margin>
+                              <Insets left="65.0" />
+                           </VBox.margin>
+                        </Label>
+                        <GridPane prefHeight="210.0" prefWidth="221.0">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="157.0" minWidth="10.0" prefWidth="95.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="193.0" minWidth="10.0" prefWidth="131.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <Label prefHeight="17.0" prefWidth="131.0" text="Duration" GridPane.rowIndex="2" />
+                           <Label GridPane.rowIndex="1" />
+                           <Label text="End Date" GridPane.rowIndex="3" />
+                           <TextField fx:id="durationInput" maxWidth="-Infinity" prefHeight="25.0" prefWidth="125.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                           <DatePicker fx:id="exerciseGoalDatePicker" prefHeight="25.0" prefWidth="125.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                           <Label text="Type" />
+                           <ChoiceBox fx:id="typePicker" prefHeight="25.0" prefWidth="125.0" GridPane.columnIndex="1" />
+                           <Label text="Other" GridPane.rowIndex="1" />
+                           <TextField fx:id="otherInput" maxWidth="-Infinity" prefWidth="125.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        </GridPane>
+                        <Button fx:id="submitExerciseGoal" alignment="CENTER" mnemonicParsing="false" onMouseClicked="#addToExerciseGoals" styleClass="add-item-btn" text="Add">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <VBox.margin>
+                              <Insets left="92.0" />
+                           </VBox.margin>
+                        </Button>
+                     </VBox>
+                  </HBox>
+               </VBox>
+            </HBox>
+         </Tab>
+         <Tab text="Goals History">
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <VBox prefHeight="387.0" prefWidth="497.0">
+                  <TableView fx:id="completedExerciseGoalTable" styleClass="meal-table">
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy></TableView>
+                  <TableView fx:id="completedCalorieGoalTable" styleClass="meal-table" />
+               </VBox>
+            </HBox>
+         </Tab>
+      </TabPane>
+   </VBox>
+</HBox>

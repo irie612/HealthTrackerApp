@@ -189,16 +189,20 @@ public class UserGroupViewController implements Initializable {
         timer.schedule(task, 2500); //wait 2 and half seconds
     }
 
-    public void navGroupsBtnOnClick(MouseEvent mouseEvent) throws IOException {
-        Main.switchView("../resources/views/groupsView.fxml", mouseEvent, getClass());
-    }
-
     public void navMealBtnOnClick(MouseEvent mouseEvent) throws IOException {
         Main.switchView("../resources/views/mealView.fxml", mouseEvent, getClass());
     }
 
     public void navAccountBtnOnClick(MouseEvent mouseEvent) throws IOException {
         Main.switchView("../resources/views/Account.fxml", mouseEvent, getClass());
+    }
+
+    public void navHomeBtnOnClick(MouseEvent mouseEvent) throws IOException {
+        Main.switchView("../resources/views/DashboardView.fxml", mouseEvent, getClass());
+    }
+
+    public void navExerciseBtnOnClick(MouseEvent mouseEvent) throws IOException {
+        Main.switchView("../resources/views/ExerciseView.fxml", mouseEvent, getClass());
     }
 
     public void refreshLeaderboard(MouseEvent event) throws IOException {
