@@ -74,7 +74,7 @@ public class LoginController implements Initializable {
             if (log.containUser(user)) {
                 if (userDatabase.getUserByUsername(user.getUsername()) != null) {
                     Main.currentUser = userDatabase.getUserByUsername(user.getUsername());
-                    Main.switchView("../resources/views/groupsView.fxml", event, getClass());
+                    Main.switchView("../resources/views/DashboardView.fxml", event, getClass());
                 } else
                     canLogIn.setText("System error");
 

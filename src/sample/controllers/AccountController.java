@@ -94,15 +94,16 @@ public class AccountController {
         Main.switchView("../resources/views/groupsView.fxml", event, getClass());
     }
 
-    public void navExerciseBtnOnClick(MouseEvent event) {
+    public void navExerciseBtnOnClick(MouseEvent event) throws IOException {
+        Main.switchView("../resources/views/ExerciseView.fxml", event, getClass());
     }
 
     public void navMealBtnOnClick(MouseEvent event) throws IOException {
         Main.switchView("../resources/views/mealView.fxml", event, getClass());
     }
 
-    public void navDashboardBtnOnClick(MouseEvent event) {
-
+    public void navDashboardBtnOnClick(MouseEvent event) throws IOException {
+        Main.switchView("../resources/views/DashboardView.fxml", event, getClass());
     }
 
     public void logout(MouseEvent event) throws IOException {

@@ -14,7 +14,6 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import static javafx.scene.control.TableView.CONSTRAINED_RESIZE_POLICY;
@@ -41,14 +40,12 @@ public class DashboardController implements Initializable {
     private DateTimeFormatter dateFormat;
     private DateTimeFormatter timeFormat;
 
-/*    private ArrayList<ExerciseGoal> currentExerciseGoals;
-    private ArrayList<ExerciseGoal> completedExerciseGoals;
-    private ArrayList<CaloriesGoal> oldCalorieGoals;*/
-
     private CalorieGoalDatabase calorieGoalDatabase;
     private ExerciseGoalDatabase exerciseGoalDatabase;
     private UserDatabase userDatabase;
     private ExerciseDatabase exerciseDatabase;
+
+    public static final int DEFAULT_CALORIE_GOAL = 2000;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -74,21 +71,21 @@ public class DashboardController implements Initializable {
         typePicker.getItems().setAll(Exercise.exerciseType.values());
 
 
-        currentWeight = userDatabase.getUserByUsername(Main.currentUser.getUsername()).getWeight(); //TODO get all 3 values from database
+        currentWeight = userDatabase.getUserByUsername(Main.currentUser.getUsername()).getWeight();
         for(Exercise e : exerciseDatabase.getAllByUserNameAndDate(Main.currentUser.getUsername(), LocalDate.now())){
             totalExerciseToday += e.getDuration();
         }
 
         currentCalorieGoal = calorieGoalDatabase.getByUsername(Main.currentUser.getUsername());
 
-        //TODO get lists from database
-        /*currentExerciseGoals = new ArrayList<>();
-        completedExerciseGoals = new ArrayList<>();
-        oldCalorieGoals = new ArrayList<>();*/
-
         currentWeightLabel.setText(String.valueOf(currentWeight));
         exerciseTodayLabel.setText(String.valueOf(totalExerciseToday));
-        calorieGoalLabel.setText(String.valueOf(currentCalorieGoal.getCalToBurn()));
+        if(currentCalorieGoal == null){
+            calorieGoalLabel.setText(String.valueOf(DEFAULT_CALORIE_GOAL) + " kCal");
+        }
+        else{
+            calorieGoalLabel.setText(String.valueOf(currentCalorieGoal.getCalToBurn()) + " kCal");
+        }
 
         otherInput.setDisable(true);
         typePicker.setOnAction(event -> {
@@ -165,7 +162,7 @@ public class DashboardController implements Initializable {
     }
 
     private void initializeOldCalorieGoalTable() {
-        completedCalorieGoalTable.setPlaceholder(new Label("No completed exercise goals to display"));
+        completedCalorieGoalTable.setPlaceholder(new Label("No old calorie goals to display"));
         completedCalorieGoalTable.columnResizePolicyProperty().set(CONSTRAINED_RESIZE_POLICY);
 
         TableColumn<CaloriesGoal, Double> dailyCaloriesColumn = new TableColumn<>("Daily Calories");
@@ -320,8 +317,10 @@ public class DashboardController implements Initializable {
     }
 
     public void updateCalorieGoal(MouseEvent event) throws IOException {
+        LocalDate endDate = LocalDate.now();
         CaloriesGoal oldGoal = currentCalorieGoal;
         oldGoal.setOld(true);
+        oldGoal.setEndDate(endDate.getYear(), endDate.getMonthValue(), endDate.getDayOfMonth());
         calorieGoalDatabase.update(currentCalorieGoal, oldGoal);
         currentCalorieGoal = new CaloriesGoal(Goal.goalType.CALORIES, LocalDate.now(), LocalDate.now().plusMonths(1), Integer.parseInt(dailyCaloriesInput.getText()), Main.currentUser.getUsername(), false);
         calorieGoalDatabase.insert(currentCalorieGoal);

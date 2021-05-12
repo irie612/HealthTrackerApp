@@ -146,8 +146,8 @@ public class MealController implements Initializable {
             currentCaloriesGoal = goal.getCalToBurn();
         else {
             try {
-                calorieGoalDatabase.insert(new CaloriesGoal(Goal.goalType.CALORIES, LocalDate.parse("01/01/1901", dateFormat),
-                        LocalDate.parse("02/01/1901", dateFormat), (int) DEFAULT_CALORIE_GOAL, Main.currentUser.getUsername(), false));
+                calorieGoalDatabase.insert(new CaloriesGoal(Goal.goalType.CALORIES, LocalDate.now(),
+                        LocalDate.now(), (int) DEFAULT_CALORIE_GOAL, Main.currentUser.getUsername(), false));
                 currentCaloriesGoal = DEFAULT_CALORIE_GOAL;
             } catch (IOException e) {
                 e.printStackTrace();
