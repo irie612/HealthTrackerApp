@@ -324,7 +324,7 @@ public class DashboardController implements Initializable {
         calorieGoalDatabase.update(currentCalorieGoal, oldGoal);
         currentCalorieGoal = new CaloriesGoal(Goal.goalType.CALORIES, LocalDate.now(), LocalDate.now().plusMonths(1), Integer.parseInt(dailyCaloriesInput.getText()), Main.currentUser.getUsername(), false);
         calorieGoalDatabase.insert(currentCalorieGoal);
-        calorieGoalLabel.setText(String.valueOf(currentCalorieGoal.getCalToBurn()));
+        calorieGoalLabel.setText(String.valueOf(currentCalorieGoal.getCalToBurn()) + "kCal");
         updateOldCalorieGoalTable();
         dailyCaloriesInput.clear();
     }
